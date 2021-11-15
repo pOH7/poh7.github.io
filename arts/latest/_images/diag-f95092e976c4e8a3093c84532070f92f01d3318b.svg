@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="108px" preserveAspectRatio="none" style="width:434px;height:108px;background:#FFFFFF;" version="1.1" viewBox="0 0 434 108" width="434px" zoomAndPan="magnify"><defs><filter height="300%" id="f158ngw3vqsqee" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[1d032bc1c9b77119de957d062a4e247c]
+class LeaderElectionEventHandler--><rect codeLine="1" fill="#FEFECE" filter="url(#f158ngw3vqsqee)" height="87.5997" id="LeaderElectionEventHandler" style="stroke:#A80036;stroke-width:1.5;" width="246" x="7" y="7"/><ellipse cx="48.55" cy="23" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M51.2219,26.2969 Q51.7688,26.2969 52.05,26.4844 Q52.3313,26.6563 52.3313,27.1563 Q52.3313,28 51.2219,28 L46.0813,28 Q44.9563,28 44.9563,27.1563 Q44.9563,26.6563 45.2375,26.4844 Q45.5344,26.2969 46.0813,26.2969 L47.8,26.2969 L47.8,19.7813 L46.0813,19.7813 Q44.9563,19.7813 44.9563,18.9375 Q44.9563,18.4531 45.2375,18.2813 Q45.5344,18.0938 46.0813,18.0938 L51.2219,18.0938 Q51.7688,18.0938 52.05,18.2813 Q52.3313,18.4531 52.3313,18.9375 Q52.3313,19.7813 51.2219,19.7813 L49.5031,19.7813 L49.5031,26.2969 L51.2219,26.2969 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="155" x="68.45" y="27.8">LeaderElectionEventHandler</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="252" y1="39" y2="39"/><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="252" y1="47" y2="47"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="100" x="13" y="61.9999">onGrantLeadership()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="110" x="13" y="75.1998">onRevokeLeadership()</text><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="234" x="13" y="88.3997">onLeaderInformationChange(LeaderInformation)</text><!--MD5=[7f6b72397f90c5763b43c6c399abaf4a]
+class FatalErrorHandler--><rect codeLine="6" fill="#FEFECE" filter="url(#f158ngw3vqsqee)" height="61.1999" id="FatalErrorHandler" style="stroke:#A80036;stroke-width:1.5;" width="132" x="288" y="20.5"/><ellipse cx="304.35" cy="36.5" fill="#B4A7E5" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M307.0219,39.7969 Q307.5688,39.7969 307.85,39.9844 Q308.1313,40.1563 308.1313,40.6563 Q308.1313,41.5 307.0219,41.5 L301.8813,41.5 Q300.7563,41.5 300.7563,40.6563 Q300.7563,40.1563 301.0375,39.9844 Q301.3344,39.7969 301.8813,39.7969 L303.6,39.7969 L303.6,33.2813 L301.8813,33.2813 Q300.7563,33.2813 300.7563,32.4375 Q300.7563,31.9531 301.0375,31.7813 Q301.3344,31.5938 301.8813,31.5938 L307.0219,31.5938 Q307.5688,31.5938 307.85,31.7813 Q308.1313,31.9531 308.1313,32.4375 Q308.1313,33.2813 307.0219,33.2813 L305.3031,33.2813 L305.3031,39.7969 L307.0219,39.7969 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" font-style="italic" lengthAdjust="spacing" textLength="97" x="318.65" y="41.3">FatalErrorHandler</text><line style="stroke:#A80036;stroke-width:1.5;" x1="289" x2="419" y1="52.5" y2="52.5"/><line style="stroke:#A80036;stroke-width:1.5;" x1="289" x2="419" y1="60.5" y2="60.5"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="120" x="294" y="75.4999">onFatalError(Throwable)</text><!--MD5=[ebdc85fcd7c0c87aed6cdc1372845e2f]
+@startuml
+interface LeaderElectionEventHandler {
+    onGrantLeadership()
+    onRevokeLeadership()
+    onLeaderInformationChange(LeaderInformation)
+}
+interface FatalErrorHandler {
+    onFatalError(Throwable)
+}
+@enduml
+
+PlantUML version 1.2021.10(Mon Aug 30 13:43:48 GMT 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
