@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>ARTS 002 :: Lei&#x27;s Notebook</title>
-    <meta name="generator" content="Antora 3.0.0-alpha.9">
-    <link rel="stylesheet" href="../../../_/css/site-1de24eeb47.css">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../../_/css/site-c40d8d4d09.css">
 <link rel="apple-touch-icon-precomposed" sizes="57x57" href="../../../apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../../apple-touch-icon-114x114.png">
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../../apple-touch-icon-72x72.png">
@@ -28,7 +28,7 @@
       <div id="topbar-nav" class="navbar-menu">
         <div class="navbar-end">
                 <a class="navbar-item-section navbar-item navbar-topics" href="../../../arts/">
-                  <img alt="ARTS" src="/_/img/blog.svg">
+                  <img alt="ARTS" src="/_/img/blog-e21e601f33.svg">
                   ARTS
                 </a>
         </div>
@@ -59,32 +59,34 @@
     <span class="nav-text">ARTS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle" aria-label="Expand or contract topic"></button>
+    <span class="nav-text">2021</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-05-07-ARTS-001.html">ARTS-001</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="2021-11-08-ARTS-002.html">ARTS-002</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-11-15-ARTS-003.html">ARTS-003</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-11-25-ARTS-004.html">ARTS-004</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-12-02-ARTS-005.html">ARTS-005</a>
   </li>
 </ul>
   </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle" aria-label="Expand or contract topic"></button>
-    <span class="nav-text">FLINK</span>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../2021-11-10-FLINK-leaderelection.html">FLINK-leaderelection</a>
+    <button class="nav-item-toggle" aria-label="Expand or contract topic"></button>
+    <span class="nav-text">2022</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="2022-03-03-ARTS-006.html">ARTS-006</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -96,17 +98,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">ARTS</span>
-    <span class="version">latest</span>
-  </div>
+<span class="version">latest</span>  </div>
   <ul class="components">
-    <li class="component is-current">
-      <span class="title">ARTS</span>
+    <li class="component is-current"><span class="title">ARTS</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">latest</a>
         </li>
-      </ul>
-    </li>
+      </ul></li>
   </ul>
 </div>
     </div>
@@ -119,6 +118,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>ARTS</li>
+    <li>2021</li>
     <li><a href="2021-11-08-ARTS-002.html">ARTS-002</a></li>
   </ul>
 </nav>
@@ -131,7 +131,7 @@
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.pohvii.leetcode.p00;
+<pre class="highlight"><code class="language-java" data-lang="java">package leetcode.problems.p00;
 
 import org.junit.jupiter.api.Test;
 
@@ -143,30 +143,24 @@ import java.util.Arrays;
  * @date 2021/11/3
  */
 public class P0075 {
-    /**
-     * time complexity: O(n)
-     * space complexity: O(1)
-     */
-//    public void sortColors(int[] nums) {
-//        int[] temp = new int[]{0, 0, 0};
-//        for (int num : nums) {
-//            temp[num]++;
-//        }
-//        for (int i = 0; i &lt; nums.length; i++) {
-//            if (i &lt; temp[0]) {
-//                nums[i] = 0;
-//            } else if (i &lt; temp[0] + temp[1]) {
-//                nums[i] = 1;
-//            } else {
-//                nums[i] = 2;
-//            }
-//        }
-//    }
+    /** time complexity: O(n) space complexity: O(1) */
+    //    public void sortColors(int[] nums) {
+    //        int[] temp = new int[]{0, 0, 0};
+    //        for (int num : nums) {
+    //            temp[num]++;
+    //        }
+    //        for (int i = 0; i &lt; nums.length; i++) {
+    //            if (i &lt; temp[0]) {
+    //                nums[i] = 0;
+    //            } else if (i &lt; temp[0] + temp[1]) {
+    //                nums[i] = 1;
+    //            } else {
+    //                nums[i] = 2;
+    //            }
+    //        }
+    //    }
 
-    /**
-     * time complexity: O(n)
-     * space complexity: O(1)
-     */
+    /** time complexity: O(n) space complexity: O(1) */
     public void sortColors(int[] nums) {
         int pos_0_end = 0;
         int pos_2_start = nums.length - 1;
@@ -199,8 +193,6 @@ public class P0075 {
         sortColors(nums);
         System.out.println(Arrays.toString(nums));
     }
-
-
 }</code></pre>
 </div>
 </div>
@@ -209,11 +201,11 @@ public class P0075 {
 <div class="sect1">
 <h2 id="_review"><a class="anchor" href="#_review"></a>Review</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_kubernetes_in_action_anwendungen_in_kubernetes_clustern_bereitstellen_und_verwalten"><a class="anchor" href="#_kubernetes_in_action_anwendungen_in_kubernetes_clustern_bereitstellen_und_verwalten"></a>Kubernetes in Action: Anwendungen in Kubernetes-Clustern bereitstellen und verwalten</h3>
+<div class="sect3">
+<h4 id="_chapter_11_4_inter_pod_networking"><a class="anchor" href="#_chapter_11_4_inter_pod_networking"></a>Chapter 11.4 Inter-pod networking</h4>
 <div class="paragraph">
-<p>Lukša, Marko. 2018. Kubernetes in Action: Anwendungen in Kubernetes-Clustern Bereitstellen Und Verwalten. München: Carl Hanser Verlag GmbH &amp; Co. KG. <a href="https://doi.org/10.3139/9783446456020" class="bare">https://doi.org/10.3139/9783446456020</a>.</p>
-</div>
-<div class="paragraph">
-<div class="title">Chapter 11.4 Inter-pod networking</div>
 <p>a virtual Ethernet interface pair (a veth pair) is created for the container,<br>
 one interface of the pair remains in the host’s namespace,</p>
 </div>
@@ -256,36 +248,29 @@ All containers on a node are connected to the same bridge</p>
 </div>
 </div>
 </div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_tip"><a class="anchor" href="#_tip"></a>Tip</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>force cp to overwrite without confirmation</p>
+</div>
 <div class="listingblock">
-<div class="title">force cp to overwrite without confirmation</div>
 <div class="content">
 <pre>'cp' -rf source/. destination/</pre>
 </div>
-</div>
-<div class="ulist">
-<div class="title">References</div>
-<ul>
-<li>
-<p><a href="https://stackoverflow.com/questions/14922562/how-do-i-copy-folder-with-files-to-another-folder-in-unix-linux" class="bare">https://stackoverflow.com/questions/14922562/how-do-i-copy-folder-with-files-to-another-folder-in-unix-linux</a></p>
-</li>
-<li>
-<p><a href="https://superuser.com/questions/358843/how-to-replace-all-the-contents-from-one-folder-with-another-one/358851" class="bare">https://superuser.com/questions/358843/how-to-replace-all-the-contents-from-one-folder-with-another-one/358851</a></p>
-</li>
-</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_share"><a class="anchor" href="#_share"></a>Share</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Suryanarayana, Girish, Ganesh Samarthyam, and Tushar Sharma. 2015. “Modularization Smells.” In Refactoring for Software Design Smells, 93–122. Elsevier. <a href="https://doi.org/10.1016/B978-0-12-801397-7.00005-9" class="bare">https://doi.org/10.1016/B978-0-12-801397-7.00005-9</a>.</p>
-</div>
+<div class="sect2">
+<h3 id="_refactoring_for_software_design_smells"><a class="anchor" href="#_refactoring_for_software_design_smells"></a>Refactoring for Software Design Smells</h3>
 <div class="paragraph">
 <p>you can always break a circular class dependency by introducing an interface</p>
+</div>
 </div>
 </div>
 </div>
@@ -299,10 +284,9 @@ All containers on a node are connected to the same bridge</p>
     <div class="footer-tools">
         <a href="#top" title="Reach the top of the page">Back to top</a>
     </div>
-<script src="../../../_/js/vendor/algoliasearch-8fe81df376.js"></script>
-<script src="../../../_/js/site-0d18f68ee9.js"></script>
-<script async src="../../../_/js/vendor/highlight-a988c6fdd9.js"></script>
+<script src="../../../_/js/vendor/algoliasearch-77ad57d83c.js"></script>
+<script src="../../../_/js/site-ca1c0b0367.js"></script>
+<script async src="../../../_/js/vendor/highlight-0a351063af.js"></script>
 <script async src="../../../_/js/vendor/svg4everybody-195d47ce7d.js"></script>
-            
-  </body>
+              </body>
 </html>

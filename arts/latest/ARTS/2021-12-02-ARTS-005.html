@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>ARTS 005 :: Lei&#x27;s Notebook</title>
-    <meta name="generator" content="Antora 3.0.0-alpha.9">
-    <link rel="stylesheet" href="../../../_/css/site-1de24eeb47.css">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../../_/css/site-c40d8d4d09.css">
 <link rel="apple-touch-icon-precomposed" sizes="57x57" href="../../../apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../../apple-touch-icon-114x114.png">
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../../apple-touch-icon-72x72.png">
@@ -28,7 +28,7 @@
       <div id="topbar-nav" class="navbar-menu">
         <div class="navbar-end">
                 <a class="navbar-item-section navbar-item navbar-topics" href="../../../arts/">
-                  <img alt="ARTS" src="/_/img/blog.svg">
+                  <img alt="ARTS" src="/_/img/blog-e21e601f33.svg">
                   ARTS
                 </a>
         </div>
@@ -59,32 +59,34 @@
     <span class="nav-text">ARTS</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle" aria-label="Expand or contract topic"></button>
+    <span class="nav-text">2021</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-05-07-ARTS-001.html">ARTS-001</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-11-08-ARTS-002.html">ARTS-002</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-11-15-ARTS-003.html">ARTS-003</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2021-11-25-ARTS-004.html">ARTS-004</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="2021-12-02-ARTS-005.html">ARTS-005</a>
   </li>
 </ul>
   </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle" aria-label="Expand or contract topic"></button>
-    <span class="nav-text">FLINK</span>
-<ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../2021-11-10-FLINK-leaderelection.html">FLINK-leaderelection</a>
+    <button class="nav-item-toggle" aria-label="Expand or contract topic"></button>
+    <span class="nav-text">2022</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="2022-03-03-ARTS-006.html">ARTS-006</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -96,17 +98,14 @@
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
     <span class="title">ARTS</span>
-    <span class="version">latest</span>
-  </div>
+<span class="version">latest</span>  </div>
   <ul class="components">
-    <li class="component is-current">
-      <span class="title">ARTS</span>
+    <li class="component is-current"><span class="title">ARTS</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">latest</a>
         </li>
-      </ul>
-    </li>
+      </ul></li>
   </ul>
 </div>
     </div>
@@ -119,6 +118,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li>ARTS</li>
+    <li>2021</li>
     <li><a href="2021-12-02-ARTS-005.html">ARTS-005</a></li>
   </ul>
 </nav>
@@ -133,13 +133,12 @@
 <h3 id="_25_reverse_nodes_in_k_group"><a class="anchor" href="#_25_reverse_nodes_in_k_group"></a>25. Reverse Nodes in k-Group</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.pohvii.leetcode.p00;
+<pre class="highlight"><code class="language-java" data-lang="java">package leetcode.problems.p00;
 
-import com.pohvii.leetcode.bean.ListNode;
+import leetcode.bean.ListNode;
 import org.junit.jupiter.api.Test;
 
-import static com.pohvii.leetcode.bean.ListNode.newListNode;
-import static com.pohvii.leetcode.bean.ListNode.print;
+import static leetcode.bean.ListNode.newListNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -171,7 +170,7 @@ public class P0025 {
 
     @Test
     void test() {
-        assertEquals("[2,1,4,3,5]", print(reverseKGroup(newListNode(1, 2, 3, 4, 5), 2)));
+        assertEquals("[2,1,4,3,5]", ListNode.print(reverseKGroup(newListNode(1, 2, 3, 4, 5), 2)));
     }
 }</code></pre>
 </div>
@@ -181,9 +180,8 @@ public class P0025 {
 <h3 id="_35_search_insert_position"><a class="anchor" href="#_35_search_insert_position"></a>35. Search Insert Position</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.pohvii.leetcode.p00;
+<pre class="highlight"><code class="language-java" data-lang="java">package leetcode.problems.p00;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -223,7 +221,7 @@ public class P0035 {
 <h3 id="_36_valid_sudoku"><a class="anchor" href="#_36_valid_sudoku"></a>36. Valid Sudoku</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.pohvii.leetcode.p00;
+<pre class="highlight"><code class="language-java" data-lang="java">package leetcode.problems.p00;
 
 import org.junit.jupiter.api.Test;
 
@@ -315,7 +313,7 @@ public class P0036 {
 <h3 id="_228_summary_ranges"><a class="anchor" href="#_228_summary_ranges"></a>228. Summary Ranges</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.pohvii.leetcode.p02;
+<pre class="highlight"><code class="language-java" data-lang="java">package leetcode.problems.p02;
 
 import org.junit.jupiter.api.Test;
 
@@ -379,13 +377,13 @@ public class P0228 {
 <h3 id="_450_delete_node_in_a_bst"><a class="anchor" href="#_450_delete_node_in_a_bst"></a>450. Delete Node in a BST</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package com.pohvii.leetcode.p04;
+<pre class="highlight"><code class="language-java" data-lang="java">package leetcode.problems.p04;
 
-import com.pohvii.leetcode.bean.TreeNode;
+import leetcode.bean.TreeNode;
 import org.junit.jupiter.api.Test;
 
-import static com.pohvii.leetcode.bean.TreeNode.isBst;
-import static com.pohvii.leetcode.bean.TreeNode.newTreeNode;
+import static leetcode.bean.TreeNode.isBst;
+import static leetcode.bean.TreeNode.newTreeNode;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -439,12 +437,14 @@ public class P0450 {
 <div class="sect1">
 <h2 id="_review"><a class="anchor" href="#_review"></a>Review</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_microservices_patterns_with_examples_in_java"><a class="anchor" href="#_microservices_patterns_with_examples_in_java"></a>Microservices patterns: with examples in Java</h3>
+<div class="sect3">
+<h4 id="_chapter_3_interprocess_communication_in_a_microservice_architecture"><a class="anchor" href="#_chapter_3_interprocess_communication_in_a_microservice_architecture"></a>Chapter 3 Interprocess communication in a microservice architecture</h4>
 <div class="paragraph">
-<p>Richardson, Chris. 2019. Microservices Patterns: With Examples in Java. Shelter Island, New York: Manning Publications.</p>
-</div>
-<div class="paragraph">
-<div class="title">Chapter 3 Interprocess communication in a microservice architecture</div>
 <p>use transactional outbox pattern to publish events with ACID guaranteed</p>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -460,8 +460,7 @@ public class P0450 {
 <h2 id="_share"><a class="anchor" href="#_share"></a>Share</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>how to solve problems on leetcode in the right order
-<a href="https://www.zhihu.com/question/331477666/answer/2242424879" class="bare">https://www.zhihu.com/question/331477666/answer/2242424879</a></p>
+<p><a href="https://www.zhihu.com/question/331477666/answer/2242424879">how to solve problems on leetcode in the right order</a></p>
 </div>
 </div>
 </div>
@@ -475,10 +474,9 @@ public class P0450 {
     <div class="footer-tools">
         <a href="#top" title="Reach the top of the page">Back to top</a>
     </div>
-<script src="../../../_/js/vendor/algoliasearch-8fe81df376.js"></script>
-<script src="../../../_/js/site-0d18f68ee9.js"></script>
-<script async src="../../../_/js/vendor/highlight-a988c6fdd9.js"></script>
+<script src="../../../_/js/vendor/algoliasearch-77ad57d83c.js"></script>
+<script src="../../../_/js/site-ca1c0b0367.js"></script>
+<script async src="../../../_/js/vendor/highlight-0a351063af.js"></script>
 <script async src="../../../_/js/vendor/svg4everybody-195d47ce7d.js"></script>
-            
-  </body>
+              </body>
 </html>
