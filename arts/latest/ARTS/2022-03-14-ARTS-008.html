@@ -92,6 +92,9 @@
   <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="2022-03-14-ARTS-008.html">ARTS 008</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="2022-03-21-ARTS-009.html">ARTS 009</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -669,6 +672,7 @@ class P0637 {
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">package leetcode.problems.p04;
 
+import leetcode.bean.Node;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -676,7 +680,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
-import static leetcode.problems.p04.P0429.Node.newNode;
+import static leetcode.bean.Node.newNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -708,46 +712,6 @@ class P0429 {
             result.add(currentLevel);
         }
         return result;
-    }
-
-    // Definition for a Node.
-    public static class Node {
-        public int val;
-        public List&lt;Node&gt; children;
-
-        public Node() {}
-
-        public Node(int _val) {
-            val = _val;
-        }
-
-        public Node(int _val, List&lt;Node&gt; _children) {
-            val = _val;
-            children = _children;
-        }
-
-        public static Node newNode(Integer... vals) {
-            if (vals == null || vals.length == 0) {
-                return null;
-            }
-            Node root = new Node(vals[0]);
-            Deque&lt;Node&gt; deque = new LinkedList&lt;&gt;();
-            deque.offer(root);
-            int index = 2;
-            while (!deque.isEmpty()) {
-                for (int i = 0, j = deque.size(); i &lt; j; i++) {
-                    Node node = deque.poll();
-                    List&lt;Node&gt; tempList = new ArrayList&lt;&gt;();
-                    while (index &lt; vals.length &amp;&amp; vals[index++] != null) {
-                        Node tempNode = new Node(vals[index - 1]);
-                        tempList.add(tempNode);
-                        deque.offer(tempNode);
-                    }
-                    node.children = tempList;
-                }
-            }
-            return root;
-        }
     }
 
     @Test
