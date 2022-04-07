@@ -95,6 +95,9 @@
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="2022-03-21-ARTS-009.html">ARTS 009</a>
   </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="2022-04-07-ARTS-010.html">ARTS 010</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -238,7 +241,8 @@ class P0144 {
 import leetcode.bean.TreeNode;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static leetcode.bean.TreeNode.newTreeNode;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -251,6 +255,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @date 2022/3/10
  */
 class P0145 {
+    // recursive solution
+    public List&lt;Integer&gt; postorderTraversal(TreeNode root) {
+        return postorderTraversal(root, new ArrayList&lt;&gt;());
+    }
+
+    static List&lt;Integer&gt; postorderTraversal(TreeNode root, List&lt;Integer&gt; result) {
+        if (root == null) {
+            return result;
+        }
+        postorderTraversal(root.left, result);
+        postorderTraversal(root.right, result);
+        result.add(root.val);
+        return result;
+    }
+
+    /*
+    // iterative solution
     public List&lt;Integer&gt; postorderTraversal(TreeNode root) {
         List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
         if (root == null) {
@@ -271,6 +292,7 @@ class P0145 {
         Collections.reverse(result);
         return result;
     }
+    */
 
     @Test
     void test1() {
@@ -315,6 +337,33 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @date 2022/3/10
  */
 class P0094 {
+
+    public List&lt;Integer&gt; inorderTraversal(TreeNode root) {
+        List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
+        if (root == null) {
+            return result;
+        }
+        Deque&lt;TreeNode&gt; deque = new LinkedList&lt;&gt;();
+        deque.offerLast(root);
+        TreeNode current = root;
+        while (!deque.isEmpty()) {
+            while (current != null) {
+                current = current.left;
+                if (current != null) {
+                    deque.offerLast(current);
+                }
+            }
+            current = deque.pollLast();
+            result.add(current.val);
+            current = current.right;
+            if (current != null) {
+                deque.offerLast(current);
+            }
+        }
+        return result;
+    }
+
+    /*
     public List&lt;Integer&gt; inorderTraversal(TreeNode root) {
         List&lt;Integer&gt; result = new ArrayList&lt;&gt;();
         if (root == null) {
@@ -339,6 +388,7 @@ class P0094 {
         }
         return result;
     }
+    */
 
     @Test
     void test1() {
