@@ -1,0 +1,5 @@
+# yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
+site_name: Léon's Blog
+site_url: https://blog.pohvii.cloud/
+theme:
+  name: material

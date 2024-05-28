@@ -1,0 +1,7 @@
+----
+pyenv activate gitbook
+pip install mkdocs-material
+mkdocs new .
+----
+
+https://squidfunk.github.io/mkdocs-material/getting-started/
