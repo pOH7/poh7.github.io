@@ -5,3 +5,15 @@ mkdocs new .
 ----
 
 https://squidfunk.github.io/mkdocs-material/getting-started/
+
+
+----
+pip install mkdocs-git-revision-date-localized-plugin
+
+----
+https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#document-dates
+
+----
+pip install mkdocs_puml
+----
+https://github.com/MikhailKravets/mkdocs_puml

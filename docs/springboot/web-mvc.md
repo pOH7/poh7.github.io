@@ -1,0 +1,108 @@
+# Spring Boot MVC handle request
+## DispatcherServlet: Dispatching the Request
+DispatcherServlet doService -> doDispatch
+```plantuml
+participant HandlerInterceptor
+participant HandlerExecutionChain
+participant DispatcherServlet
+participant RequestMappingHandlerAdapter
+participant StandardServletMultipartResolver
+
+DispatcherServlet -> DispatcherServlet: checkMultipart
+activate DispatcherServlet
+DispatcherServlet -> StandardServletMultipartResolver: resolveMultipart
+deactivate DispatcherServlet
+DispatcherServlet -> DispatcherServlet: getHandler (from RequestMappingHandlerMapping, WebSocketHandlerMapping, etc.)
+DispatcherServlet -> DispatcherServlet: getHandlerAdapter (from RequestMappingHandlerAdapter, etc.)
+DispatcherServlet -> HandlerExecutionChain: applyPreHandle
+
+HandlerExecutionChain -> HandlerInterceptor: preHandle
+HandlerExecutionChain -> HandlerExecutionChain: triggerAfterCompletion
+activate HandlerExecutionChain
+HandlerExecutionChain -> HandlerInterceptor: afterCompletion
+deactivate HandlerExecutionChain
+
+DispatcherServlet -> RequestMappingHandlerAdapter: handle
+DispatcherServlet -> HandlerExecutionChain: applyPostHandle
+
+DispatcherServlet -> DispatcherServlet: processDispatchResult
+activate DispatcherServlet
+DispatcherServlet -> DispatcherServlet: processHandlerException
+activate DispatcherServlet
+DispatcherServlet -> HandlerExceptionResolver: resolveException
+
+deactivate DispatcherServlet
+DispatcherServlet -> DispatcherServlet: render
+activate DispatcherServlet
+deactivate DispatcherServlet
+deactivate DispatcherServlet
+```
+## Handling the Request
+RequestMappingHandlerAdapter handle
+```plantuml
+RequestMappingHandlerAdapter -> ServletInvocableHandlerMethod: invokeAndHandle
+ServletInvocableHandlerMethod -> ServletInvocableHandlerMethod: invokeForRequest -> returnValue
+activate ServletInvocableHandlerMethod
+ServletInvocableHandlerMethod -> ServletInvocableHandlerMethod: getMethodArgumentValues
+activate ServletInvocableHandlerMethod
+ServletInvocableHandlerMethod -> ServletInvocableHandlerMethod: getMethodParameters
+ServletInvocableHandlerMethod -> HandlerMethodArgumentResolverComposite: supportsParameter
+activate HandlerMethodArgumentResolverComposite
+HandlerMethodArgumentResolverComposite -> HandlerMethodArgumentResolver: supportsParameter
+deactivate HandlerMethodArgumentResolverComposite
+ServletInvocableHandlerMethod -> HandlerMethodArgumentResolverComposite: resolveArgument
+activate HandlerMethodArgumentResolverComposite
+HandlerMethodArgumentResolverComposite -> HandlerMethodArgumentResolver: resolveArgument
+deactivate HandlerMethodArgumentResolverComposite
+deactivate ServletInvocableHandlerMethod
+ServletInvocableHandlerMethod -> ServletInvocableHandlerMethod: doInvoke
+deactivate ServletInvocableHandlerMethod
+
+ServletInvocableHandlerMethod -> HandlerMethodReturnValueHandlerComposite: handleReturnValue
+activate HandlerMethodReturnValueHandlerComposite
+HandlerMethodReturnValueHandlerComposite -> HandlerMethodReturnValueHandlerComposite: selectHandler
+HandlerMethodReturnValueHandlerComposite -> HandlerMethodReturnValueHandler: handleReturnValue
+deactivate HandlerMethodReturnValueHandlerComposite
+```
+## Processing Arguments
+HandlerMethodArgumentResolver resolveArgument
+### Processor for @RequestBody method arguments
+RequestResponseBodyMethodProcessor
+```plantuml
+participant RequestResponseBodyAdviceChain
+participant RequestResponseBodyMethodProcessor
+participant HttpMessageConverter
+
+RequestResponseBodyMethodProcessor -> RequestResponseBodyMethodProcessor: readWithMessageConverters
+activate RequestResponseBodyMethodProcessor
+RequestResponseBodyMethodProcessor -> RequestResponseBodyAdviceChain: beforeBodyRead
+RequestResponseBodyMethodProcessor -> HttpMessageConverter: read
+RequestResponseBodyMethodProcessor -> RequestResponseBodyAdviceChain: afterBodyRead
+deactivate RequestResponseBodyMethodProcessor
+```
+## Processing Return Values
+HandlerMethodReturnValueHandler handleReturnValue
+### RequestResponseBodyMethodProcessor handleReturnValue
+```plantuml
+RequestResponseBodyMethodProcessor -> RequestResponseBodyMethodProcessor: writeWithMessageConverters
+activate RequestResponseBodyMethodProcessor
+RequestResponseBodyMethodProcessor -> HttpMessageConverter: canWrite
+RequestResponseBodyMethodProcessor -> RequestResponseBodyAdviceChain: beforeBodyWrite
+RequestResponseBodyMethodProcessor -> HttpMessageConverter: write
+deactivate RequestResponseBodyMethodProcessor
+```
+## Processing Exception 
+HandlerExceptionResolver resolveException
+```plantuml
+HandlerExceptionResolverComposite -> ExceptionHandlerExceptionResolver: resolveException
+ExceptionHandlerExceptionResolver -> ExceptionHandlerExceptionResolver: doResolveHandlerMethodException
+activate ExceptionHandlerExceptionResolver
+ExceptionHandlerExceptionResolver -> ExceptionHandlerExceptionResolver: getExceptionHandlerMethod
+ExceptionHandlerExceptionResolver -> ServletInvocableHandlerMethod: invokeAndHandle
+deactivate ExceptionHandlerExceptionResolver
+```
+[//]: # (HandlerExceptionResolverComposite -> ResponseStatusExceptionResolver: resolveException)
+[//]: # (HandlerExceptionResolverComposite -> DefaultHandlerExceptionResolver: resolveException)
+## References
+- https://stackify.com/spring-mvc/
+- source code of org.springframework:spring-webmvc:5.2.24.RELEASE
