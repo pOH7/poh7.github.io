@@ -1,0 +1,87 @@
+# Media Server Setup
+
+## Overview
+```plantuml
+!include <C4/C4_Container>
+Person(admin, "Add / remove media")
+Person(person, "Watch media")
+
+System(movie, "Movie / TV Show Organizer", "Manage movie / tv library")
+System(video, "YouTube Organizer", "Manage youtube library")
+System(media, "Media Server", "Streaming media")
+System(storage, "Storage", "Store media files")
+
+Rel(admin, movie, "Use Browser to add media (movie / tv show)")
+Rel(admin, video, "Use Browser to add media (youtube)")
+Rel(person, media, "Use Mobile App to watch media")
+Rel(movie, storage, "Store")
+Rel(video, storage, "Store")
+Rel(media, storage, "Read media / write metadata")
+```
+
+## Movie / TV Show Organizer
+```plantuml
+!include <C4/C4_Container>
+Person(admin, "add / remove media")
+
+System_Boundary(movie, "Movie / TV Show Organizer", "Manage movie / tv library") {
+  Container(radarr, "Radarr / Sonarr", "", "Automatically monitor, download, and organize movies (Radarr) and TV shows (Sonarr)")
+  Container(bt, "qBittorrent", "", "BitTorrent client for downloading torrents")
+  Container(prowlarr, "prowlarr", "", "Manage various torrent indexers")
+}
+System(storage, "Storage", "Store media files")
+System_Ext(indexer, "Torrent Site")
+System_Ext(p2p, "P2P Network")
+
+Rel(admin, radarr, "Use Browser to add media (movie / tv show)")
+Rel(radarr, bt, "Request download")
+Rel(radarr, indexer, "Fetch torrent")
+Rel(bt, p2p, "Download")
+Rel(bt, storage, "Store")
+
+Rel(prowlarr, radarr, "Update media indexer (torrent site)")
+Rel(radarr, storage, "Update file structure")
+```
+
+## YouTube Organizer
+```plantuml
+!include <C4/C4_Container>
+Person(admin, "add / remove media")
+
+System_Boundary(video, "YouTube Organizer", "Manage youtube library") {
+Container(minio, "MinIO Server")
+Container(client, "Minio Client", "", "Sync data with MinIO Server")
+ContainerDb(github, "GitHub Repository", "", "Store youtube url")
+Container(runner, "GitHub Runner", "yt-dlp", "Get youtube url from GitHub then download video and upload to MinIO")
+}
+System_Ext(youtube, "YouTube")
+System(storage, "Storage", "Store media files")
+
+Rel(admin, github, "Use Browser to add media (youtube)")
+Rel(client, storage, "Sync")
+Rel(client, minio, "Fetch")
+
+Rel(runner, minio, "Upload")
+Rel(runner, github, "Fetch task")
+Rel(runner, youtube, "Download")
+```
+
+## Media Server
+```plantuml
+!include <C4/C4_Container>
+Person(person, "watch media")
+
+System_Boundary(media, "Media Server", "Streaming media") {
+  Container(metatube, "Metatube Server", "", "Provide movie metadata")
+  Container(jellyfin, "Jellyfin", "", "Provide media streaming service")
+}
+System(storage, "Storage", "Store media files")
+
+Rel(person, jellyfin, "Use Mobile App to watch media", "Infuse")
+Rel(jellyfin, storage, "Read media / write metadata")
+
+Rel(jellyfin, metatube, "Fetch movie metadata")
+
+System_Ext(site, "Movie / TV Show DB Site")
+Rel(metatube, site, "Download metadata")
+```

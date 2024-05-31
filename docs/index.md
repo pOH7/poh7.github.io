@@ -1,3 +1,5 @@
 # Welcome
 
-Contribution is welcome!
+Diagrams are the maps that help software developers navigate a complex codebase.
+
+Your feedback is always welcome!
