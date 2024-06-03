@@ -1,4 +1,4 @@
-# Welcome
+= Welcome
 
 Diagrams are the maps that help software developers navigate a complex codebase.
 

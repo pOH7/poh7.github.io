@@ -1,17 +1,19 @@
-# Transactional
+= Transactional
 
 CglibAopProxy.DynamicAdvisedInterceptor intercept
-```plantuml
+[plantuml,scale=0.5,svg]
+----
 DynamicAdvisedInterceptor -> AdvisedSupport: getInterceptorsAndDynamicInterceptionAdvice
 DynamicAdvisedInterceptor -> CglibMethodInvocation: proceed
 activate CglibMethodInvocation
 CglibMethodInvocation -> MethodInterceptor: invoke
 deactivate CglibMethodInvocation
-```
+----
 
-## MethodInterceptor: invoke
-### @Transactional
-```plantuml
+== MethodInterceptor: invoke
+=== @Transactional
+[plantuml,scale=0.5,svg]
+----
 TransactionInterceptor -> TransactionInterceptor: invokeWithinTransaction
 activate TransactionInterceptor
 TransactionInterceptor -> TransactionInterceptor: determineTransactionManager
@@ -27,22 +29,26 @@ TransactionInterceptor -> PlatformTransactionManager: rollback
 deactivate TransactionInterceptor
 TransactionInterceptor -> TransactionInterceptor: commitTransactionAfterReturning
 deactivate TransactionInterceptor
-```
+----
 
-## Pitfall
+== Pitfall
 
-### public method
+=== public method
 Due to Spring AOP's mechanism, the method must be public.
-### self-invocation
+
+=== self-invocation
 Due to Spring AOP's mechanism, self-invocation will not lead to the advised method being invoked.
-### checked exception
+
+=== checked exception
 default @Transactional rollbackOn RuntimeException
-```java
+
+[source, java]
+----
 // DefaultTransactionAttribute
 public boolean rollbackOn(Throwable ex) {
 	return (ex instanceof RuntimeException || ex instanceof Error);
 }
-```
+----
 
-## References
+== References
 - source code of org.springframework:spring-tx:5.2.24.RELEASE

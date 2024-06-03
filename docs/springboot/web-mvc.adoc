@@ -1,7 +1,9 @@
-# Spring Boot MVC handle request
-## DispatcherServlet: Dispatching the Request
+= Spring Boot MVC handle request
+
+== DispatcherServlet: Dispatching the Request
 DispatcherServlet doService -> doDispatch
-```plantuml
+[plantuml,scale=0.5,svg]
+----
 participant HandlerInterceptor
 participant HandlerExecutionChain
 participant DispatcherServlet
@@ -36,10 +38,11 @@ DispatcherServlet -> DispatcherServlet: render
 activate DispatcherServlet
 deactivate DispatcherServlet
 deactivate DispatcherServlet
-```
-## Handling the Request
+----
+== Handling the Request
 RequestMappingHandlerAdapter handle
-```plantuml
+[plantuml,scale=0.5,svg]
+----
 RequestMappingHandlerAdapter -> ServletInvocableHandlerMethod: invokeAndHandle
 ServletInvocableHandlerMethod -> ServletInvocableHandlerMethod: invokeForRequest -> returnValue
 activate ServletInvocableHandlerMethod
@@ -63,12 +66,13 @@ activate HandlerMethodReturnValueHandlerComposite
 HandlerMethodReturnValueHandlerComposite -> HandlerMethodReturnValueHandlerComposite: selectHandler
 HandlerMethodReturnValueHandlerComposite -> HandlerMethodReturnValueHandler: handleReturnValue
 deactivate HandlerMethodReturnValueHandlerComposite
-```
-## Processing Arguments
+----
+== Processing Arguments
 HandlerMethodArgumentResolver resolveArgument
-### Processor for @RequestBody method arguments
+=== Processor for @RequestBody method arguments
 RequestResponseBodyMethodProcessor
-```plantuml
+[plantuml,scale=0.5,svg]
+----
 participant RequestResponseBodyAdviceChain
 participant RequestResponseBodyMethodProcessor
 participant HttpMessageConverter
@@ -79,30 +83,32 @@ RequestResponseBodyMethodProcessor -> RequestResponseBodyAdviceChain: beforeBody
 RequestResponseBodyMethodProcessor -> HttpMessageConverter: read
 RequestResponseBodyMethodProcessor -> RequestResponseBodyAdviceChain: afterBodyRead
 deactivate RequestResponseBodyMethodProcessor
-```
-## Processing Return Values
+----
+== Processing Return Values
 HandlerMethodReturnValueHandler handleReturnValue
-### RequestResponseBodyMethodProcessor handleReturnValue
-```plantuml
+=== RequestResponseBodyMethodProcessor handleReturnValue
+[plantuml,scale=0.5,svg]
+----
 RequestResponseBodyMethodProcessor -> RequestResponseBodyMethodProcessor: writeWithMessageConverters
 activate RequestResponseBodyMethodProcessor
 RequestResponseBodyMethodProcessor -> HttpMessageConverter: canWrite
 RequestResponseBodyMethodProcessor -> RequestResponseBodyAdviceChain: beforeBodyWrite
 RequestResponseBodyMethodProcessor -> HttpMessageConverter: write
 deactivate RequestResponseBodyMethodProcessor
-```
-## Processing Exception 
+----
+== Processing Exception 
 HandlerExceptionResolver resolveException
-```plantuml
+[plantuml,scale=0.5,svg]
+----
 HandlerExceptionResolverComposite -> ExceptionHandlerExceptionResolver: resolveException
 ExceptionHandlerExceptionResolver -> ExceptionHandlerExceptionResolver: doResolveHandlerMethodException
 activate ExceptionHandlerExceptionResolver
 ExceptionHandlerExceptionResolver -> ExceptionHandlerExceptionResolver: getExceptionHandlerMethod
 ExceptionHandlerExceptionResolver -> ServletInvocableHandlerMethod: invokeAndHandle
 deactivate ExceptionHandlerExceptionResolver
-```
-[//]: # (HandlerExceptionResolverComposite -> ResponseStatusExceptionResolver: resolveException)
-[//]: # (HandlerExceptionResolverComposite -> DefaultHandlerExceptionResolver: resolveException)
-## References
-- https://stackify.com/spring-mvc/
+----
+// HandlerExceptionResolverComposite -> ResponseStatusExceptionResolver: resolveException
+// HandlerExceptionResolverComposite -> DefaultHandlerExceptionResolver: resolveException
+== References
 - source code of org.springframework:spring-webmvc:5.2.24.RELEASE
+- https://stackify.com/spring-mvc/

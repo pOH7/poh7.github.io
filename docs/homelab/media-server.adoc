@@ -1,7 +1,8 @@
-# Media Server Setup
+= Media Server Setup
 
-## Overview
-```plantuml
+== Overview
+[plantuml,scale=0.5,svg]
+----
 !include <C4/C4_Container>
 Person(admin, "Add / remove media")
 Person(person, "Watch media")
@@ -17,10 +18,11 @@ Rel(person, media, "Use Mobile App to watch media")
 Rel(movie, storage, "Store")
 Rel(video, storage, "Store")
 Rel(media, storage, "Read media / write metadata")
-```
+----
 
-## Movie / TV Show Organizer
-```plantuml
+== Movie / TV Show Organizer
+[plantuml,scale=0.5,svg]
+----
 !include <C4/C4_Container>
 Person(admin, "add / remove media")
 
@@ -41,10 +43,11 @@ Rel(bt, storage, "Store")
 
 Rel(prowlarr, radarr, "Update media indexer (torrent site)")
 Rel(radarr, storage, "Update file structure")
-```
+----
 
-## YouTube Organizer
-```plantuml
+== YouTube Organizer
+[plantuml,scale=0.5,svg]
+----
 !include <C4/C4_Container>
 Person(admin, "add / remove media")
 
@@ -64,10 +67,11 @@ Rel(client, minio, "Fetch")
 Rel(runner, minio, "Upload")
 Rel(runner, github, "Fetch task")
 Rel(runner, youtube, "Download")
-```
+----
 
-## Media Server
-```plantuml
+== Media Server
+[plantuml,scale=0.5,svg]
+----
 !include <C4/C4_Container>
 Person(person, "watch media")
 
@@ -84,4 +88,4 @@ Rel(jellyfin, metatube, "Fetch movie metadata")
 
 System_Ext(site, "Movie / TV Show DB Site")
 Rel(metatube, site, "Download metadata")
-```
+----
