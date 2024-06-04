@@ -34,3 +34,5 @@ jobs:
             mkdocs-material-
       - run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin mkdocs_puml
       - run: mkdocs gh-deploy --force
+        env:
+          PLANTUML_SERVER: ${{ secrets.PLANTUML_SERVER }}
