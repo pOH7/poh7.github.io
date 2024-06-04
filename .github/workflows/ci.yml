@@ -33,6 +33,8 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin mkdocs_puml
-      - run: mkdocs gh-deploy --force
+      - run: |
+          sed -i 's/puml_url:.*/puml_url: $PLANTUML_SERVER/g' mkdocs.yml
         env:
           PLANTUML_SERVER: ${{ secrets.PLANTUML_SERVER }}
+      - run: mkdocs gh-deploy --force

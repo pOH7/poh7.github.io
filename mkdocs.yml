@@ -31,7 +31,7 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
   - plantuml:
-      puml_url: ${PLANTUML_SERVER}
+      puml_url: https://www.plantuml.com/plantuml/
       puml_keyword: plantuml
 repo_url: https://github.com/pOH7/poh7.github.io
 markdown_extensions:
