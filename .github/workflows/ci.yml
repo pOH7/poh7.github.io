@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: 18
       - run: npm i downdoc
-      - run: find docs -name '*.md' -exec npx downdoc {} \;
+      - run: find docs -name '*.adoc' -exec npx downdoc {} \;
       - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
       - uses: actions/cache@v4
         with:
