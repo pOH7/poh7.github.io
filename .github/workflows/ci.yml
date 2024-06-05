@@ -33,6 +33,7 @@ jobs:
           restore-keys: |
             mkdocs-material-
       - run: pip install mkdocs-material mkdocs-git-revision-date-localized-plugin mkdocs_puml
+      - run: echo "::add-mask::$PLANTUML_SERVER"
       - run: |
           sed -i "s#puml_url:.*#puml_url: $PLANTUML_SERVER#g" mkdocs.yml
         env:
