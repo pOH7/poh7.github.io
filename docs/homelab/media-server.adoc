@@ -1,4 +1,4 @@
-= Media Server Setup
+= Media Server in Homelab
 
 == Overview
 [plantuml,scale=0.5,svg]

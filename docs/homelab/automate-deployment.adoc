@@ -1,0 +1,63 @@
+= Automate Deployment in Homelab
+
+== Background
+My homelab is a bare Debian system running single node k3s (Lightweight Kubernetes)
+
+.version dependencies
+[plantuml,scale=0.5,svg]
+----
+object "[[https://fluxcd.io/flux/installation/ flux]]" as flux {
+  version: 2.3.0
+}
+object "[[https://istio.io/latest/docs/releases/supported-releases/ istio]]" as istio {
+  version: 1.22.1
+}
+object "[[https://cert-manager.io/docs/releases/ cert-manager]]" as certmanager {
+  version: 1.15
+}
+object "[[https://github.com/k3s-io/k3s/releases k3s]]" as k3s {
+  version: 1.30.1+k3s1
+}
+object "[[https://github.com/cert-manager/istio-csr cert-manager/istio-csr]]" as csr {
+  version: 0.9.0
+}
+flux --> k3s
+istio --> k3s
+certmanager --> k3s
+csr --> istio
+csr --> certmanager
+----
+
+flux, istio, cert-manager and (of course!) k3s are manually managed
+
+== Automate Deployment
+I use a GitHub private repository to store my kubernetes manifests and flux to apply them to the k3s cluster
+[plantuml,scale=0.5,svg]
+----
+!include <C4/C4_Container>
+System(flux, "Flux", "Continuous delivery solution for Kubernetes")
+System(github, "GitHub", "Git repository")
+System(k3s, "k3s", "Lightweight Kubernetes")
+System_Ext(cr, "Container Registry", "Docker image registry")
+
+Rel(flux, k3s, "Apply manifest to")
+Rel(flux, github, "Checkout manifests from")
+Rel(k3s, cr, "Pull image from")
+----
+
+Due to some network issues, I also use Alibaba Cloud Container Registry to store some public images, so my k3s cluster can pull them from there faster
+[plantuml,scale=0.5,svg]
+----
+!include <C4/C4_Container>
+System(github, "GitHub", "Git repository")
+System(github_runner, "GitHub Runner", "Check latest image")
+System(acr, "Alibaba Cloud Container Registry", "Docker image registry")
+System_Ext(cr, "Docker Hub / GitHub Packages / etc.", "Docker image registry")
+
+Rel(github_runner, github, "Get task from")
+Rel(github_runner, github, "Store result to")
+Rel(github_runner, acr, "Push image to")
+Rel(github_runner, cr, "Pull image from")
+----
+
+I also use flux to automate update image version in my kubernetes manifests, then I can keep my applications up to date
