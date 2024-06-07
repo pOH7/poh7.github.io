@@ -1,0 +1,72 @@
+= ReentrantLock
+
+mutual-exclusion lock, 互斥锁
+
+. timed lock waits
+. interruptible lock waits
+. fairness
+. non-block-structured locking
+
+[plantuml,scale=0.5,svg]
+----
+class ReentrantLock implements Lock {
+  final Sync sync
+}
+abstract class AbstractOwnableSynchronizer {
+  transient Thread exclusiveOwnerThread
+}
+abstract class AbstractQueuedSynchronizer extends AbstractOwnableSynchronizer {
+  transient volatile Node head
+  transient volatile Node tail
+  volatile int state
+}
+class Node {
+  volatile Node prev
+  volatile Node next
+}
+AbstractQueuedSynchronizer *-- Node
+abstract class Sync extends AbstractQueuedSynchronizer {
+   abstract void lock()
+}
+class FairSync extends Sync
+class NonfairSync extends Sync
+class ConditionObject implements Condition
+
+ReentrantLock *-r- Sync
+----
+
+
+
+
+== exclusive, 互斥, 排他
+provide exclusive access to a shared resource, only one thread at a time can acquire the lock and all access to the shared resource requires that the lock be acquired first
+
+== reentrant, 可重入
+allow the same thread that locked it to lock it again
+
+== timeout
+attempt to acquire the lock that can timeout
+----
+tryLock(long timeout, TimeUnit unit) throws InterruptedException
+----
+== blocking/non-blocking, (非)阻塞
+* lock() - If the lock is held by another thread then the current thread lies dormant until the lock has been acquired
+* tryLock() - non-blocking attempt to acquire a lock
+
+== fair/fairness, (非)公平
+=== fair
+locks favor granting access to the longest-waiting thread
+
+[cols="3"]
+|===
+h|ReentrantLock
+h|block
+h|non-blocking
+h|fair
+|lock()
+|tryLock(0, TimeUnit.SECONDS)
+h|fairness
+|new ReentrantLock(true)
+|tryLock()
+|===
+

@@ -1,0 +1,22 @@
+= LockSupport
+
+[source,java,linenums,indent=0]
+----
+// java.util.concurrent.locks.LockSupport.park(java.lang.Object)
+public static void park(Object blocker) {
+    Thread t = Thread.currentThread();
+    setBlocker(t, blocker);
+    UNSAFE.park(false, 0L);
+    setBlocker(t, null);
+}
+----
+
+[source,java,linenums,indent=0]
+----
+// java.util.concurrent.locks.LockSupport.unpark
+public static void unpark(Thread thread) {
+    if (thread != null) {
+        UNSAFE.unpark(thread);
+    }
+}
+----

@@ -1,0 +1,37 @@
+= java.util.concurrent.atomic.AtomicInteger
+
+[plantuml,scale=0.5,svg]
+----
+class AtomicInteger extends Number
+----
+
+Compare And Swap (CAS)
+
+----
+// java.util.concurrent.atomic.AtomicInteger.getAndIncrement
+public final int getAndIncrement() {
+    return unsafe.getAndAddInt(this, valueOffset, 1);
+}
+----
+.valueOffset
+----
+private static final long valueOffset;
+
+static {
+    try {
+        valueOffset = unsafe.objectFieldOffset
+            (AtomicInteger.class.getDeclaredField("value"));
+    } catch (Exception ex) { throw new Error(ex); }
+}
+----
+.unsafe.getAndAddInt
+----
+// sun.misc.Unsafe.getAndAddInt
+public final int getAndAddInt(Object o, long offset, int delta) {
+    int v;
+    do {
+        v = getIntVolatile(o, offset);
+    } while (!compareAndSwapInt(o, offset, v, v + delta));
+    return v;
+}
+----

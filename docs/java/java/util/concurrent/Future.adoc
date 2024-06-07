@@ -1,0 +1,122 @@
+= Future
+
+[plantuml,scale=0.5,svg]
+----
+interface Future<V> {
+  boolean cancel(boolean mayInterruptIfRunning)
+  boolean isCancelled()
+  boolean isDone()
+  V get() throws ...
+  V get(long timeout, TimeUnit unit) throws ...
+}
+interface Runnable {
+  run()
+}
+interface RunnableFuture<V> extends Runnable, Future
+class FutureTask<V> implements RunnableFuture {
+  Callable<V> callable
+  Object outcome
+  volatile Thread runner
+  volatile WaitNode waiters
+}
+
+class WaitNode {
+  volatile Thread thread
+  volatile WaitNode next
+}
+
+FutureTask *-r- WaitNode
+----
+
+.cancelling tasks whose result is no longer needed.
+[source,java,linenums,indent=0]
+----
+Future<?> task = taskExec.submit(r);
+try {
+    task.get(timeout, unit);
+} catch (TimeoutException e) {
+    // task will be cancelled below
+} catch (ExecutionException e) {
+    // exception thrown in task; rethrow
+    throw launderThrowable(e.getCause());
+} finally {
+    // Harmless if task already completed
+    task.cancel(true); // interrupt if running
+}
+----
+
+== get()
+[source,java,linenums,indent=0]
+----
+// java.util.concurrent.FutureTask.get(long, java.util.concurrent.TimeUnit)
+public V get(long timeout, TimeUnit unit)
+    throws InterruptedException, ExecutionException, TimeoutException {
+    int s = state;
+    if (s <= COMPLETING &&
+        (s = awaitDone(true, unit.toNanos(timeout))) <= COMPLETING) {
+        throw new TimeoutException();
+    }
+    return report(s);
+}
+// java.util.concurrent.FutureTask.report
+private V report(int s) throws ExecutionException {
+    Object x = outcome;
+    if (s == NORMAL) {
+        return (V)x;
+    }
+    if (s >= CANCELLED) {
+        throw new CancellationException();
+    }
+    throw new ExecutionException((Throwable)x);
+}
+----
+== cancel()
+[source,java,linenums,indent=0]
+----
+// java.util.concurrent.FutureTask.cancel
+public boolean cancel(boolean mayInterruptIfRunning) {
+    if (!(state == NEW &&
+          UNSAFE.compareAndSwapInt(this, stateOffset, NEW,
+              mayInterruptIfRunning ? INTERRUPTING : CANCELLED))) {
+        return false;
+    }
+    try {    // in case call to interrupt throws exception
+        if (mayInterruptIfRunning) {
+            try {
+                Thread t = runner;
+                if (t != null) {
+                    t.interrupt();
+                }
+            } finally { // final state
+                UNSAFE.putOrderedInt(this, stateOffset, INTERRUPTED);
+            }
+        }
+    } finally {
+        finishCompletion();
+    }
+    return true;
+}
+----
+== run()
+[source,java,linenums,indent=0]
+----
+public void run() {
+    ...
+    Callable<V> c = callable;
+    if (c != null && state == NEW) {
+        V result;
+        boolean ran;
+        try {
+            result = c.call();
+            ran = true;
+        } catch (Throwable ex) {
+            result = null;
+            ran = false;
+            setException(ex);
+        }
+        if (ran)
+            set(result);
+    }
+    ...
+}
+----

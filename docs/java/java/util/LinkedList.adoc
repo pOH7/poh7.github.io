@@ -1,0 +1,40 @@
+= LinkedList
+:images_dir: ../../images
+
+// tag::uml[]
+[plantuml,scale=0.5,svg]
+....
+interface Collection<E>
+
+interface Queue<E> extends Collection {
+    .. Insert ..
+    boolean offer(E e)
+    .. Remove ..
+    E poll()
+    .. Examine ..
+    E peek()
+}
+interface Deque<E> extends Queue
+note left of Deque: double ended queue
+
+interface List<E> extends Collection
+
+abstract class AbstractSequentialList<E> implements List
+
+class LinkedList<E> extends AbstractSequentialList implements Deque {
+    transient int size = 0
+    transient Node<E> first
+    transient Node<E> last
+}
+
+class Node<E> {
+    E item
+    Node<E> next
+    Node<E> prev
+}
+LinkedList *-right- Node
+....
+// end::uml[]
+
+.doubly linked list
+image::{images_dir}/linked_list.png[]

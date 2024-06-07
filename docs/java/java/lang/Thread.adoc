@@ -1,0 +1,115 @@
+= Thread
+
+:java-adoc: {asciidoctorconfigdir}/language/java/src/main/asciidoc
+
+[plantuml,scale=0.5,svg]
+----
+class Thread implements Runnable {
+  interrupted()
+  yield()
+  getUncaughtExceptionHandler()
+}
+enum State {
+  NEW
+  RUNNABLE
+  BLOCKED
+  WAITING
+  TIMED_WAITING
+  TERMINATED
+}
+interface "Thread.UncaughtExceptionHandler" as Thread_UncaughtExceptionHandler {
+  void uncaughtException(Thread t, Throwable e)
+}
+class ThreadGroup implements Thread_UncaughtExceptionHandler
+----
+[[UncaughtExceptionHandler]]
+== Exception Handling
+Uncaught Exception Handler
+[source,java,linenums,indent=0]
+----
+// java.lang.Thread.getUncaughtExceptionHandler
+public UncaughtExceptionHandler getUncaughtExceptionHandler() {
+    return uncaughtExceptionHandler != null ?
+        uncaughtExceptionHandler : group;
+}
+----
+[source,java,linenums,indent=0]
+----
+// java.lang.ThreadGroup.uncaughtException
+public void uncaughtException(Thread t, Throwable e) {
+    if (parent != null) {
+        parent.uncaughtException(t, e);
+    } else {
+        Thread.UncaughtExceptionHandler ueh =
+            Thread.getDefaultUncaughtExceptionHandler();
+        if (ueh != null) {
+            ueh.uncaughtException(t, e);
+        } else if (!(e instanceof ThreadDeath)) {
+            e.printStackTrace(System.err);
+        }
+    }
+}
+----
+[source,java,linenums,indent=0]
+----
+// java.lang.Thread.start
+public synchronized void start() {
+   group.add(this);
+   try {
+       start0();
+   }
+}
+----
+
+== Interruption
+interruption setting the thread’s interrupted status
+
+[source,java,linenums,indent=0]
+----
+// sets interrupted status to true
+public void interrupt() {
+    if (this != Thread.currentThread())
+        checkAccess();
+
+    synchronized (blockerLock) {
+        Interruptible b = blocker;
+        if (b != null) {
+            interrupt0();           // Just to set the interrupt flag
+            b.interrupt(this);
+            return;
+        }
+    }
+    interrupt0();
+}
+----
+[source,java,linenums,indent=0]
+----
+// clears the interrupted status of the current thread and returns its previous value
+public static boolean interrupted() {
+    return currentThread().isInterrupted(true);
+}
+----
+[source,java,linenums,indent=0]
+----
+// returns the interrupted status
+public boolean isInterrupted() {
+    return isInterrupted(false);
+}
+private native boolean isInterrupted(boolean ClearInterrupted);
+----
+
+Thread respond to interruption by clearing the interrupted status and on some condition, it will throw an xref:Exception.adoc#InterruptedException[InterruptedException] or ClosedByInterruptException
+
+[NOTE]
+Because each thread has its own interruption policy, you should not interrupt a thread unless you know what interruption means to that thread.
+[NOTE]
+Thread will not throw InterruptedException on synchronized block
+
+
+== deadlock
+thread starvation deadlock
+
+== thread dump
+kill -3
+
+// TODO thread stack

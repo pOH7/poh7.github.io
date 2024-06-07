@@ -1,0 +1,55 @@
+= Map
+:sourcedir: {asciidoctorconfigdir}/core-java/src/main/resources/java-1.8.0_181-oracle
+
+A collection that consists of keys and their values.
+A map cannot contain duplicate keys; each key can map to at most one value.
+
+associative array
+dictionary
+
+[plantuml,scale=0.5,svg]
+....
+interface Map
+abstract class AbstractMap
+Map <|-- AbstractMap
+AbstractMap <|-- HashMap
+AbstractMap <|-- WeakHashMap
+HashMap <|-- LinkedHashMap
+
+AbstractMap <|-- ConcurrentHashMap
+
+interface SortedMap
+interface NavigableMap
+Map <|-- SortedMap
+SortedMap <|-- NavigableMap
+AbstractMap <|-- TreeMap
+NavigableMap <|-- TreeMap
+....
+
+== HashMap
+initial capacity
+load factor
+[source,java,linenums,indent=0]
+include::{sourcedir}/java/util/HashMap.java[lines=279..283;317]
+
+[source,java,linenums,indent=0]
+include::{sourcedir}/java/util/HashMap.java[lines=396;402;407;416]
+
+initial capacity
+[source,java,linenums,indent=0]
+include::{sourcedir}/java/util/HashMap.java[lines=236]
+
+load factor
+[source,java,linenums,indent=0]
+include::{sourcedir}/java/util/HashMap.java[lines=248]
+
+[source,java,linenums,indent=0]
+include::{sourcedir}/java/util/HashMap.java[lines=625..666]
+
+== ConcurrentHashMap
+
+== LinkedHashMap
+iteration order = insertion-order
+
+== TreeMap
+iteration order = Comparable natural order

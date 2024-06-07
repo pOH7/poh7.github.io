@@ -1,0 +1,89 @@
+= Semaphore
+
+[plantuml,scale=0.5,svg]
+....
+abstract class Sync extends AbstractQueuedSynchronizer
+class FairSync extends Sync {
+  int tryAcquireShared(int acquires)
+}
+class NonfairSync extends Sync {
+  int tryAcquireShared(int acquires)
+}
+abstract class AbstractQueuedSynchronizer extends AbstractOwnableSynchronizer {
+  volatile Node head
+  volatile Node tail
+  volatile int state
+}
+abstract class AbstractOwnableSynchronizer {
+  Thread exclusiveOwnerThread;
+}
+class Node {
+  volatile Node prev
+  volatile Node next
+  volatile Thread thread
+}
+AbstractQueuedSynchronizer *-- Node
+
+class Semaphore {
+  Sync sync
+}
+Semaphore *-- Sync
+
+....
+
+== release()
+[source,java,linenums]
+----
+// java.util.concurrent.Semaphore.release
+public void release() {
+    sync.releaseShared(1);
+}
+// java.util.concurrent.locks.AbstractQueuedSynchronizer.releaseShared
+public final boolean releaseShared(int releases) {
+    if (tryReleaseShared(releases)) {
+        doReleaseShared();
+    }
+}
+// java.util.concurrent.Semaphore.Sync.tryReleaseShared
+protected final boolean tryReleaseShared(int releases) {
+    int current = getState();
+    int next = current + releases;
+    compareAndSetState(current, next);
+}
+// java.util.concurrent.locks.AbstractQueuedSynchronizer.doReleaseShared
+private void doReleaseShared() {
+    unparkSuccessor(h);
+}
+----
+
+== acquire()
+[source,java,linenums]
+----
+public void acquire() throws InterruptedException {
+    sync.acquireSharedInterruptibly(1);
+}
+public final void acquireSharedInterruptibly(int acquires)
+        throws InterruptedException {
+    if (Thread.interrupted()) {
+        throw new InterruptedException();
+    }
+    if (sync.nonfairTryAcquireShared(acquires) < 0) {
+        doAcquireSharedInterruptibly(acquires);
+    }
+}
+final int nonfairTryAcquireShared(int acquires) {
+    for (;;) {
+        int available = getState();
+        int remaining = available - acquires;
+        if (remaining < 0 ||
+            compareAndSetState(available, remaining)) {
+            return remaining;
+        }
+    }
+}
+----
+
+:numbered!:
+== References
+[bibliography]
+- [[[semaphore-FIFO]]] https://stackoverflow.com/questions/44512768/java-semaphore-cause-deadlock-on-multithread

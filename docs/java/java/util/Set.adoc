@@ -1,0 +1,26 @@
+= Set
+
+A collection that contains no duplicate elements.
+
+[plantuml,scale=0.5,svg]
+----
+interface SortedSet<E> extends Set
+interface NavigableSet<E> extends SortedSet
+abstract class AbstractCollection<E> implements Collection
+interface Set<E> extends Collection
+abstract class AbstractSet<E> extends AbstractCollection implements Set
+class HashSet<E> extends AbstractSet implements Set {
+    transient HashMap<E,Object> map;
+}
+class TreeSet<E> extends AbstractSet implements NavigableSet {
+    transient NavigableMap<E,Object> m;
+}
+----
+
+== TreeSet
+iteration order = Comparable natural order
+
+== HashSet
+
+== LinkedHashSet
+iteration order = insertion-order

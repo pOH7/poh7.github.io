@@ -1,0 +1,64 @@
+= Reference
+
+[plantuml,scale=0.5,svg]
+----
+class ReferenceQueue<T> {
+  volatile Reference<? extends T> head
+}
+abstract class Reference<T> {
+  T referent
+  volatile ReferenceQueue<? super T> queue
+}
+class SoftReference<T> extends Reference {
+
+}
+class WeakReference<T> extends Reference
+class PhantomReference<T> extends Reference
+
+Reference *-r- ReferenceQueue
+----
+
+Strong Reference
+
+Soft references are for implementing memory-sensitive caches
+
+Weak references are for implementing “canonicalizing mappings”—where instances of objects can be simultaneously used in multiple places in a program, to save storage—that do not prevent their keys (or values) from being reclaimed.
+
+Phantom references are for scheduling pre-mortem cleanup actions in a more flexible way than is possible with the Java finalization mechanism.
+
+WeakHashMap
+
+
+.lazy-initialize objects (without race conditions or Lock)
+----
+Map<String, SoftReference<BigThing>> cache = new HashMap<>();
+Set<String> thingsIAmCurrentlyGetting = new HashSet<String>();
+Object mutex = new Object();
+
+BigThing getThing(String key) {
+  synchronized(mutex) {
+    while(thingsIAmCurrentlyGetting.contains(key)) {
+      mutex.wait();
+    }
+    SoftReference<BigThing> ref = cache.get(key);
+    BigThing bigThing = ref == null ? null : ref.get();
+    if(bigThing != null) return bigThing;
+    thingsIAmCurrentlyGetting.add(key);
+  }
+
+  BigThing bigThing = getBigThing(key); // this may take a while to run.
+
+  synchronized(mutex) {
+    cache.put(key, bigThing);
+    thingsIAmCurrentlyGetting.remove(key);
+    mutex.notifyAll();
+  }
+
+  return bigThing;
+}
+----
+
+guava
+
+
+https://stackoverflow.com/questions/14450538/using-javas-referencequeue

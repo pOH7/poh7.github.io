@@ -1,0 +1,9 @@
+= CompletableFuture
+
+[plantuml,scale=0.5,svg]
+----
+class CompletableFuture<T> implements Future, CompletionStage
+----
+
+CompletableFuture.supplyAsync(Supplier)
+    .thenCompose(Function)

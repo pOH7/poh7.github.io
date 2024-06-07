@@ -1,0 +1,8 @@
+= Function
+
+[plantuml,scale=0.5,svg]
+----
+interface Function<T, R> {
+  R apply(T t)
+}
+----

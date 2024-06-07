@@ -1,0 +1,7 @@
+= NotEmpty
+
+----
+// @NutNull
+@NotEmpty
+private String str;
+----

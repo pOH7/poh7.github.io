@@ -1,0 +1,43 @@
+= AbstractQueuedSynchronizer (AQS, 队列同步器)
+
+[plantuml,scale=0.5,svg]
+----
+class CountDownLatch.Sync extends AbstractQueuedSynchronizer
+class ReentrantLock.Sync extends AbstractQueuedSynchronizer
+abstract class AbstractQueuedSynchronizer
+----
+
+[plantuml,scale=0.5,svg]
+----
+abstract class AbstractQueuedSynchronizer extends AbstractOwnableSynchronizer {
+    volatile int state
+}
+abstract class AbstractOwnableSynchronizer {
+    transient Thread exclusiveOwnerThread
+}
+----
+
+
+== wait queue: a variant CLH lock queue
+----
+transient volatile Node head;
+transient volatile Node tail;
+
+class Node {
+    volatile int waitStatus; // <1>
+    volatile Node prev; // <2>
+    volatile Node next; // <3>
+    volatile Thread thread;
+}
+----
+<1> status: keeps track of whether a thread should block
+<2> prev: handle cancellation
+<3> next: implement blocking mechanics
+
+
+ReentrantLock
+Semaphore
+ReentrantReadWriteLock
+CountDownLatch
+SynchronousQueue
+FutureTask

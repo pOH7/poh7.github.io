@@ -1,0 +1,34 @@
+= java.util.concurrent.atomic.AtomicStampedReference
+
+----
+private static class Pair<T> {
+    final T reference;
+    final int stamp;
+    private Pair(T reference, int stamp) {
+        this.reference = reference;
+        this.stamp = stamp;
+    }
+    static <T> Pair<T> of(T reference, int stamp) {
+        return new Pair<T>(reference, stamp);
+    }
+}
+
+private volatile Pair<V> pair;
+
+public boolean compareAndSet(V   expectedReference,
+                             V   newReference,
+                             int expectedStamp,
+                             int newStamp) {
+    Pair<V> current = pair;
+    return
+        expectedReference == current.reference &&
+        expectedStamp == current.stamp &&
+        ((newReference == current.reference &&
+          newStamp == current.stamp) ||
+         casPair(current, Pair.of(newReference, newStamp)));
+}
+
+private boolean casPair(Pair<V> cmp, Pair<V> val) {
+    return UNSAFE.compareAndSwapObject(this, pairOffset, cmp, val);
+}
+----

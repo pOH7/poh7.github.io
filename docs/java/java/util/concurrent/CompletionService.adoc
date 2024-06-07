@@ -1,0 +1,16 @@
+= CompletionService
+
+[plantuml,scale=0.5,svg]
+----
+interface CompletionService<V>
+interface Executor
+interface BlockingQueue
+class ExecutorCompletionService<V> implements CompletionService {
+  Executor executor
+  AbstractExecutorService aes
+  BlockingQueue<Future<V>> completionQueue
+}
+
+ExecutorCompletionService *-- BlockingQueue
+ExecutorCompletionService *-- Executor
+----

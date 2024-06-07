@@ -1,0 +1,200 @@
+= ClassLoader
+
+== classpath
+. -classpath / -cp
+. export CLASSPATH=
+
+directories and archive files (JAR, ZIP) containing class files
+
+A classpath entry consisting simply of * expands to a list of all the jar files in the current directory
+
+== ClassLoader Hierarchy
+-verbose:class
+-XX:+TraceClassLoading -XX:+TraceClassUnloading
+
+Bootstrap Class Loader::
+load jar by name *rt.jar* etc from
+. sun.boot.class.path
+. $JAVA_HOME/jre/lib
+. -Xbootclasspath
+
+Extension Class Loader::
+sun.misc.Launcher$ExtClassLoader
+. $JAVA_HOME/lib/ext
+. java.ext.dirs
+
+Application Class Loader::
+sun.misc.Launcher$AppClassLoader
+. java.class.path
+. CLASSPATH
+. -classpath
+. -cp
+
+System Class Loader::
+ClassLoader.getSystemClassLoader()
+. java.system.class.loader
+
+[source,java,linenums,indent=0]
+----
+public abstract class ClassLoader {
+    public static ClassLoader getSystemClassLoader() {
+        initSystemClassLoader();
+        return scl;
+    }
+
+    private static synchronized void initSystemClassLoader() {
+        if (!sclSet) {
+            scl = AccessController.doPrivileged(
+                new SystemClassLoaderAction(scl));
+            sclSet = true;
+        }
+    }
+}
+
+class SystemClassLoaderAction
+    implements PrivilegedExceptionAction<ClassLoader> {
+    private ClassLoader parent;
+
+    SystemClassLoaderAction(ClassLoader parent) {
+        this.parent = parent;
+    }
+
+    public ClassLoader run() throws Exception {
+        String cls = System.getProperty("java.system.class.loader");
+        if (cls == null) {
+            return parent;
+        }
+
+        Constructor<?> ctor = Class.forName(cls, true, parent)
+            .getDeclaredConstructor(new Class<?>[] { ClassLoader.class });
+        ClassLoader sys = (ClassLoader) ctor.newInstance(
+            new Object[] { parent });
+        Thread.currentThread().setContextClassLoader(sys);
+        return sys;
+    }
+}
+
+----
+
+User-defined Class Loader::
+
+Thread Context Class Loader::
+Thread.currentThread().setContextClassLoader(ClassLoader cl);
+Thread.currentThread().getContextClassLoader();
+
+== Parent Delegation Model
+Each instance of ClassLoader has an associated parent class loader
+[source,java,linenums,indent=0]
+----
+public class sun.misc.Launcher {
+    private static String bootClassPath =
+        System.getProperty("sun.boot.class.path");
+    private ClassLoader loader;
+
+    public Launcher() {
+        // Create the extension class loader
+        ClassLoader extcl = ExtClassLoader.getExtClassLoader();
+
+        // Now create the class loader to use to launch the application
+        loader = AppClassLoader.getAppClassLoader(extcl);
+
+        // Also set the context class loader for the primordial thread.
+        Thread.currentThread().setContextClassLoader(loader);
+    }
+}
+----
+
+When requested to find a class or resource, a ClassLoader instance will delegate the search for the class or resource to its parent class loader before attempting to find the class or resource itself
+[source,java,linenums,indent=0]
+----
+public abstract class java.lang.ClassLoader {
+    protected Class<?> loadClass(String name, boolean resolve)
+        throws ClassNotFoundException
+    {
+        synchronized (getClassLoadingLock(name)) {
+            // First, check if the class has already been loaded
+            Class<?> c = findLoadedClass(name);
+            if (c == null) {
+                try {
+                    if (parent != null) {
+                        c = parent.loadClass(name, false);
+                    } else {
+                        c = findBootstrapClassOrNull(name);
+                    }
+                } catch (ClassNotFoundException e) {
+                    // ClassNotFoundException thrown if class not found
+                    // from the non-null parent class loader
+                }
+
+                if (c == null) {
+                    // If still not found, then invoke findClass in order
+                    // to find the class.
+                    c = findClass(name);
+                }
+            }
+            if (resolve) {
+                resolveClass(c);
+            }
+            return c;
+        }
+    }
+}
+----
+== Break the Parent Delegation Model
+=== Service Provider Interface, SPI
+image::mysql_driver.png[]
+[source,java,linenums,indent=0]
+----
+public final class java.util.ServiceLoader<S> implements Iterable<S> {
+
+    private static final String PREFIX = "META-INF/services/";
+
+    // The class or interface representing the service being loaded
+    private final Class<S> service;
+
+    // The class loader used to locate, load, and instantiate providers
+    private final ClassLoader loader;
+
+    public static <S> ServiceLoader<S> load(Class<S> service) {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        return ServiceLoader.load(service, cl);
+    }
+
+    private class LazyIterator implements Iterator<S> {
+        private S nextService() {
+            // Break the Parent Delegation Model
+            Class<?> c = Class.forName(cn, false, loader);
+        }
+    }
+}
+----
+
+==== JDBC
+include::API:java/sql/DriverManager.adoc[]
+
+=== OSGi
+
+
+== class life cycle
+. loading
+. linking
+.. verification
+.. preparation
+.. resolution
+. initialization
+. using
+. unloading
+
+=== initialization
+<clinit>()
+所有变量赋值操作 + 静态语句块
+父类的 <clinit>() 先执行
+加锁同步
+同一个类加载器, 一个类只初始化一次
+
+:numbered!:
+== References
+[bibliography]
+- [[[classpath_doc]]] https://docs.oracle.com/javase/6/docs/technotes/tools/windows/classpath.html
+- [[[class_loaders_in_java]]] https://www.baeldung.com/java-classloaders
+- [[[spi_and_classloader]]] https://segmentfault.com/a/1190000039108740

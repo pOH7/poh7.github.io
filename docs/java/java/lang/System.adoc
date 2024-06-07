@@ -1,0 +1,6 @@
+= System
+
+system property
+JVM option
+java -Dio.netty.leakDetectionLevel=ADVANCED
+System.getProperty("io.netty.leakDetectionLevel");

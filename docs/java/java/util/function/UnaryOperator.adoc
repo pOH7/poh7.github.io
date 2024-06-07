@@ -1,0 +1,9 @@
+= UnaryOperator
+
+Represents an operation on a single operand that produces a result of the same type as its operand.
+
+[plantuml,scale=0.5,svg]
+----
+interface Function<T, T>
+interface UnaryOperator<T> extends Function
+----

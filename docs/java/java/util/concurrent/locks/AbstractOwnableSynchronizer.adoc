@@ -1,0 +1,5 @@
+= AbstractOwnableSynchronizer
+
+----
+transient Thread exclusiveOwnerThread;
+----

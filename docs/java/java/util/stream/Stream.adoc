@@ -1,0 +1,102 @@
+= Stream
+
+== creation
+- Stream.empty()
++
+----
+Stream.<String>empty()
+----
+- Stream.of(T... values)
+- Stream.Builder().add("").build()
+- Stream.generate(Supplier<T>)
+- Stream.iterate(T, UnaryOperator<T>)
+- Stream.concat(Stream<? extends T> a, Stream<? extends T> b)
+- Arrays.stream(T[] array)
+- list.stream()
+- set.stream()
+- map.entrySet().stream()
+- new Random(47).ints().boxed().limit(4)
+- IntStream.range(10, 20)
+- Pattern.compile("").splitAsStream(String)
+- Files.lines(Path path, Charset cs)
+
+
+== intermediate Operation
+.debugging
+peek(Consumer<? super T> action)
+
+.sorting
+- sorted()
+- sorted(Comparator<? super T> comparator)
+----
+sorted(Comparator.reverseOrder())
+sorted(Comparator.comparing(map -> Long.parseLong(map.get("value")), Comparator.reverseOrder()))
+----
+.removing
+- distinct()
+- filter(Predicate<? super T> predicate)
+- limit(long maxSize)
+- skip(long n)
+
+.map
+- map(Function<? super T, ? extends R> mapper)
+- mapTo__Primitive__(To__Primitive__Function<? super T> mapper)
+
+.flatMap
+- flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)
+- flatMapTo__Primitive__(Function<? super T, ? extends __Primitive__Stream> mapper)
+
+== terminal operation
+.selecting
+- findFirst()
+- findAny()
+
+.informational
+- count()
+- max(Comparator<? super T> comparator)
+- min(Comparator<? super T> comparator)
+- average()
+- max()
+- min()
+- sum()
+- summaryStatistics()
+
+.toArray
+- toArray()
+- toArray(IntFunction<A[]> generator)
+
+.forEach
+- forEach(Consumer<? super T> action)
+- forEachOrdered(Consumer<? super T> action)
+
+.collect
+- collect(Collector<? super T, A, R> collector)
++
+----
+Collectors.toList()
+Collectors.toSet()
+Collectiors.toMap()
+Collectors.toCollection(TreeSet::new)
+----
++
+see link:Collectors.adoc[java.util.stream.Collectors]
+- collect(Supplier<R> supplier, BiConsumer<R, ? super T> accumulator, BiConsumer<R, R> combiner);
++
+----
+collect(ArrayList::new, ArrayList::add, ArrayList::addAll)
+----
+
+.reduce
+- reduce(BinaryOperator<T> accumulator)
+- reduce(T identity, BinaryOperator<T> accumulator)
++
+----
+int count = Stream.of(1, 2, 3)
+                  .reduce(0, (acc, element) -> acc + element);
+----
+- reduce(U identity, BiFunction<U, ? super T, U> accumulator, BinaryOperator<U> combiner)
+
+.matching
+- allMatch(Predicate<? super T> predicate)
+- anyMatch(Predicate<? super T> predicate)
+- noneMatch(Predicate<? super T> predicate)

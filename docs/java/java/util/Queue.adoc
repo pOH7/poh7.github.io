@@ -1,0 +1,32 @@
+= Queue
+
+[plantuml,scale=0.5,svg]
+....
+interface Iterable<T>
+interface Collection<E> extends Iterable
+interface Queue<E> extends Collection
+abstract class AbstractCollection<E> implements Collection
+abstract class AbstractQueue<E> extends AbstractCollection implements Queue
+interface BlockingQueue<E> extends Queue
+....
+
+== PriorityQueue
+include::PriorityQueue.adoc[tags=uml]
+
+== PriorityBlockingQueue
+NOTE: thread-safe
+
+
+ArrayBlockingQueue
+LinkedBlockingQueue
+SynchronousQueue
+
+== Deque
+double ended queue
+[plantuml,scale=0.5,svg]
+....
+interface Deque<E> extends Queue
+....
+First Element (Head)  ... Last Element (Tail)
+
+== ArrayDeque

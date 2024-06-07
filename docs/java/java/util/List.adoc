@@ -1,0 +1,31 @@
+= List
+
+.Skeletal Implementation
+[plantuml,scale=0.5,svg]
+....
+interface Collection<E>
+interface List<E> extends Collection
+abstract class AbstractCollection<E> implements Collection
+abstract class AbstractList<E> extends AbstractCollection implements List
+abstract class AbstractSequentialList<E> extends AbstractList
+....
+
+== LinkedList
+include::LinkedList.adoc[tags=uml]
+
+== ArrayList
+include::ArrayList.adoc[tags=uml]
+
+== CopyOnWriteArrayList
+[plantuml,scale=0.5,svg]
+....
+class CopyOnWriteArrayList<E> implements List, RandomAccess {
+    final transient ReentrantLock lock
+    transient volatile Object[] array
+}
+....
+
+[source,java,linenums,indent=0]
+----
+include::{sourcedir}/java/util/concurrent/CopyOnWriteArrayList.java[lines=96..100]
+----

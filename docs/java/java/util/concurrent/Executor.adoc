@@ -1,0 +1,157 @@
+= Executor
+:design_pattern_adoc: {asciidoctorconfigdir}/basic/design-pattern/src/main/asciidoc
+
+[plantuml,scale=0.5,svg]
+----
+interface Executor {
+  void execute(Runnable command);
+}
+interface ExecutorService extends Executor {
+  .. task lifecycle ..
+  void shutdown()
+  List<Runnable> shutdownNow()
+  boolean isShutdown()
+  boolean isTerminated()
+  boolean awaitTermination(long timeout, TimeUnit unit)
+  .. task submission ..
+  Future submit(Callable task)
+  Future submit(Runnable task)
+}
+abstract class AbstractExecutorService implements ExecutorService {
+  <T> RunnableFuture<T> newTaskFor(Runnable runnable, T value)
+}
+class ThreadPoolExecutor extends AbstractExecutorService
+
+interface BlockingQueue<Runnable>
+interface ThreadFactory {
+  Thread newThread(Runnable r);
+}
+interface RejectedExecutionHandler {
+  void rejectedExecution(Runnable r, ThreadPoolExecutor executor);
+}
+
+ThreadPoolExecutor *-- BlockingQueue
+ThreadPoolExecutor *-l- ThreadFactory
+ThreadPoolExecutor *-- RejectedExecutionHandler
+
+class ScheduledThreadPoolExecutor extends ThreadPoolExecutor implements ScheduledExecutorService
+interface ScheduledExecutorService extends ExecutorService
+----
+
+== task
+* CPU-bound
+* I/O-bound
+* long-running
+* short-running
+
+[plantuml,scale=0.5,svg]
+----
+interface Runnable {
+  void run()
+}
+interface Callable<V> {
+  V call() throws Exception;
+}
+----
+----
+Callable<T> task = Executors.callable(Runnable task, T result)
+Callable<Object> task = Executors.callable(Runnable task)
+----
+
+== task execution policy
+
+.execution policy specifies
+* what thread will tasks be executed?
+* what order should task be executed?
+* how many tasks execute concurrently?
+* which task should be cancelled?
+* what action before or after executing a task?
+
+. single-thread
+. thread-per-task
+. thread pool
+
+----
+Executors.newFixedThreadPool
+Executors.newCachedThreadPool
+TaskExecutionWebServer.
+
+Executors.newSingleThreadExecutor
+
+Executors.newScheduledThreadPool
+Executors.newSingleThreadScheduledExecutor
+ScheduledThreadPoolExecutor.
+----
+
+[source,java,linenums,indent=0]
+----
+public ThreadPoolExecutor(int corePoolSize,
+                          int maximumPoolSize,
+                          long keepAliveTime,
+                          TimeUnit unit,
+                          BlockingQueue<Runnable> workQueue,
+                          ThreadFactory threadFactory,
+                          RejectedExecutionHandler handler) {
+}
+----
+tasks submitted to a thread pool with a work queue that has any capacity and a core size of zero will not execute until the queue fills up
+
+compute-intensive task
+N [.small]#threads# = N [.small]#cpu# + 1
+one thread prevents CPU cycles from going unused when occasionally take a page fault or pause for some other reason
+
+memory, file handles, socket handles, and database connections.
+
+== Exception Handling
+
+execute --> return status
+submit --> rethrown ExecutionException
+
+
+
+// RejectedExecutionException
+
+// TODO rejected execution handler  Section 8.3.3
+=== thread leakage
+// TODO page 124
+----
+afterExecute()
+----
+
+== shutdown
+[source,java,linenums,indent=0]
+----
+ExecutorService exec = ...;
+try {
+    exec.shutdown();
+    exec.awaitTermination(TIMEOUT, UNIT);
+} finally {
+    ...
+}
+----
+
+== saturation policy
+. AbortPolicy
+. CallerRunsPolicy
+. DiscardPolicy
+. DiscardOldestPolicy
+
+== custom ThreadPoolExecutor
+----
+CustomThreadPoolExecutor extends ThreadPoolExecutor {
+  beforeExecute
+  afterExecute
+  terminate
+}
+----
+
+:numbered!:
+== See Also
+* xref:./ForkJoinPool.adoc[java.util.concurrent.ForkJoinPool]
+* xref:./ScheduledThreadPoolExecutor.adoc[java.util.concurrent.ScheduledThreadPoolExecutor]
+
+:numbered!:
+== References
+[bibliography]
+- [[[producer-consumer-pattern]]]
+- [[[Thread-pool-pattern]]] xref:{design_pattern_adoc}/concurrency/thread_pool.adoc[Thread pool]

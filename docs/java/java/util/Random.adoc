@@ -1,0 +1,12 @@
+= Random
+
+
+pseudorandom
+
+
+synchronized public double nextGaussian() {
+}
+
+
+entropy-based randomness
+SecureRandom

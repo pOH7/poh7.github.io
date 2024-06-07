@@ -1,0 +1,20 @@
+= Optional
+
+- isPresent()
+- get()
+
+.creation
+- empty()
+- of(value)
+- ofNullable(value)
+
+.operation
+- filter(Predicate)
+- map(Function)
+- flatMap(Function)
+
+.unpack
+- ifPresent(Consumer)
+- orElse(otherObject)
+- orElseGet(Supplier)
+- orElseThrow(Supplier)

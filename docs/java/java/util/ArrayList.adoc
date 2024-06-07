@@ -1,0 +1,73 @@
+= ArrayList
+
+// tag::uml[]
+[plantuml,scale=0.5,svg]
+....
+interface Collection<E>
+interface List<E> extends Collection
+abstract class AbstractList<E> implements List
+class ArrayList<E> extends AbstractList implements RandomAccess {
+  .. fixed size array ..
+  transient Object[] elementData
+  private int size
+}
+....
+// end::uml[]
+
+----
+public ArrayList() {
+    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+}
+public ArrayList(int initialCapacity) {
+    if (initialCapacity > 0) {
+        this.elementData = new Object[initialCapacity];
+    }
+    ...
+}
+----
+----
+public boolean add(E e) {
+    int minCapacity = Math.max(DEFAULT_CAPACITY, size + 1);
+    int oldCapacity = elementData.length;
+    if (minCapacity - oldCapacity > 0) {
+        int newCapacity = oldCapacity + (oldCapacity >> 1);
+        ...
+        elementData = Arrays.copyOf(elementData, newCapacity);
+    }
+    ...
+}
+----
+
+.resize
+. 0 -> DEFAULT_CAPACITY -> oldCapacity + (oldCapacity >> 1)
++
+----
+private static final int DEFAULT_CAPACITY = 10;
+0 -> 10 -> 15 -> 22 -> 33 -> 49 -> 73 -> 109
+----
+. initialCapacity -> oldCapacity + (oldCapacity >> 1)
+
+[tuning]
+.avoid resize
+. choose a correctly initialCapacity
+. java.util.ArrayList.ensureCapacity
+
+.remove
+----
+public E remove(int index) {
+    ...
+    System.arraycopy(elementData, index+1, elementData, index,
+numMoved);
+    ...
+}
+----
+
+.insert
+----
+public void add(int index, E element) {
+    ...
+    System.arraycopy(elementData, index, elementData, index + 1,
+                     size - index);
+    ...
+}
+----

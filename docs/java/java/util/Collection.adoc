@@ -1,0 +1,40 @@
+= Collection
+
+[plantuml,scale=0.5,svg]
+....
+interface Iterable<E> {
+  Iterator<E> iterator()
+}
+
+interface Collection<E> extends Iterable {
+  .. Query ..
+  int size()
+  boolean isEmpty()
+  boolean contains(Object o)
+  Object[] toArray()
+  <T> T[] toArray(T[] a)
+  .. Modification ..
+  boolean add(E e)
+  boolean remove(Object o)
+  .. Bulk ..
+  void clear()
+}
+
+interface Iterator<E> {
+  boolean hasNext()
+  E next()
+  void remove()
+}
+
+Iterable *-right- Iterator
+....
+
+== Iterator
+fail-fast
+
+lazy-initialization
+
+== Collections
+Collections.addAll()
+
+== Arrays

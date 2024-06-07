@@ -1,0 +1,26 @@
+
+[source,java,linenums,indent=0]
+----
+public class java.sql.DriverManager {
+    static {
+        loadInitialDrivers();
+    }
+
+    private static void loadInitialDrivers() {
+        String drivers = System.getProperty("jdbc.drivers");
+
+        // SPI
+        ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);
+        Iterator<Driver> driversIterator = loadedDrivers.iterator();
+        while(driversIterator.hasNext()) {
+            driversIterator.next();
+        }
+
+        // Break the Parent Delegation Model
+        for (String aDriver : driversList) {
+            Class.forName(aDriver, true,
+                    ClassLoader.getSystemClassLoader());
+        }
+    }
+}
+----

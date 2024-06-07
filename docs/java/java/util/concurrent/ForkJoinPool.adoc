@@ -1,0 +1,17 @@
+= ForkJoinPool
+
+[plantuml,scale=0.5,svg]
+----
+interface ExecutorService extends Executor
+abstract class AbstractExecutorService implements ExecutorService
+
+class ForkJoinPool extends AbstractExecutorService
+----
+
+divide-and-conquer algorithm
+
+-Djava.util.concurrent.ForkJoinPool.common.parallelism=N
+
+:numbered!:
+== See Also
+java.util.Collection.parallelStream

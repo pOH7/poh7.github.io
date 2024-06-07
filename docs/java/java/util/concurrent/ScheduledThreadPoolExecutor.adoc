@@ -1,0 +1,11 @@
+= ScheduledThreadPoolExecutor
+
+[plantuml,scale=0.5,svg]
+----
+interface ExecutorService extends Executor
+abstract class AbstractExecutorService implements ExecutorService
+class ThreadPoolExecutor extends AbstractExecutorService
+
+interface ScheduledExecutorService extends ExecutorService
+class ScheduledThreadPoolExecutor extends ThreadPoolExecutor implements ScheduledExecutorService
+----

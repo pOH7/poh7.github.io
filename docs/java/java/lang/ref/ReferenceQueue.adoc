@@ -1,0 +1,7 @@
+= ReferenceQueue
+
+reference queue is a way for the GC to inform the program that a certain object is no longer reachable
+
+can not re-attach
+
+https://learningviacode.blogspot.com/2014/02/reference-queues.html

@@ -1,0 +1,47 @@
+= Lock
+
+[plantuml,scale=0.5,svg]
+----
+interface Lock {
+  void lock()
+  void lockInterruptibly() throws InterruptedException
+  boolean tryLock()
+  boolean tryLock(long time, TimeUnit unit) throws InterruptedException
+  void unlock()
+  Condition newCondition()
+}
+class ReentrantLock implements Lock
+----
+
+.Sample Code
+[source,java,linenums,indent=0]
+----
+class X {
+  private final Lock lock = ...;
+  // ...
+
+  public void m() {
+    lock.lock();  // block until condition holds
+    try {
+      // access the resource protected by this lock
+    } finally {
+      lock.unlock();
+    }
+  }
+}
+----
+
+xref:java/util/concurrent/locks/ReentrantLock.adoc[]
+
+// TODO spinlock
+
+== ReentrantReadWriteLock, 读写锁
+read-mostly
+[plantuml,scale=0.5,svg]
+----
+interface ReadWriteLock {
+  Lock readLock();
+  Lock writeLock();
+}
+class ReentrantReadWriteLock implements ReadWriteLock
+----

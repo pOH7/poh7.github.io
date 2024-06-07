@@ -1,0 +1,23 @@
+= Object
+
+Object#hashCode() specification guarantees that two objects with unequal hash codes cannot be equal.
+
+== compareTo
+
+v>w
+v.compareTo(w)>0
+
+* Reflexive (for all v, v = v)
+* Antisymmetric (for all v and w, if
+v<w then w>v and if v=w then
+w=v)
+* Transitive (for all v, w, and x, if
+v<=w and w<=x then v<=x)
+
+== clone
+Cloneable or throws CloneNotSupportedException
+
+shallow copy::
+copy the top level of a data structure
+
+deep copy::

@@ -1,0 +1,90 @@
+= sun.misc.Unsafe
+
+[[barrier]]
+== memory barrier, 内存屏障
+
+[source,java]
+----
+/**
+ * Ensures that loads before the fence will not be reordered with loads and
+ * stores after the fence; a "LoadLoad plus LoadStore barrier".
+ *
+ * Corresponds to C11 atomic_thread_fence(memory_order_acquire)
+ * (an "acquire fence").
+ *
+ * A pure LoadLoad fence is not provided, since the addition of LoadStore
+ * is almost always desired, and most current hardware instructions that
+ * provide a LoadLoad barrier also provide a LoadStore barrier for free.
+ * @since 1.8
+ */
+public native void loadFence();
+
+/**
+ * Ensures that loads and stores before the fence will not be reordered with
+ * stores after the fence; a "StoreStore plus LoadStore barrier".
+ *
+ * Corresponds to C11 atomic_thread_fence(memory_order_release)
+ * (a "release fence").
+ *
+ * A pure StoreStore fence is not provided, since the addition of LoadStore
+ * is almost always desired, and most current hardware instructions that
+ * provide a StoreStore barrier also provide a LoadStore barrier for free.
+ * @since 1.8
+ */
+public native void storeFence();
+
+/**
+ * Ensures that loads and stores before the fence will not be reordered
+ * with loads and stores after the fence.  Implies the effects of both
+ * loadFence() and storeFence(), and in addition, the effect of a StoreLoad
+ * barrier.
+ *
+ * Corresponds to C11 atomic_thread_fence(memory_order_seq_cst).
+ * @since 1.8
+ */
+public native void fullFence();
+----
+
+CPU provide 4 type barrier
+
+* LoadLoad
+* StoreStore
+* LoadStore
+* StoreLoad
+
+x86 CPU only provide StoreLoad barrier
+
+== CAS
+----
+/**
+ * Atomically update Java variable to x if it is currently holding expected.
+ */
+public final native boolean compareAndSwapInt(Object o, long offset,
+                                              int expected,
+                                              int x);
+
+/**
+ * Report the location of a given static field
+ */
+public native long objectFieldOffset(Field f);
+----
+
+== block/unblock thread
+
+----
+/**
+ * Unblock the given thread blocked on park,
+ * or, if it is not blocked, cause the subsequent call to park not to block.
+ */
+public native void unpark(Object thread);
+
+/**
+ * Block current thread, returning when a balancing unpark occurs,
+ * or a balancing unpark has already occurred,
+ * or the thread is interrupted,
+ * or, if not absolute and time is not zero, the given time nanoseconds have elapsed,
+ * or if absolute, the given deadline in milliseconds since Epoch has passed,
+ * or spuriously (i.e., returning for no "reason").
+ */
+public native void park(boolean isAbsolute, long time);
+----

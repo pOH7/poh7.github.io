@@ -1,0 +1,112 @@
+= ThreadLocal
+
+ThreadLocal allows each thread to have its own private "version" of a variable.
+
+
+[plantuml,scale=0.5,svg]
+----
+class Thread {
+  ThreadLocal.ThreadLocalMap threadLocals
+}
+
+class ThreadLocal<T> {
+}
+class ThreadLocal.ThreadLocalMap {
+  Entry[] table
+}
+
+abstract class Reference<ThreadLocal<?>>
+class WeakReference<ThreadLocal<?>> extends Reference
+class Entry extends WeakReference {
+  Object value
+}
+
+Thread *-- ThreadLocal.ThreadLocalMap
+ThreadLocal.ThreadLocalMap *-r- Entry
+----
+
+----
+private static ThreadLocal<Connection> connectionHolder
+        = ThreadLocal.withInitial(() -> DriverManager.getConnection(DB_URL));
+
+public static Connection getConnection() {
+    return connectionHolder.get();
+}
+----
+
+
+
+[source,java,linenums,indent=0]
+----
+// java.lang.ThreadLocal.set
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = t.threadLocals;
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+// java.lang.ThreadLocal.ThreadLocalMap.set
+private void set(ThreadLocal<?> key, Object value) {
+    Entry[] tab = table;
+    int len = tab.length;
+    int i = key.threadLocalHashCode & (len-1);
+
+    for (Entry e = tab[i];
+         e != null;
+         e = tab[i = (i + 1) / len]) {
+        ThreadLocal<?> k = e.get();
+
+        if (k == key) {
+            e.value = value;
+            return;
+        }
+
+        if (k == null) {
+            replaceStaleEntry(key, value, i);
+            return;
+        }
+    }
+
+    tab[i] = new Entry(key, value);
+    int sz = ++size;
+    if (!cleanSomeSlots(i, sz) && sz >= threshold)
+        rehash();
+}
+----
+
+
+[source,java,linenums,indent=0]
+----
+// java.lang.ThreadLocal.get
+public T get() {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = t.threadLocals;
+    if (map != null) {
+        ThreadLocalMap.Entry e = map.getEntry(this);
+        if (e != null) {
+            T result = (T)e.value;
+            return result;
+        }
+    }
+    return setInitialValue();
+}
+// java.lang.ThreadLocal.ThreadLocalMap.getEntry
+private Entry getEntry(ThreadLocal<?> key) {
+    int i = key.threadLocalHashCode & (table.length - 1);
+    Entry e = table[i];
+    if (e != null && e.get() == key)
+        return e;
+    else
+        return getEntryAfterMiss(key, i, e);
+}
+----
+
+0x61c88647 = 1640531527 ≈ 2 ^ 32 * (1 - 1 / φ), φ = (√5 + 1) ÷ 2
+
+http://cs.oswego.edu/pipermail/concurrency-interest/2007-October/004456.html
+https://stackoverflow.com/questions/38994306/what-is-the-meaning-of-0x61c88647-constant-in-threadlocal-java
+https://www.cnblogs.com/zhangjk1993/archive/2017/03/29/6641745.html
+https://www.codercc.com/backend/basic/juc/concurrent-container/ThreadLocal.html
+https://droidyue.com/blog/2016/03/13/learning-threadlocal-in-java/

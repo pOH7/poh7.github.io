@@ -1,0 +1,24 @@
+= OutOfMemoryError
+
+-XX:+ExitOnOutOfMemoryError
+
+-XX:+CrashOnOutOfMemoryError
+
+-XX:OnOutOfMemoryError=...
+
+-XX:OnOutOfMemoryError="kill -9 %p"
+----
+#
+# java.lang.OutOfMemoryError: GC overhead limit exceeded
+# -XX:OnOutOfMemoryError="kill -9 %p"
+#   Executing "kill -9 56608"...
+fish: Job 1, 'java -XX:+ExitOnOutOfMemoryEr...' terminated by signal SIGKILL (Forced quit)
+----
+
+ExitOnOutOfMemoryError - When you enable this option, the JVM exits on the first occurrence of an out-of-memory error. It can be used if you prefer restarting an instance of the JVM rather than handling out of memory errors.
+
+CrashOnOutOfMemoryError - If this option is enabled, when an out-of-memory error occurs, the JVM crashes and produces text and binary crash files (if core files are enabled).
+
+http://www.oracle.com/technetwork/java/javase/8u92-relnotes-2949471.html
+https://stackoverflow.com/questions/12096403/java-shutting-down-on-out-of-memory-error
+https://github.com/airlift/jvmkill

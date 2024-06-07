@@ -1,0 +1,71 @@
+= I/O
+
+== Blocking IO - java.io
+
+image::../../images/multi_thread_blocking_io.png[]
+
+[NOTE]
+I/O must be properly buffered for files and sockets, and also for internal operations like compression and string encoding
+
+// tag::diagram[]
+[plantuml,scale=0.5,svg]
+----
+abstract class InputStream
+class FileInputStream extends InputStream
+class ByteArrayInputStream extends InputStream
+class FilterInputStream extends InputStream {
+  InputStream in
+}
+class BufferedInputStream extends FilterInputStream
+FilterInputStream *-- InputStream
+----
+// end::diagram[]
+
+.java.io.tmpdir
+----
+java -Djava.io.tmpdir=/home/pohvii/Temp
+System.out.println(System.getProperty("java.io.tmpdir"));
+----
+
+== Non-Blocking IO - java.nio
+
+Channel::
+A channel represents an open connection to an entity such as a hardware device, a file, a network socket, or a program component that is capable of performing one or more distinct I/O operations, for example reading or writing.
+
+. SocketChannel
+. ServerSocketChannel
+. FileChannel
+
+Buffer::
+A container for data of a specific primitive type.
+
+. ByteBuffer
+
+Selector::
+Selector is a class which implements readiness notification.
+Based on system call `select` or `epoll`
+
+. read readiness
+. write readiness
+. accept readiness
+
+image::../../images/selector_non_blocking_io.png[]
+
+Path p = Paths.get("")
+
+Files
+FileSystems
+
+
+== I/O Models
+
+. blocking I/O
+. nonblocking I/O
+. I/O multiplexing (select and poll)
+. signal driven I/O (SIGIO)
+. asynchronous I/O (the POSIX aio_functions)
+
+== Netty
+
+
+

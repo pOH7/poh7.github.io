@@ -1,0 +1,19 @@
+= StringBuilder
+
+[plantuml,scale=0.5,svg]
+----
+abstract class AbstractStringBuilder implements Appendable, CharSequence {
+  char[] value
+  int count
+}
+class StringBuilder extends AbstractStringBuilder
+----
+
+[source,java,linenums,indent=0]
+----
+//java.lang.StringBuilder#toString
+public String toString() {
+    // Create a copy, don't share the array
+    return new String(value, 0, count);
+}
+----
