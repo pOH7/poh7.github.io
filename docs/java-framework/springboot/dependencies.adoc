@@ -26,5 +26,32 @@ sbsp --> sbd
 </plugin>
 ----
 
+== custom project guide
+[plantuml,scale=0.5,svg]
+----
+object "project-parent" as pp {
+    pluginManagement: plugin configuration
+}
+object "project-dependencies" as pd {
+    properties: artifactId version
+    dependencyManagement
+    pluginManagement: plugin version
+}
+object "project-bom" as pb {
+    properties: module version
+    dependencyManagement: module artifacts
+}
+object "/pom.xml" as pom {
+    repositories
+    pluginRepositories
+    distributionManagement
+}
+object "spring-boot-starter-parent" as sbsp
+
+pp --> pd
+pd --> sbsp
+pd::dependencyManagement --> pb: import
+----
+
 == References
 - source code of org.springframework.boot:spring-boot-dependencies:2.3.12.RELEASE

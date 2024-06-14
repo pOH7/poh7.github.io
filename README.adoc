@@ -26,3 +26,5 @@ find docs -name '*.adoc' -exec npx downdoc {} \;
 pyenv activate gitbook
 mkdocs serve
 ----
+
+https://github.com/opendevise/downdoc
