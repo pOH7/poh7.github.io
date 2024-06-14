@@ -1,0 +1,20 @@
+
+
+apt install fail2ban
+
+/etc/fail2ban/jail.local
+----
+[DEFAULT]
+destemail = your@email.here
+sendername = Fail2Ban
+
+[sshd]
+enabled = true
+port = 22
+
+[sshd-ddos]
+enabled = true
+port = 22
+----
+
+systemctl restart fail2ban

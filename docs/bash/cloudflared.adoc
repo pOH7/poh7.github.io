@@ -1,0 +1,32 @@
+= cloudflared
+
+----
+brew install cloudflared
+sudo cloudflared service install
+cat /Library/LaunchDaemons/com.cloudflare.cloudflared.plist
+vi /usr/local/etc/cloudflared/config.yml
+----
+
+----
+proxy-dns: true
+proxy-dns-upstream:
+  - https://1.1.1.1/dns-query
+  - https://8.8.8.8/dns-query
+----
+
+----
+dig @127.0.0.1 google.com AA
+dig google.com AA
+----
+
+https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/tunnel-useful-terms/#default-cloudflared-directory
+https://blog.smittytone.net/2022/05/07/how-to-do-dns-over-https-on-macos/
+
+== Debian Bullseye
+----
+curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared bullseye main' | sudo tee /etc/apt/sources.list.d/cloudflared.list
+sudo apt-get update && sudo apt-get install cloudflared
+----
+https://pkg.cloudflare.com/index.html
+https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/dns-over-https-client/

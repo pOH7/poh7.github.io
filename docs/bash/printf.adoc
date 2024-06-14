@@ -1,0 +1,37 @@
+
+
+----
+#!/bin/bash
+
+# Define a variable with special characters
+original_value='Hello % World #'
+
+# Use eval and printf to set a new variable with the original value
+eval "$(printf "new_value='%s'" "$original_value")"
+
+# Print the original and new values
+echo "Original Value: $original_value"
+echo "New Value: $new_value"
+----
+
+----
+#!/bin/bash
+
+# Define a variable with special characters, including backticks
+original_value='Hello % World # with `backticks`'
+
+# Escape backticks in the original value
+escaped_value=$(echo "$original_value" | sed "s/\`/\\\`/g")
+
+# Use eval and printf to set a new variable with the original value
+eval "$(printf "new_value='%s'" "$escaped_value")"
+
+# Print the original and new values
+echo "Original Value: $original_value"
+echo "New Value: $new_value"
+
+----
+
+----
+envsubst "$(printf '${%s} ' ${config_envs})"'${INSTALL_PATH} ${DATA_PATH} ${BACKUP_PATH} ${LOGS_PATH} ${TEMP_PATH} ${app}' <"${file}.template" >"${file}"
+----

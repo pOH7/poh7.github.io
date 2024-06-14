@@ -1,0 +1,63 @@
+= tmux
+
+== tmuxinator
+
+== tmux
+.help
+<prefix>?
+
+=== Session
+
+.list Session
+<prefix>s
+
+.attach Session
+tmux a -t myname  (or at, or attach)
+
+.detach Session
+<prefix>d
+
+.rename Session
+<prefix>$
+
+=== Window
+
+.create Window
+<prefix>c
+
+.list Window
+<prefix>w
+
+.select Window
+<prefix><number>
+
+.kill Window
+<prefix>&
+
+.rename Window
+<prefix>,
+
+=== Pane
+.split window horizontally
+<prefix>%
+
+.split window vertically
+<prefix>"
+
+.show Pane numbers
+<prefix>q
+
+.when the numbers show up type the key to goto that pane
+<prefix>q<number>
+
+.kill Pane
+<prefix>x
+
+.swap panes
+<prefix>o
+
+.toggle between layouts
+<prefix><Space>
+
+.toggle pane zoom
+<prefix>z

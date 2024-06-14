@@ -1,0 +1,48 @@
+= nvm
+// tags: nodejs, nvm, npm
+
+== macOS install
+brew install nvm
+omf install bass
+
+.$OMF_CONFIG/init.fish
+----
+function nvm
+   bass source (brew --prefix nvm)/nvm.sh --no-use ';' nvm $argv
+end
+
+set -x NVM_DIR ~/.nvm
+nvm use default --silent
+----
+
+https://medium.com/@joshuacrass/nvm-on-mac-for-fish-users-e00af124c540
+https://github.com/edc/bass
+
+== Linux install
+----
+git clone git@github.com:nvm-sh/nvm.git .nvm
+git checkout v0.39.3
+
+~/.profile
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
+export NODE_MIRROR=https://mirrors.ustc.edu.cn/node/
+----
+
+== mirror
+----
+npm config set registry https://registry.npmmirror.com
+----
+https://blog.csdn.net/liguangfenglucky/article/details/136183624
+
+== usage
+nvm install 14
+nvm use 14
+nvm ls-remote
+
+nvm alias default 14
+
+https://github.com/nvm-sh/nvm
+https://mirrors.ustc.edu.cn/help/node.html

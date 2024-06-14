@@ -1,0 +1,19 @@
+
+Export the first 1000 lines of multiple databases
+----
+mysqldump --databases my_app1 my_app2 --where="1 limit 1000" > my_backup.sql
+----
+
+https://mysqldump.guru/how-to-limit-the-number-or-records-from-mysqldump.html
+
+== install mysql-client
+----
+yum install -y https://dev.mysql.com/get/mysql80-community-release-el7-11.noarch.rpm
+yum repolist all | grep mysql
+yum-config-manager --disable mysql-connectors-community
+yum repolist enabled | grep mysql
+yum install mysql-community-client
+----
+https://dev.mysql.com/downloads/repo/yum/
+https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/
+https://stackoverflow.com/questions/5287220/is-there-a-way-to-only-install-the-mysql-client-linux

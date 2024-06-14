@@ -1,0 +1,8 @@
+
+----
+brew install asdf
+echo -e "\nsource "(brew --prefix asdf)"/libexec/asdf.fish" >> ~/.config/fish/config.fish
+----
+
+https://github.com/asdf-vm/asdf
+https://github.com/asdf-vm/asdf-plugins

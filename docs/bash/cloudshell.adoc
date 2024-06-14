@@ -1,0 +1,8 @@
+
+
+download file
+----
+cloudshell download test1.md test2.md
+----
+
+https://cloud.google.com/shell/docs/uploading-and-downloading-files

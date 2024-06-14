@@ -1,0 +1,6 @@
+
+
+----
+dig @127.0.0.1 apple.com AA
+dig @240c::6666 apple.com AAAA
+----

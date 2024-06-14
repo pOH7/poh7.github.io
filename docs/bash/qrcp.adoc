@@ -1,0 +1,5 @@
+
+https://github.com/claudiodangelis/qrcp
+
+.Send a file
+qrcp -k -i en0 MyDocument.pdf

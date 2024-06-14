@@ -1,0 +1,4 @@
+# adb
+
+## 打开wifi设置界面
+adb shell am start -n com.android.settings/com.android.settings.wifi.WifiSettings

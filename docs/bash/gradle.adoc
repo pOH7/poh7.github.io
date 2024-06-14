@@ -1,0 +1,60 @@
+= Gradle
+
+----
+gradle init --type java-application --dsl groovy --project-name dependency-test --package com.pohvii.note --test-framework junit
+----
+
+Excluding a transitive dependency
+----
+dependencies {
+    implementation('commons-beanutils:commons-beanutils:1.9.4') {
+        exclude group: 'commons-collections', module: 'commons-collections'
+    }
+}
+----
+https://docs.gradle.org/current/userguide/dependency_downgrade_and_exclude.html
+
+Upgrading the Wrapper version
+----
+./gradlew wrapper --gradle-version 7.4.1 --distribution-type all
+----
+
+ls ~/.gradle/wrapper/dists/gradle-7.4.1-all/htb4l60oox3i12rnwfoqoo8d/gradle-7.4.1-all.zip
+
+
+== load local jar
+----
+repositories {
+   flatDir {
+       dirs 'libs'
+   }
+}
+
+
+dependencies {
+   implementation name: 'gson-2.2.4'
+   implementation ":gson:2.2.4"
+}
+----
+
+----
+dependencies {
+    implementation files('libs/something_local.jar')
+}
+----
+https://docs.gradle.org/5.2.1/userguide/dependency_types.html#sub:file_dependencies
+
+== exclude
+----
+compile('org.eclipse.birt.runtime:org.eclipse.birt.runtime:4.4.2') {
+    exclude group: 'org.eclipse.birt.runtime', module: 'org.eclipse.orbit.mongodb'
+    exclude group: 'org.eclipse.birt.runtime.3_7_1', module: 'org.apache.commons.codec'
+}
+----
+
+== mirror
+https://www.cnblogs.com/bluestorm/p/14761482.html
+https://help.aliyun.com/document_detail/102512.html
+
+== run test
+./gradlew test

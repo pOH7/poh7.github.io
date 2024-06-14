@@ -1,0 +1,70 @@
+= Sed
+
+
+.替换「/」为「\」
+----
+sed -i "s:/:\\\:g" "music.m3u8"
+----
+
+.按字符注释
+----
+sed -i "s/^\(.*depend.*\)$/#&/" install-my.sh
+----
+
+.按行注释
+----
+sed -i "/init database/,+2s/\(.*\)/#&/" install-my.sh
+----
+
+----
+sed -i "71,82s/^/#/" filename
+----
+
+.删除
+sed -i "/^server ${ntpServer} iburst$/d" $HOME/web-server/temp/ntp.conf
+
+.supported address types
+- /regexp/
+- \cregexpc : The c may be any character
+
+
+sed '/检查服务状态开始重试/,+37d' zkspl.log > zkspl_2.log
+
+.只替换一次
+sed -i "0,/^#server.*/s//server ${ntpServer} iburst\n&/" $HOME/web-server/temp/ntp.conf
+
+.replace whole line
+----
+sed -i '/TEXT_TO_BE_REPLACED/c\This line is removed by the admin.' /tmp/foo
+----
+
+sed -i --follow-symlinks
+
+.insert line after X lines after match
+----
+sed "/function_1/{N;N;N;a new_text
+}" filename
+----
+
+.add new line after match
+----
+sed '/unix/ a \ "Add a new line"' file.txt
+----
+
+.remove all line after match
+----
+sed -i '/VM_OPTS/q' file.txt
+----
+
+.multi pattern
+----
+sed -i 's/SLURM_JOB_USER/REPLACE1/g;s/SLURM_SUBMIT_DIR/REPLACE2/g' test.txt
+----
+
+.search text in folder
+----
+grep -rl "example" /home/user/documents
+----
+
+- -r: Recursively search through subdirectories.
+- -l: Only list the file names that contain the specified text.

@@ -1,0 +1,21 @@
+docker pull sameersbn/bind:9.11.3-20190706
+
+docker run --name bind -d --restart=always \
+  --publish 192.168.1.42:53:53/tcp --publish 192.168.1.42:53:53/udp --publish 10000:10000/tcp \
+  --volume /Users/zhanglei/Docker/bind:/data \
+  sameersbn/bind:9.11.3-20190706
+
+## Shell Access
+docker exec -it bind bash
+
+## 查询域名对应的IP地址
+host mail.pohvii.com
+host mail.pohvii.com 192.168.1.42
+
+## 哪个dns server返回的
+nslookup mail.pohvii.com
+
+## 返回整个解析过程的详细描述
+dig mail.pohvii.com
+dig @192.168.1.42 mail.pohvii.com
+

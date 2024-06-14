@@ -1,0 +1,7 @@
+
+docker run --name postgres \
+-e POSTGRES_USER=discourse \
+-e POSTGRES_PASSWORD=discourse \
+-p 5432:5432 -d postgres
+
+https://hub.docker.com/_/postgres

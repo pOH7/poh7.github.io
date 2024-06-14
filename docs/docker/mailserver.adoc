@@ -1,0 +1,25 @@
+https://github.com/tomav/docker-mailserver
+
+cd ~/Docker/mailserver
+## update
+docker pull tvial/docker-mailserver:latest
+## start
+docker-compose up -d mail
+## stop
+docker-compose down
+
+## Get the tools
+curl -o setup.sh https://raw.githubusercontent.com/tomav/docker-mailserver/master/setup.sh; chmod a+x ./setup.sh
+curl -o docker-compose.yml https://raw.githubusercontent.com/tomav/docker-mailserver/master/docker-compose.yml.dist
+curl -o .env https://raw.githubusercontent.com/tomav/docker-mailserver/master/.env.dist
+
+## Create your mail accounts
+./setup.sh email add zhanglei@pohvii.com 123456
+
+## Generate DKIM keys
+./setup.sh config dkim
+
+imap收件
+mail.pohvii.com   993 SSL
+smtp发件
+mail.pohvii.com   587 TSL

@@ -1,0 +1,6 @@
+= xargs
+
+somecommand | xargs -I {} command {}
+
+.使用 \0 作为定界符
+somecommand | xargs -0 command

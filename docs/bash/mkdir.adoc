@@ -1,0 +1,4 @@
+= mkdir
+
+.Make directories for 36 months using brace expansion
+mkdir {2021..2023}-{01..12}

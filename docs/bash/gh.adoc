@@ -1,0 +1,9 @@
+
+----
+brew install gh
+gh auth login
+gh extension install github/gh-copilot
+gh copilot
+----
+
+https://dev.to/github/stop-struggling-with-terminal-commands-github-copilot-in-the-cli-is-here-to-help-4pnb

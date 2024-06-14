@@ -1,0 +1,37 @@
+= pure-ftpd
+
+https://github.com/stilliard/docker-pure-ftpd
+
+## install
+docker pull stilliard/pure-ftpd:hardened
+
+docker run \
+-d --restart=always --name ftpd_server \
+-e FTP_PASSIVE_PORTS=10000:10009 --expose=10000-10009 -p 21:21 -p 10000-10009:10000-10009 \
+-e "PUBLICHOST=172.16.173.42" \
+-e FTP_USER_HOME=/home/ftpusers/test -v /home/ftpusers/test:/home/ftpusers/test \
+-e FTP_USER_UID=1000 -e FTP_USER_GID=1000 -e FTP_USER_NAME=test -e FTP_USER_PASS=test \
+stilliard/pure-ftpd
+
+## atach
+docker exec -it ftpd_server /bin/bash
+
+## 添加用户
+pure-pw useradd test -f /etc/pure-ftpd/passwd/pureftpd.passwd -m -u 1001 -g 1001 -d /home/ftpusers/test
+
+## 修改密码
+pure-pw passwd test -f /etc/pure-ftpd/passwd/pureftpd.passwd -m
+
+## start
+docker start ftpd_server
+
+
+### 匿名
+docker run -d --name ftpd_server -p 21:21 -p 30000-30009:30000-30009 stilliard/pure-ftpd:hardened bash /run.sh -c 30 -C 10 -l puredb:/etc/pure-ftpd/pureftpd.pdb -j -R -P localhost -p 30000:30059
+docker exec -it ftpd_server /bin/bash
+$ useradd -d /var/ftp -s /sbin/nologin ftp
+$ mkdir /var/ftp
+$ chmod 777 /var/ftp
+
+# 参考
+[使用 Docker 快速搭建 FTP 服务](https://www.jianshu.com/p/e51fe1975c29)

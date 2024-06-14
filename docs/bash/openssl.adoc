@@ -1,0 +1,21 @@
+
+# 验证证书是否正确
+openssl pkey -in privateKey.key -pubout -outform pem | sha256sum
+openssl x509 -in certificate.crt -pubkey -noout -outform pem | sha256sum
+openssl req -in CSR.csr -pubkey -noout -outform pem | sha256sum
+
+== create
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout nginx-selfsigned.key -out nginx-selfsigned.crt
+
+Common Name (e.g. server FQDN or YOUR name): server_name
+
+
+https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-16-04
+
+
+== test ssl
+----
+docker run --rm -ti  drwetter/testssl.sh https://blog.pohvii.cloud
+----
+https://github.com/drwetter/testssl.sh#docker
+https://testssl.sh/

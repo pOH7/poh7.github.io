@@ -1,0 +1,8 @@
+docker run -d --name upsource --restart always \
+-v /Users/Shared/upsource/data:/opt/upsource/data \
+-v /Users/Shared/upsource/conf:/opt/upsource/conf \
+-v /Users/Shared/upsource/logs:/opt/upsource/logs \
+-v /Users/Shared/upsource/backups:/opt/upsource/backups \
+-p 10005:8080 \
+jetbrains/upsource:2019.1.1644
+

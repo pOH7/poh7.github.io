@@ -1,0 +1,49 @@
+= ulimit
+
+
+== disable core dump
+
+temporarily set the coredump path
+----
+mkdir -p /tmp/cores
+chmod a+rwx /tmp/cores
+echo "/tmp/cores/core.%e.%p.%h.%t" > /proc/sys/kernel/core_pattern
+
+----
+
+force a core dump
+----
+yes > /dev/null &
+kill -SIGABRT $(pidof yes)
+ls /tmp/cores
+----
+
+disable core dump
+----
+ulimit -c 0
+----
+
+cat /proc/<PID>/limits
+----
+Limit                     Soft Limit           Hard Limit           Units
+Max core file size        0                    0                    bytes
+----
+
+/etc/security/limits.conf
+----
+*               soft    core            0
+----
+
+
+
+
+ulimit -Sa <username>
+
+ulimit -Ha <username>
+
+
+man ulimit
+man limits.conf
+
+
+https://linuxhint.com/permanently_set_ulimit_value/

@@ -1,0 +1,90 @@
+= pandoc
+
+== install
+----
+# https://github.com/jgm/pandoc/releases/tag/2.11.3.2
+tar -zxf pandoc-2.11.3.2-linux-amd64.tar.gz
+22.2
+ln -s /opt/pandoc-2.11.3.2/bin/pandoc /usr/bin/pandoc
+----
+
+== demo
+https://pandoc.org/demos.html
+
+=== html5
+pandoc -N -f docbook -t html5 --self-contained -s demo.xml -o demo.html
+
+==== embed images in html
+https://pandoc.org/MANUAL.html#option--self-contained
+
+=== docx
+pandoc -f docbook -t docx --reference-doc custom-reference.docx demo.xml -o demo.docx
+
+.reference-doc
+pandoc --print-default-data-file reference.docx > custom-reference.docx
+
+NOTE: https://support.office.com/en-us/article/Customize-or-create-new-styles-in-Word-d38d6e47-f6fc-48eb-a607-1eb120dec563#manual[how to modify a custom style]
+
+
+=== pdf
+
+pandoc -N -f docbook --template=template.latex -s demo.xml -o demo.pdf --pdf-engine=xelatex -V mainfont='WenQuanYi Micro Hei Mono'
+
+pandoc -D latex > template.latex
+
+==== with Chinese
+https://github.com/jgm/pandoc/wiki/Pandoc-With-Chinese-(简体中文)
+
+.pdf-engine
+----
+yum -y install \
+       texlive \
+       texlive-xetex \
+       texmake \
+       texlive-cjk \
+       texlive-latex \
+       texlive-collection-latex \
+       texlive-collection-latexrecommended \
+       texlive-xetex-def \
+       texlive-collection-xetex
+----
+
+.mainfont
+----
+yum -y groupinstall Fonts
+# fc-cache
+# fc-list :lang=zh
+----
+
+=== docx -> asciidoc
+pandoc --from=docx --to=asciidoc --wrap=none --markdown-headings=atx --extract-media=images input.docx > output.adoc
+
+=== add figures
+https://laurentrdc.github.io/pandoc-plot/MANUAL.html
+brew install pandoc-plot
+pip3 install matplotlib
+--filter pandoc-plot -M plot-configuration=/Users/zhanglei/Gitbook/asciidoctor/filter/plot.yml
+
+[source,matplotlib]
+----
+import matplotlib.pyplot as plt
+
+plt.figure()
+plt.plot([0,1,2,3,4], [1,2,3,4,5])
+plt.title('This is an example figure')
+----
+
+== adoc -> md
+----
+asciidoctor --require=asciidoctor-diagram --safe --backend=docbook -a plantumlconfig="/path/to/plantuml.cfg input.adoc --out-file=output.xml
+pandoc -f docbook -t markdown input.xml -o output.md
+----
+
+https://pandoc.org/MANUAL.html
+
+//== debug lua filter
+//brew install lua@5.3
+//brew install luarocks
+//luarocks --lua-dir=/usr/local/opt/lua@5.3 install mobdebug
+//luarocks --lua-dir=/usr/local/opt/lua@5.3 install luasocket
+

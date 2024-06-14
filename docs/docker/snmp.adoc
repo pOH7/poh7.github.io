@@ -1,0 +1,17 @@
+docker run \
+-d \
+--name snmpd \
+-p 161:161/udp \
+polinux/snmpd
+
+
+
+Runs SNMPv3 enabled daemon. Default configuration:
+
+User: user Priv: Password1 Enc: Password1
+
+SHA/AES
+
+How to use:
+
+docker run -it -p 161:161/udp nothrow/snmpv3

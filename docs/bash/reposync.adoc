@@ -1,0 +1,21 @@
+
+
+reposync -np /home/repo
+
+createrepo -p /data/centos/7/64bit/base/
+
+----
+server {
+    listen       80;
+    server_name  localhost;
+
+    access_log  /var/log/nginx/repo.access.log  main;
+    autoindex on;
+    autoindex_exact_size on;
+    autoindex_localtime on;
+    location / {
+        root   /data;
+        index  index.html index.htm;
+    }
+}
+----

@@ -1,0 +1,14 @@
+= MySQL
+
+https://hub.docker.com/_/mysql
+
+== init
+/docker-entrypoint-initdb.d
+
+=== use environment variables
+docker_process_sql --database=mydb <<<'INSERT ...'
+
+docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -e MYSQL_DATABASE=test -p 3306:3306 mysql --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+
+https://kubernetes.io/zh/docs/tasks/run-application/run-replicated-stateful-application/

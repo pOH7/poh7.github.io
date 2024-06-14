@@ -1,0 +1,13 @@
+docker run -d \
+    --name pihole \
+    -p 53:53/tcp -p 53:53/udp \
+    -p 10006:80 \
+    -p 10007:443 \
+    -e TZ="Asia/Shanghai" \
+    -e WEBPASSWORD="password" \
+    -e ServerIP=192.168.1.42 \
+    -v "/Users/zhanglei/Docker/pihole/etc-pihole/:/etc/pihole/" \
+    -v "/Users/zhanglei/Docker/pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/" \
+    --dns=127.0.0.1 --dns=114.114.114.114 \
+    --restart=unless-stopped \
+    pihole/pihole:latest

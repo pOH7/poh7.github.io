@@ -1,0 +1,37 @@
+
+== utf8
+----
+RUN yum install -y glibc-common && \
+    yum clean all && \
+    rm -rf /var/cache/yum && \
+    localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8
+ENV LANG zh_CN.UTF-8
+----
+
+
+----
+# 中文
+RUN localedef -c -f UTF-8 -i zh_CN zh_CN.UTF-8
+ENV LANG zh_CN.UTF-8
+
+# 时区
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+----
+
+
+----
+FROM centos:7
+https://hub.docker.com/_/centos
+yum list installed > packages.log
+----
+
+== openssh-server
+----
+yum install openssh-server
+ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+ssh-keygen -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key
+ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key
+/usr/sbin/sshd
+----

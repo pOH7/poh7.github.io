@@ -1,0 +1,66 @@
+= Mapper Location
+
+buildSqlSessionFactory
+
+----
+for (Resource mapperLocation : this.mapperLocations) {
+    XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(mapperLocation.getInputStream(), // ...
+    xmlMapperBuilder.parse();
+}
+----
+
+----
+  public void parse() {
+      configurationElement(parser.evalNode("/mapper"));
+  }
+
+  private void configurationElement(XNode context) {
+      buildStatementFromContext(context.evalNodes("select|insert|update|delete"));
+  }
+----
+
+----
+  private void buildStatementFromContext(List<XNode> list) {
+    if (configuration.getDatabaseId() != null) {
+      buildStatementFromContext(list, configuration.getDatabaseId());
+    }
+    buildStatementFromContext(list, null);
+  }
+----
+
+----
+  public void parseStatementNode() {
+    String id = context.getStringAttribute("id");
+    String databaseId = context.getStringAttribute("databaseId");
+
+    if (!databaseIdMatchesCurrent(id, databaseId, this.requiredDatabaseId)) {
+      return;
+    }
+
+    builderAssistant.addMappedStatement( // ...
+  }
+----
+
+----
+    configuration.addMappedStatement(statement);
+
+  public void addMappedStatement(MappedStatement ms) {
+    mappedStatements.put(ms.getId(), ms);
+  }
+
+
+    public V put(String key, V value) {
+      if (containsKey(key)) {
+        throw new IllegalArgumentException(name + " already contains value for " + key // ...
+      }
+      if (key.contains(".")) {
+        final String shortKey = getShortName(key);
+        if (super.get(shortKey) == null) {
+          super.put(shortKey, value);
+        } else {
+          super.put(shortKey, (V) new Ambiguity(shortKey));
+        }
+      }
+      return super.put(key, value);
+    }
+----

@@ -1,0 +1,7 @@
+
+----
+git clone https://github.com/andorchen/rbenv-china-mirror.git ~/.rbenv/plugins/rbenv-china-mirror
+----
+
+
+https://github.com/rbenv/fish-rbenv

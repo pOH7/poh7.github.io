@@ -1,0 +1,33 @@
+
+----
+curl -x socks5://localhost:2121 http://www.example.com
+curl -H "Host: webapp.istioinaction.io" https://webapp.istioinaction.io:8443/api/catalog --cacert ch4/certs/2_intermediate/certs/ca-chain.cert.pem --resolve webapp.istioinaction.io:8443:127.0.0.1
+----
+
+curl --version | grep -i SSL
+
+- *-u* : curl -u username:password
+- *-O* : save file in current working directory, use remote file name
+- *-L* : following 3XX  response
+- *-s* : Don't show progress meter or error messages
+- *-H* : custom header
+- *--resolve* : <host:port:address>
+- *-k* : allow insure SSL
+- *--cacert* : custom CA certificate chain
+- *--cert* : client cert
+- *--key* : client key
+- *-w "\n"* : automatically add newline
+- *-I* : fetch the HTTP-hearer only
+- *-D -* : dump the header to stdout
+
+== proxy
+global config
+~/.curlrc
+----
+socks5 = "127.0.0.1:1080"
+----
+
+== auth
+----
+curl -u username:password https://www.example.com
+----

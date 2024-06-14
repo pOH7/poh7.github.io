@@ -1,0 +1,6 @@
+
+
+https://zeppelin.apache.org/docs/0.9.0/quickstart/install.html
+https://zeppelin.apache.org/download.html
+
+docker run -p 8080:9080 --rm --name zeppelin apache/zeppelin:0.9.0

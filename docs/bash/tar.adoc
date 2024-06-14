@@ -1,0 +1,69 @@
+# tar
+
+## 示例
+
+压缩
+tar -zcvf archive.tar.gz dir
+
+解压
+tar -zxvf archive.tar.gz
+
+查看
+tar -tvf archive.tar.gz
+
+## 参数说明
+create a new archive file
+----
+-c
+----
+
+compress the archive with gzip
+----
+-z
+----
+
+----
+--use-compress-program=unzstd
+----
+
+specify the name of the output archive file
+----
+-f file
+----
+
+verbose output to show the progress
+----
+-v
+----
+
+change the directory before performing the operation
+----
+-C dir
+----
+
+apply a transformation to the file names before adding them to the archive
+----
+--xform='s,^,zhanglei/,'
+--transform='s,^,zhanglei/,'
+----
+
+- *-x* Extract to disk from the archive.
+
+strip NUMBER leading components from file names on extraction
+----
+--strip-components=1
+----
+
+== --files-from with wildcard
+----
+function expand_glob_file {
+    local patterns __
+    readarray -t patterns < "$1" || return
+
+    for __ in "${patterns[@]}"; do
+        compgen -G "$__"
+    done
+}
+
+tar -cf archive.tar --files-from=<(expand_glob_file /to/my/dir/include.txt) --exclude-from=<(expand_glob_file /to/my/dir/exclude.txt)
+----

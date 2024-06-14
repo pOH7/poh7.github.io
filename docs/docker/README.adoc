@@ -1,0 +1,25 @@
+# Docker
+
+## Registry mirror
+## https://www.daocloud.io/mirror
+http://f1361db2.m.daocloud.io
+```
+"registry-mirrors": [
+  "https://uewbgaqq.mirror.aliyuncs.com"
+]
+```
+
+docker.for.mac.host.internal
+
+- gitlab
+  - 127.0.0.1:10001:443
+  - 127.0.0.1:10002:80
+  - 127.0.0.1:10003:22
+- zabbix
+  - 10004:80
+- upsource
+  - 10005:8080
+- pihole
+  - 53:53
+  - 10006:80
+  - 10007:443

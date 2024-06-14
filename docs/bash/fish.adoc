@@ -1,0 +1,32 @@
+= fish
+
+== oh-my-fish
+=== install
+curl -L https://get.oh-my.fish | fish
+
+=== update
+omf update
+
+=== config oh-my-fish
+code $OMF_CONFIG
+code ~/.config/omf
+
+=== config fish
+code ~/.config/fish/config.fish
+
+=== reload
+omf reload
+
+omf install bobthefish
+omf install foreign-env
+omf install extract
+omf install fasd
+omf install bang-bang
+
+vi /usr/share/fish/config.fish
+
+=== theme
+~/.local/share/omf/themes/bobthefish
+
+
+https://realjenius.com/2020/05/30/oh-my-fish/

@@ -1,0 +1,5 @@
+
+Count Files Recursively using find
+----
+find <directory> -type f | wc -l
+----

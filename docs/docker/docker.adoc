@@ -1,0 +1,176 @@
+= docker
+
+== setup
+.enable ip forward
+----
+vi /etc/sysctl.conf
+net.ipv4.ip_forward=1
+
+systemctl restart network
+systemctl restart docker
+----
+
+== install
+https://docs.docker.com/engine/install/centos/
+https://yeasy.gitbook.io/docker_practice/install/centos
+[source,shell script]
+----
+# yum -y install yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo
+# sudo sed -i 's/download.docker.com/mirrors.ustc.edu.cn\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
+
+# uninstall
+#sudo yum remove docker \
+#                docker-client \
+#                docker-client-latest \
+#                docker-common \
+#                docker-latest \
+#                docker-latest-logrotate \
+#                docker-logrotate \
+#                docker-engine
+
+sudo yum install -y docker-ce docker-ce-cli containerd.io
+----
+
+=== start
+[source,shell script]
+----
+# configure start on boot
+sudo systemctl enable docker
+sudo systemctl start docker
+# test
+sudo docker run hello-world
+----
+
+== proxy
+vi /etc/systemd/system/docker.service.d/proxy.conf
+----
+[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:10809/"
+Environment="HTTPS_PROXY=http://127.0.0.1:10809/"
+Environment="NO_PROXY=127.0.0.1,localhost,192.168.*,*.example.com"
+----
+----
+systemctl daemon-reload
+systemctl show --property=Environment docker
+systemctl restart docker
+----
+
+=== config
+.registry mirrors
+[source,shell script]
+----
+# https://yeasy.gitbook.io/docker_practice/install/mirror
+vi /etc/docker/daemon.json
+{
+  "registry-mirrors": [
+    "https://hub-mirror.c.163.com",
+    "https://uewbgaqq.mirror.aliyuncs.com"
+  ]
+}
+----
+
+.insecure registries
+----
+{
+  "insecure-registries": ["harbor.pohvii.cloud"]
+}
+----
+
+//# without sudo
+//groupadd docker
+//usermod -aG docker $USER
+//newgrp docker
+
+== remote access
+//https://docs.docker.com/engine/security/https/
+//[source,shell script]
+//----
+//systemctl show docker.service | grep FragmentPath
+//vi /usr/lib/systemd/system/docker.service
+//> ExecStart=/usr/bin/dockerd --tlsverify --tlscacert=/root/.docker/ca.pem --tlscert=/root/.docker/server-cert.pem --tlskey=/root/.docker/server-key.pem -H=0.0.0.0:2376
+//systemctl daemon-reload
+//systemctl start docker.service
+//systemctl status docker.service
+//----
+
+----
+export DOCKER_HOST=ssh://sammy@your_server_ip
+----
+
+== docker compose
+=== install
+[source,shell script]
+----
+#yum -y install python-pip python-devel python-subprocess32
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+yum install -y python36
+python3 get-pip.py
+#pip install --upgrade pip
+pip3 install docker-compose
+#pip3 install docker-compose -U
+docker-compose -version
+----
+
+=== start
+----
+docker-compose up -d
+docker-compose down
+----
+
+=== exec
+[source,shell script,subs=attributes+]
+:SERVICE: web-server
+----
+docker-compose exec {SERVICE} /bin/bash
+----
+
+== Dockerfile
+[source,dockerfile]
+----
+ENV LANG C.UTF-8
+----
+
+== clean
+docker system prune
+
+== 复制
+docker cp
+
+== run
+docker run -it --rm --entrypoint=/bin/bash IMAGE
+docker run --name=NAME -d IMAGE
+docker exec -it NAME /bin/bash
+
+== images
+docker save -o file.tar IMAGE
+
+docker save IMAGE | gzip > file.tar.gz
+
+gunzip -c file.tar.gz | docker load
+
+.sha256
+docker inspect --format='{{.RepoDigests}}' IMAGE
+
+== clean
+https://docs.docker.com/config/pruning/
+docker image prune
+docker container prune
+
+docker images | grep none | awk '{print $3}'| xargs docker rmi -f
+
+
+https://www.digitalocean.com/community/tutorials/how-to-use-a-remote-docker-server-to-speed-up-your-workflow
+
+== build
+=== proxy
+----
+docker build . \
+    --build-arg "HTTP_PROXY=http://proxy.example.com:8080/" \
+    --build-arg "HTTPS_PROXY=http://proxy.example.com:8080/" \
+    --build-arg "NO_PROXY=localhost,127.0.0.1,.example.com" \
+    -t your/image:tag
+----
+https://yanh.tech/2023/11/linux-proxy-acceleration-for-apt-docker/

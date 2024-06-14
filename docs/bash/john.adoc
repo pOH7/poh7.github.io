@@ -1,0 +1,55 @@
+
+## Crack DMG
+## https://www.openwall.com/lists/john-users/2019/01/09/3
+cd /usr/local/john-1.8.0.9-jumbo-macosx_v3/run
+./dmg2john crack.dmg > crack.dmg.password
+./john --wordlist=mac-torrent-download.password.txt crack.dmg.password
+./john --show crack.dmg.password
+
+## Crack RAR
+
+
+
+```
+export PATH=/usr/local/bin:$PATH
+export JOHN=/usr/local/john-1.8.0.9-jumbo-macosx_v3/run
+if [[ -d "$1" ]];
+then
+    f=$(basename "$1")
+    cd "$1"
+    f=$(basename "$f" ".zip")
+    if [[ ! -e "$f" ]];
+    then
+        unzip "$1/$f.zip"
+    fi
+
+    # crack dmg
+    cd "$f"
+    f=`ls | grep .dmg`
+    if [[ -n "$f" ]];
+    then
+        $JOHN/dmg2john "$f" > password.txt
+        $JOHN/john --wordlist=$JOHN/mac-torrent-download.password.txt --format=dmg password.txt
+        $JOHN/john --show password.txt
+        password=`$JOHN/john --show password.txt | awk -F":" '{print $2}'`
+        curDir=`pwd`
+        terminal-notifier -group "$f" -title "$f's password" -message "${password}" -execute "cd \"$curDir\" && (/usr/local/opt/coreutils/libexec/gnubin/echo -n \"$password\" | hdiutil attach -stdinpass \"$f\")"
+    fi
+
+    # crack rar
+    f=`ls | grep .rar`
+    if [[ -n "$f" ]];
+    then
+        $JOHN/rar2john "$f" > password.txt
+        $JOHN/john --wordlist=$JOHN/mac-torrent-download.password.txt password.txt
+        $JOHN/john --show password.txt
+        password=`$JOHN/john --show password.txt | awk -F":" '{print $2}'`
+        /usr/local/bin/unar "$f" -p "$password"
+        f=`ls | grep .dmg`
+        if [[ -n "$f" ]];
+        then
+            hdiutil attach "$f"
+        fi
+    fi
+fi
+```

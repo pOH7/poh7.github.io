@@ -1,0 +1,49 @@
+
+== install
+https://adoptium.net/temurin/archive/?version=8
+
+== setup
+----
+update-alternatives --install /usr/bin/java java /usr/java/jdk8u352-b08/bin/java 1
+update-alternatives --config java
+----
+
+== ssl
+echo -n | openssl s_client -connect <your domain>:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ~/<your domain>.crt
+openssl x509 -in ~/<your domain>.crt -text
+openssl x509 -in MYCERT.der -inform der -text
+keytool -import -v -trustcacerts -alias <your domain> -file ~/<your domain>.crt -keystore $JAVA_HOME/lib/security/cacerts -keypass changeit -storepass changeit
+
+sudo keytool -delete -alias boccas.boccfc.cn -keystore $JAVA_HOME/jre/lib/security/cacerts -keypass changeit -storepass changeit
+
+== skip ssl
+.jdk 1.8
+HttpsURLConnection.setDefaultHostnameVerifier ((hostname, session) -> true);
+
+.jdk 11
+-Djdk.internal.httpclient.disableHostnameVerification
+
+https://stackoverflow.com/questions/9619030/resolving-javax-net-ssl-sslhandshakeexception-sun-security-validator-validatore
+https://stackoverflow.com/questions/3093112/certificateexception-no-name-matching-ssl-someurl-de-found
+
+== fonts
+
+. jre/lib/fonts/dejavu/
+. jre/lib/fontconfig.properties
+
+https://docs.oracle.com/javase/8/docs/technotes/guides/intl/fontconfig.html
+https://github.com/adoptium/adoptium-support/issues/70#issuecomment-439984357
+https://blog.adoptopenjdk.net/2021/01/prerequisites-for-font-support-in-adoptopenjdk/
+
+
+----
+jps -l
+jinfo PID
+lsof -p PID
+----
+
+== graalvm
+----
+brew install --cask graalvm/tap/graalvm-jdk21
+----
+https://github.com/graalvm/homebrew-tap

@@ -1,0 +1,32 @@
+
+
+test write speed
+----
+dd if=/dev/zero of=/tmp/test1.bin bs=1G count=1 oflag=dsync
+----
+
+write With Cache
+----
+# Buffered disk read test for /dev/sda
+hdparm -t /dev/sda
+dd if=/dev/zero of=/tmp/test1.bin bs=1G count=1 oflag=direct
+----
+
+write Without Cache
+----
+# Deactivate the cache
+hdparm -W0 /dev/sda
+
+dd if=/dev/zero of=/tmp/test1.bin bs=1G count=1 oflag=direct
+----
+
+test read speed without cache
+----
+echo 3 | sudo tee /proc/sys/vm/drop_caches
+time dd if=/tmp/test1.bin of=/dev/null bs=8k
+----
+
+test read speed with cache
+----
+
+----

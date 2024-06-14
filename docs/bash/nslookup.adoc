@@ -1,0 +1,24 @@
+
+
+nslookup -port=30053 www.google.com 192.168.0.111
+
+
+dig @114.114.114.114 cpp.cloudcpp.com
+
+----
+nslookup -type=NS pohvii.com
+----
+----
+Non-authoritative answer:
+pohvii.com	nameserver = cortney.ns.cloudflare.com.
+pohvii.com	nameserver = marvin.ns.cloudflare.com.
+----
+
+flush DNS resolver cache
+----
+sudo killall -HUP mDNSResponder
+ipconfig /flushdns
+sudo systemd-resolve --flush-caches
+----
+
+https://www.cloudns.net/blog/10-most-used-nslookup-commands/

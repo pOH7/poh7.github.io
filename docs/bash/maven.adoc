@@ -1,0 +1,313 @@
+
+----
+jps -l | grep maven | awk '{print $1}' | xargs -I {} kill -9 {}
+----
+
+
+----
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+----
+
+== run test
+mvn -Dtest=ReportEngineTest -pl report test
+
+mvn -Dtest=ReportEngineTest test
+
+== skip test
+----
+# skip compiling the tests
+-Dmaven.test.skip=true
+
+# skip tests
+-DskipTests
+----
+https://maven.apache.org/plugins-archives/maven-surefire-plugin-2.12.4/examples/skipping-test.html
+
+== run with profile
+----
+-P profile
+----
+
+.download sources and documentation
+----
+<settings>
+    <!-- ... other settings omitted ... -->
+    <profiles>
+        <profile>
+            <id>downloadSources</id>
+            <properties>
+                <downloadSources>true</downloadSources>
+                <downloadJavadocs>true</downloadJavadocs>
+            </properties>
+        </profile>
+    </profiles>
+
+    <activeProfiles>
+        <activeProfile>downloadSources</activeProfile>
+    </activeProfiles>
+</settings>
+----
+
+== run with module
+----
+mvn -pl submodule1/submodule1-2 clean install
+mvn -pl submodule1,submodule2 clean install
+mvn -pl '!module1,!module2' clean install
+----
+
+== fix maven-default-http-blocker (http://0.0.0.0/): Blocked mirror for repositories
+----
+mvn --version
+Apache Maven 3.8.1 (05c21c65bdfed0f71a2f2ada8b84da59348c4c5d)
+Maven home: /usr/local/Cellar/maven/3.8.1/libexec
+Java version: 1.8.0_292, vendor: AdoptOpenJDK, runtime: /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/jre
+Default locale: en_CN, platform encoding: UTF-8
+OS name: "mac os x", version: "10.16", arch: "x86_64", family: "mac"
+----
+
+.$MAVEN_HOME/conf/settings.xml
+----
+<mirror>
+  <id>maven-default-http-blocker</id>
+  <mirrorOf>dummy</mirrorOf>
+  <name>Dummy mirror to override default blocking mirror that blocks http</name>
+  <url>http://0.0.0.0/</url>
+</mirror>
+----
+
+https://blog.csdn.net/hadues/article/details/119038072
+
+== mirror
+=== global
+vi ~/.m2/settings.xml
+----
+<mirror>
+  <id>aliyunmaven</id>
+  <mirrorOf>central</mirrorOf>
+  <name>阿里云公共仓库</name>
+  <url>https://maven.aliyun.com/repository/public</url>
+</mirror>
+----
+https://developer.aliyun.com/mvn/guide
+
+=== maven wrapper
+vi .mvn/wrapper/maven-wrapper.properties
+----
+distributionUrl=https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.9.7/binaries/apache-maven-3.9.7-bin.zip
+----
+https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3
+
+=== project
+----
+<repositories>
+    <repository>
+        <id>aliyun-mirror</id>
+        <url>https://maven.aliyun.com/repository/public</url>
+        <snapshots>
+            <enabled>false</enabled> <!-- Disable snapshots in public repo -->
+        </snapshots>
+    </repository>
+</repositories>
+<pluginRepositories>
+    <pluginRepository>
+        <id>central</id>
+        <url>https://maven.aliyun.com/repository/public</url>
+    </pluginRepository>
+</pluginRepositories>
+----
+
+== load local jar
+----
+<dependencies>
+   <dependency>
+     <groupId>ldapjdk</groupId>
+     <artifactId>ldapjdk</artifactId>
+     <scope>system</scope>
+     <version>1.0</version>
+     <systemPath>${basedir}/src/lib/ldapjdk.jar</systemPath>
+   </dependency>
+ </dependencies>
+----
+
+== exclude
+----
+<dependency>
+    <groupId>org.jasig.cas.client</groupId>
+    <artifactId>cas-client-support-springboot</artifactId>
+    <version>3.6.1</version>
+    <exclusions>
+        <exclusion>
+            <artifactId>cas-client-core</artifactId>
+            <groupId>org.jasig.cas.client</groupId>
+        </exclusion>
+    </exclusions>
+</dependency>
+----
+
+== mvn wrapper
+mvn -N wrapper:wrapper -Dmaven=3.5.2
+----
+~/.m2/wrapper/dists/apache-maven-3.5.2-bin/34b54d4/apache-maven-3.5.2-bin.zip
+----
+
+== package jar
+[source,xml]
+----
+<build>
+    <plugins>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-dependencies</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>copy-dependencies</goal>
+                    </goals>
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        <overWriteReleases>false</overWriteReleases>
+                        <overWriteSnapshots>false</overWriteSnapshots>
+                        <overWriteIfNewer>true</overWriteIfNewer>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <addClasspath>true</addClasspath>
+                        <classpathPrefix>lib</classpathPrefix>
+                        <useUniqueVersions>false</useUniqueVersions>
+                        <mainClass>com.example.Application</mainClass>
+                    </manifest>
+                    <manifestEntries>
+                        <Class-Path>lib/</Class-Path>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>copy-config</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>copy-resources</goal>
+                    </goals>
+
+                    <configuration>
+                        <outputDirectory>${project.build.directory}/config</outputDirectory>
+                        <resources>
+                            <resource>
+                                <directory>src/main/resources</directory>
+                                <includes>
+                                    <include>application.yml</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+== show dependencies
+----
+./mvnw dependency:tree
+./mvnw dependency:tree -pl :user-core
+----
+
+== sort dependencies
+----
+<plugin>
+    <groupId>com.commsen.maven</groupId>
+    <artifactId>bom-helper-maven-plugin</artifactId>
+    <version>0.2.0</version>
+</plugin>
+----
+----
+./mvnw bom-helper:sort -Dbom-helper.inplace=true
+----
+
+== git-commit-id-maven-plugin
+----
+<plugin>
+    <groupId>io.github.git-commit-id</groupId>
+    <artifactId>git-commit-id-maven-plugin</artifactId>
+    <version>4.9.9</version>
+    <executions>
+        <execution>
+            <id>get-the-git-infos</id>
+            <goals>
+                <goal>revision</goal>
+            </goals>
+            <phase>initialize</phase>
+        </execution>
+        <execution>
+            <id>validate-the-git-infos</id>
+            <goals>
+                <goal>validateRevision</goal>
+            </goals>
+            <phase>package</phase>
+        </execution>
+    </executions>
+    <configuration>
+        <generateGitPropertiesFile>true</generateGitPropertiesFile>
+        <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+        <includeOnlyProperties>
+            <includeOnlyProperty>^git.build.(time|version)$</includeOnlyProperty>
+            <includeOnlyProperty>^git.commit.id.(abbrev|full)$</includeOnlyProperty>
+        </includeOnlyProperties>
+        <commitIdGenerationMode>full</commitIdGenerationMode>
+    </configuration>
+</plugin>
+----
+
+- https://elvisciotti.medium.com/spring-to-pick-up-git-commit-via-maven-plugin-or-ci-cd-variables-gitlab-873bfeb7feff
+
+== maven-resources-plugin
+*Warning:* Do not filter files with binary content like images! This will most likely result in corrupt output.
+
+- https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html
+- https://maven.apache.org/plugins/maven-resources-plugin/examples/binaries-filtering.html
+
+== maven-enforcer-plugin
+https://maven.apache.org/enforcer/enforcer-rules/bannedDependencies.html
+
+== maven-release-plugin
+=== usage
+----
+# auto push
+# ./mvnw --batch-mode release:clean release:prepare -DupdateBranchVersions=false -Darguments="-Dmaven.test.skip=true" -Dresume=false
+
+# deploy
+./mvnw release:perform -Darguments="-Dmaven.javadoc.failOnError=false -Dmaven.test.skip=true"
+----
+=== debug
+----
+# manual push git commit and tag
+./mvnw --batch-mode release:clean release:prepare -DupdateBranchVersions=false -Darguments="-Dmaven.test.skip=true" -Dresume=false -DpushChanges=false
+----
+----
+-DignoreSnapshots=true
+-DpushChanges=false
+----
+https://maven.apache.org/maven-release/maven-release-plugin/usage/prepare-release.html
+
+== lombok stackoverflow error
+----
+MAVEN_OPTS="-Xms512m -Xmx2048m -Xss1024m"
+----
+https://stackoverflow.com/questions/75259746/springboot-maven-lombok-stackoverflowerroresc

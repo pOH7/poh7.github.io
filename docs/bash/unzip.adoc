@@ -1,0 +1,7 @@
+
+
+unzip -d arthas arthas-bin.zip
+
+----
+unzip -j nacos.zip target/nacos-server.jar
+----

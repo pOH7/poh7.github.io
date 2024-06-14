@@ -1,0 +1,157 @@
+= HomeBrew
+
+== 更新
+brew cu
+
+== 安装包路径
+~/Library/Caches/Homebrew/Cask
+~/Library/Caches/Homebrew/downloads
+
+----
+ls ~/Library/Caches/Homebrew/downloads | grep incomplete
+----
+
+== 获取软件路径
+brew --prefix gradle
+
+== git origin
+----
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin git@github.com:Homebrew/homebrew-core.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services" remote set-url origin git@github.com:Homebrew/homebrew-services.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-fonts" remote set-url origin git@github.com:Homebrew/homebrew-cask-fonts.git
+git -C "/usr/local/Homebrew/Library/Taps/beeftornado/homebrew-rmtree" remote set-url origin git@github.com:beeftornado/homebrew-rmtree.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-versions" remote set-url origin git@github.com:Homebrew/homebrew-cask-versions.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-command-not-found" remote set-url origin git@github.com:Homebrew/homebrew-command-not-found.git
+git -C "/usr/local/Homebrew/Library/Taps/elastic/homebrew-tap" remote set-url origin git@github.com:elastic/homebrew-tap.git
+----
+
+== tap
+----
+brew tap
+brew untap elastic/tap
+----
+
+== package
+----
+brew seach maven
+brew install
+brew install mysqlworkbench
+----
+
+### CLI
+- fish
+- gradle
+- maven@3.5
+- nginx
+- node
+- qrcp
+- jq
+- ssh-copy-id
+//- youtube-dl
+
+### gnu package
+#### GNU programs non-existing in macOS
+- watch
+- wget
+- wdiff
+- gdb
+- autoconf
+
+#### GNU programs whose BSD counterpart is installed in macOS
+- coreutils
+- binutils
+- diffutils
+- ed
+- findutils
+- gawk
+- gnu-indent
+- gnu-sed
+- gnu-tar
+- gnu-which
+- grep
+- gzip
+- screen
+
+#### GNU programs existing in macOS which are outdated
+- bash
+- emacs
+- gpatch
+- less
+- m4
+- make
+- nano
+- bison
+
+#### BSD programs existing in macOS which are outdated
+- flex
+
+#### Other common/preferred programs in GNU/Linux distributions
+- libressl
+- file-formula
+- git
+- openssh
+- perl
+- python
+- rsync
+- unzip
+- vim
+- neovide
+- ripgrep # https://github.com/BurntSushi/ripgrep
+- fd # https://github.com/sharkdp/fd
+- prettier
+- black
+- google-java-format
+- stylua
+- flake8
+
+### cask
+
+- packetsender
+- anki
+- squirrel
+- iina
+- staruml
+- raycast
+- warp
+
+.font
+- font-jetbrains-mono-nerd-font
+- font-ubuntu-mono-nerd-font
+
+.db tool
+- dbeaver-community
+- mysqlworkbench
+- sqlcl
+
+== openssl
+----
+# https://stackoverflow.com/questions/59006602/dyld-library-not-loaded-usr-local-opt-openssl-lib-libssl-1-0-0-dylib
+brew install rbenv/tap/openssl@1.0
+ln -sfn /usr/local/Cellar/openssl@1.0/1.0.2t /usr/local/opt/openssl
+----
+
+
+== jdk
+----
+brew install --cask graalvm/tap/graalvm-ce-java8
+brew install --cask graalvm/tap/graalvm-jdk21
+xattr -r -d com.apple.quarantine /Library/Java/JavaVirtualMachines/graalvm-jdk-XX.Y.Z
+----
+----
+/usr/libexec/java_home -V
+set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)
+----
+https://github.com/graalvm/homebrew-tap
+
+== xcode
+
+----
+# fix xcrun: error: active developer path ("/Applications/Xcode.app/Contents/Developer") does not exist
+sudo xcode-select --reset
+----
+
+== uninstall
+----
+brew tap beeftornado/rmtree
+brew rmtree <package>
+----

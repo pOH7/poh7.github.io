@@ -1,0 +1,14 @@
+# diskutil
+
+## mount
+diskutil mount /dev/disk3s1
+
+## unmount
+diskutil umountDisk /Volumes/Untitled
+
+
+## 格式化
+diskutil eraseVolume HFS+ USB /dev/disk4s1
+
+## 转换成自由空间
+diskutil eraseVolume free NONE disk4s1

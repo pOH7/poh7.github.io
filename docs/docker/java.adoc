@@ -1,0 +1,15 @@
+
+https://hub.docker.com/_/openjdk
+
+----
+FROM openjdk:8u322
+COPY . /usr/src/myapp
+WORKDIR /usr/src/myapp
+CMD ["java", "Main"]
+----
+
+----
+locale
+----
+
+https://leimao.github.io/blog/Docker-Locale/

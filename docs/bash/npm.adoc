@@ -1,0 +1,4 @@
+# Node.js
+
+## 更新
+npm install npm@latest -g

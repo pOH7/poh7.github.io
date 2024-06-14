@@ -1,0 +1,14 @@
+
+
+[plantuml,scale=0.5,svg]
+----
+start
+if (Route Lookup: destination IP is in the same subnet?) then (yes)
+  :use ARP to get destination MAC address;
+  :send ICMP request directly to destination MAC address;
+else (no)
+  :use ARP to get gateway MAC address;
+  :send ICMP request to gateway MAC address;
+endif
+stop
+----

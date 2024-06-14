@@ -1,0 +1,17 @@
+
+:kafka-broker: 172.16.0.116:9092
+// :kafka-broker: 10.20.32.85:9092
+:topic: test
+:username: username
+:password: password
+[source,bash,subs=attributes+]
+----
+export KAFKA_OPTS=-Djava.security.auth.login.config=/Users/zhanglei/Downloads/kafka_client_jaas.conf
+set -x KAFKA_OPTS -Djava.security.auth.login.config=/Users/zhanglei/Downloads/kafka_client_jaas.conf
+
+kafka-console-consumer --consumer-property security.protocol=SASL_PLAINTEXT --consumer-property sasl.mechanism=PLAIN --bootstrap-server {kafka-broker} --max-messages 10 --topic {topic}
+
+kafka-console-producer --producer-property security.protocol=SASL_PLAINTEXT --producer-property sasl.mechanism=PLAIN --broker-list {kafka-broker} --topic {topic}
+
+bin/kafka-console-producer.sh --producer-property security.protocol=SASL_PLAINTEXT --producer-property sasl.mechanism=PLAIN --bootstrap-server {kafka-broker} --topic {topic}
+----

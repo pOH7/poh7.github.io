@@ -1,0 +1,33 @@
+
+----
+vi /etc/ntp.conf
+# show ntp status
+ntpstat
+# synchronize with ntpserver
+ntpdate -u ntp2.aliyun.com
+
+timedatectl set-local-rtc 0
+timedatectl set-ntp false
+timedatectl set-time '2020-12-29 19:12:00'
+
+# timedatectl list-timezones
+timedatectl set-timezone Asia/Shanghai
+
+timedatectl show-timesync -all
+----
+
+ntp sync with a ntp server
+----
+timedatectl status
+timedatectl set-ntp true
+----
+
+== debian
+----
+apt install systemd-timesyncd
+systemctl status systemd-timesyncd.service
+----
+
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/system_administrators_guide/chap-configuring_the_date_and_time
+https://wiki.archlinux.org/title/System_time
+https://help.aliyun.com/document_detail/92704.html

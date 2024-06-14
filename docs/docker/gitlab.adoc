@@ -1,0 +1,58 @@
+= Gitlab
+
+## gitlab
+./etc/hosts
+----
+127.0.0.1 git.pohvii.com
+----
+
+
+docker run --detach \
+  --hostname git.pohvii.com \
+  --publish 10001:443 --publish 10002:80 --publish 10003:22 \
+  --name gitlab \
+  --restart always \
+  --volume /Users/zhanglei/gitlab/config:/etc/gitlab \
+  --volume /Users/zhanglei/gitlab/logs:/var/log/gitlab \
+  --volume /Users/zhanglei/gitlab/data:/var/opt/gitlab \
+  gitlab/gitlab-ee:latest
+
+docker exec -it gitlab editor /etc/gitlab/gitlab.rb
+docker exec -it gitlab update-permissions
+docker restart gitlab
+docker logs -f gitlab
+
+### 修改配置文件
+#### 进入容器
+docker exec -it gitlab bash
+#### 修改配置文件
+vi /etc/gitlab/gitlab.rb
+#### reset password
+gitlab-rails console production
+
+user = User.where(id: 1).first
+user.password = 'your secret'
+user.password_confirmation = 'your secret'
+user.save
+exit
+
+== stop
+gitlab-ctl stop
+
+
+## gitlab-runner
+### docker
+#### register
+```
+# ./.gitlab-runner/config.toml
+docker run --rm -t -i -v /Users/Shared/gitlab-runner/config:/etc/gitlab-runner gitlab/gitlab-runner register
+```
+#### run
+docker run -d --name gitlab-runner \
+   --restart always \
+   -v /Users/Shared/gitlab-runner/config:/etc/gitlab-runner \
+   -v /var/run/docker.sock:/var/run/docker.sock \
+   gitlab/gitlab-runner:latest
+
+
+https://docs.gitlab.com/ee/install/docker.html

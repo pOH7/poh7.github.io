@@ -1,0 +1,28 @@
+= ffmpeg
+
+.cut video without recoding
+ffmpeg -i input.mp4 -ss 00:01:00 -to 00:02:00 -c copy output.mp4
+
+ffmpeg -i input.mp4 -ss 00:00:03 -to 00:00:08 -async 1 output.mp4
+
+$ cat mylist.txt
+file '/path/to/file1'
+file '/path/to/file2'
+file '/path/to/file3'
+
+$ ffmpeg -f concat -safe 0 -i mylist.txt -c copy output.mp4
+
+
+https://stackoverflow.com/questions/18444194/cutting-the-videos-based-on-start-and-end-time-using-ffmpeg
+https://stackoverflow.com/questions/7333232/how-to-concatenate-two-mp4-files-using-ffmpeg
+
+== extract audio from video
+ffmpeg -i input.mkv
+ffmpeg -i input.mkv -map 0:4 -vn -acodec copy output.flac
+
+== crop video
+----
+ffmpeg -i 大唐盛世_71s.mp4 -filter:v 'crop=in_w:40/81*in_h' \
+-c:v libx264 -crf 23 -preset veryfast -c:a copy 大唐盛世_71s_18_5.mp4
+----
+https://superuser.com/questions/343951/how-can-i-crop-a-169-video-to-43-cutting-off-the-edges

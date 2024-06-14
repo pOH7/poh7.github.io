@@ -1,0 +1,56 @@
+= syslog server
+
+https://github.com/robbert229/docker-rsyslog
+
+docker build --rm -t rsyslog .
+
+touch /var/log/syslog.log
+
+docker run --name rsyslog --rm -p 514:514/udp -p 514:514 -v "/var/log/syslog.log:/var/log/syslog" rsyslog
+
+
+== send syslog
+
+----
+echo "<14> $(date '+%b %d %H:%M:%S') $(hostname) This is a test message" | nc -u 172.16.0.98 514
+logger -s -p user.info This is a test message
+----
+14 is user.info
+
+== listen syslog
+----
+tcpdump udp port 514 -A -i any
+----
+
+
+== config syslog server
+----
+# rpm -q | grep rsyslog
+# rsyslogd -v
+yum install rsyslog
+----
+vi /etc/rsyslog.conf
+----
+#### MODULES ####
+# Provides UDP syslog reception
+$ModLoad imudp
+$UDPServerRun 514
+----
+
+----
+#### RULES ####
+*.* /var/log/syslog.log
+----
+
+----
+systemctl restart rsyslog.service
+tail -f /var/log/messages
+----
+
+nginx syslog
+----
+error_log syslog:server=127.0.0.1:514,facility=local7,tag=nginx,severity=error;
+access_log syslog:server=127.0.0.1:514,facility=local7,tag=nginx,severity=info main;
+----
+
+https://www.tecmint.com/setup-rsyslog-client-to-send-logs-to-rsyslog-server-in-centos-7/

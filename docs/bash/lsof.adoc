@@ -1,0 +1,9 @@
+
+
+show current open files
+----
+lsof 2>/dev/null | grep -F ' REG '|wc -l
+----
+
+
+

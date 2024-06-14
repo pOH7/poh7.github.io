@@ -1,0 +1,14 @@
+
+----
+# user
+adduser jenkins
+
+# disk
+ln -sfn xxx /var/jenkins
+
+# jdk
+ln -sfn xxx /var/jenkins/jdk
+----
+
+https://www.jenkins.io/blog/2022/12/27/run-jenkins-agent-as-a-service/
+https://www.jenkins.io/doc/book/managing/nodes/

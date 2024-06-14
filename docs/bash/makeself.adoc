@@ -1,0 +1,8 @@
+
+[source,bash,subs=attributes+]
+----
+./installer.run --target installer --noexec
+makeself --nocomp installer installer.run "installer" ./install.sh
+----
+
+https://makeself.io/

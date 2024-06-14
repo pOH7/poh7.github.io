@@ -1,0 +1,13 @@
+= gcloud
+
+----
+gcloud cloud-shell ssh
+----
+
+https://cloud.google.com/sdk/docs/downloads-interactive?hl=zh-cn
+https://cloud.google.com/blog/products/management-tools/introducing-the-ability-to-connect-to-cloud-shell-from-any-terminal
+
+----
+gcloud cloud-shell get-mount-command ~/youtube
+----
+https://cloud.google.com/sdk/gcloud/reference/cloud-shell/get-mount-command

@@ -1,0 +1,10 @@
+.ip address
+ip a
+
+.default gateway
+ip r
+
+ip route show
+
+
+https://www.networkworld.com/article/3262045/checking-your-network-connections-on-linux.html

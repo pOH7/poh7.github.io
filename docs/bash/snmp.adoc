@@ -1,0 +1,16 @@
+ports: 161/udp
+
+[source,shell script]
+----
+# install
+yum install -y net-snmp net-snmp-utils
+# show version
+snmpd -v
+# create user
+net-snmp-create-v3-user -ro -a 'snmp_password' -x 'snmp_privpass' -X AES snmp_user
+# restart
+# /usr/sbin/snmpd -f -c /etc/snnmp/snmpd.conf
+systemctl restart snmpd.service
+# test
+snmpwalk -v 3 -u snmp_user -A 'snmp_password' -x AES -X 'snmp_privpass' -l authPriv 127.0.0.1
+----

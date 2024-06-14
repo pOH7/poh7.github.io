@@ -1,0 +1,7 @@
+= sudo
+
+* run as another user
++
+----
+sudo -u <user> <command>
+----

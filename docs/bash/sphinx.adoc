@@ -1,0 +1,8 @@
+## sphinx
+pip install sphinx
+pip install sphinx-rtd-theme
+pip install recommonmark 
+
+
+## theme
+pip install sphinx-rtd-theme

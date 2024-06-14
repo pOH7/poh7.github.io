@@ -1,0 +1,11 @@
+= du
+
+.查看foo目录的大小：
+du -sh foo
+
+//.scan only the size of the top directory
+//du –hc ––max-depth=0 /var
+//
+//du -h --max-depth=1 /var
+
+ll | awk '{print $9}' | xargs -I {} du -sh {} | sort -h

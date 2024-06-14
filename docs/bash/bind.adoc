@@ -1,0 +1,59 @@
+
+----
+sudo apt install bind9
+----
+----
+sudo vi /etc/bind/named.conf.options
+----
+----
+options {
+        listen-on { 192.168.0.111; };   # ns1 private IP address - listen on private network only
+
+        forwarders {
+                port
+                114.114.114.114;
+        };
+
+        dnssec-validation no;
+----
+----
+sudo vi /etc/bind/named.conf.local
+----
+----
+zone "pohvii.com" {
+        type master;
+        file "/etc/bind/db.pohvii.com";
+};
+----
+----
+sudo vi /etc/bind/db.local /etc/bind/db.pohvii.com
+----
+----
+$TTL    604800
+@       IN      SOA     pohvii.com. root.pohvii.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+
+        IN      NS      pohvii.com.
+pohvii.com.     IN      A       192.168.0.111
+*       IN      A       192.168.0.111
+@       IN      A       192.168.0.111
+----
+
+----
+sudo named-checkconf
+sudo systemctl restart bind9
+----
+
+----
+nslookup www.pohvii.com 192.168.0.111
+nslookup www.baidu.com 192.168.0.111
+dig @192.168.0.111 www.baidu.com
+----
+
+https://www.isc.org/bind/
+https://serverspace.io/support/help/configure-bind9-dns-server-on-ubuntu/
+https://www.digitalocean.com/community/tutorials/how-to-configure-bind-as-a-private-network-dns-server-on-ubuntu-18-04

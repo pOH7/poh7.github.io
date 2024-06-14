@@ -1,0 +1,54 @@
+# find
+
+find "$f" -type f \! -name ".DS_Store" \! -name "._*"
+
+find . -mindepth 1 -type f -exec cp '{}' /dest/dir \;
+
+## 例子
+find . -name '*.sh' -exec dos2unix {} \;
+find / -name '*.sh' | xargs dos2unix
+
+find . -name '*.py' -exec sh -c 'iconv -f gbk -t utf-8 {} > remake/{}' \;
+
+统计一个源代码目录中所有 php 文件的行数
+find . -type f -name "*.php" -print0 | xargs -0 wc -l
+
+查找所有的 jpg 文件，并且压缩它们
+find . -type f -name "*.jpg" -print | xargs tar -czvf images.tar.gz
+
+find . -type f ! -path "./.git/*" -exec git hash-object -w '{}' \;
+
+Change Permissions Recursively
+----
+find . -type d ! -perm 0755 -exec chmod 0755 {} \;
+find . -type f ! -perm 0644 -exec chmod 0644 {} \;
+----
+
+
+----
+find /var/log/pods -type l ! -readable
+find /var/log/pods -type l ! -readable -delete
+----
+
+## 参数
+
+-type f-file, d-dir
+-name
+-path 路径起始
+
+( expr )	Force precedence. True if expr is true
+expr -not expr
+! expr	True if expr is false. In some shells, it is necessary to protect the ‘!’ from shell interpretation by quoting it.
+expr1 -and expr2	expr2 is not evaluated if expr1 is false.
+expr1 -or expr2	expr2 is not evaluated if expr1 is true.
+
+
+== find max file size
+----
+find . -type f -size +100M -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'
+----
+
+== rename
+----
+find . -name '*.md' -exec bash -c 'mv "$0" "${0%.md}.adoc"' {} \;
+----

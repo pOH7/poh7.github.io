@@ -1,0 +1,12 @@
+
+wget --no-check-certificate
+
+wget --user user --password pass http://example.com/
+
+--user=user
+
+--password=password
+
+Specify the username user and password password for both FTP and HTTP file retrieval. These parameters can be overridden using the --ftp-user and --ftp-password options for FTP connections and the --http-user and --http-password options for HTTP connections.
+
+--output-document=FILE

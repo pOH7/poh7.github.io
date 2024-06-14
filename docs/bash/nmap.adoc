@@ -1,0 +1,5 @@
+
+scan ip address
+----
+nmap -sV -A 172.16.173.42 -p 22
+----

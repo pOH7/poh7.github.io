@@ -1,0 +1,4 @@
+
+docker run --rm -ti drwetter/testssl.sh
+
+https://testssl.sh/

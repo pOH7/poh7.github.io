@@ -1,0 +1,13 @@
+
+== proxy
+vi /etc/apt/apt.conf.d/proxy.conf
+----
+Acquire {
+  HTTP::proxy "http://127.0.0.1:10809";
+  HTTPS::proxy "http://127.0.0.1:10809";
+}
+----
+
+----
+apt update
+----

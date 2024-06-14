@@ -1,0 +1,21 @@
+docker search dnsmasq
+
+docker pull andyshinn/dnsmasq
+
+docker run -d --restart=always --name dns-server -p 53:53/tcp -p 53:53/udp --cap-add=NET_ADMIN -v /Users/Shared/dnsmasq:/etc/dnsmasq  andyshinn/dnsmasq
+
+code /Users/Shared/dnsmasq
+## /Users/Shared/dnsmasq/resolv.conf
+nameserver 223.5.5.5
+nameserver 223.6.6.6
+## /Users/Shared/dnsmasq/dnsmasqhosts
+# 这里配置自定义解析
+127.0.0.1 master
+
+docker exec -it dns-server /bin/sh
+vi /etc/dnsmasq.conf
+resolv-file=/etc/dnsmasq/resolv.conf
+addn-hosts=/etc/dnsmasq/dnsmasqhosts
+
+
+docker restart dns-server

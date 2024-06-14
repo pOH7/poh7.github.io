@@ -1,0 +1,10 @@
+
+ping ipv4
+----
+ping 114.114.114.114
+----
+
+ping ipv6
+----
+ping6 -I en1 6e80::6a77:24ff:fe38:7ce
+----

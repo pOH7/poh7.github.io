@@ -1,0 +1,6 @@
+
+https://github.com/libfuse/sshfs
+
+sshfs [user@]hostname:[directory] mountpoint
+
+diskutil umount mountpoint

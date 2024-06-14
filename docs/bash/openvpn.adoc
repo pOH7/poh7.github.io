@@ -1,0 +1,42 @@
+
+----
+route-nopull
+route 172.16.0.0 255.255.0.0 10.88.88.1
+----
+
+----
+ip rule add from 192.168.0.103 table 128
+ip route add table 128 to 192.168.0.111/32 dev eno1
+ip route add table 128 default via 192.168.0.1
+----
+
+[source,bash,subs=attributes+]
+:gateway: 192.168.0.1
+:table: 128
+:lan-addr: 192.168.0.111
+:local-addr: 192.168.0.111
+:device: eno1
+:mark: 2
+----
+ip route add default via {gateway} table {table}
+ip route add {lan-addr} dev {device} table {table}
+iptables -tmangle -AOUTPUT -s{local-addr} -jMARK --set-mark {mark}
+ip rule add fwmark {mark} table {table}
+----
+
+----
+# set "connection" mark of connection from eth0 when first packet of connection arrives
+sudo iptables -t mangle -A PREROUTING -i eth0 -m conntrack --ctstate NEW -j CONNMARK --set-mark 1234
+
+# set "firewall" mark for response packets in connection with our connection mark
+sudo iptables -t mangle -A OUTPUT -m connmark --mark 1234 -j MARK --set-mark 4321
+
+# our routing table with eth0 as gateway interface
+sudo ip route add default dev eth0 table 3412
+
+# route packets with our firewall mark using our routing table
+sudo ip rule add fwmark 4321 table 3412
+----
+
+https://openvpn.net/vpn-server-resources/connecting-to-access-server-with-linux/
+https://serverfault.com/questions/659955/allowing-ssh-on-a-server-with-an-active-openvpn-client

@@ -1,0 +1,6 @@
+
+useradd zhanglei -s /bin/bash
+
+cat /etc/passwd | grep zhanglei
+
+usermod zhanglei -s /bin/bash

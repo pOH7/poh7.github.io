@@ -1,0 +1,32 @@
+= 阿里云盘
+
+
+----
+wget https://github.com/tickstep/aliyunpan/releases/download/v0.2.6/aliyunpan-v0.2.6-linux-amd64.zip
+unzip aliyunpan-v0.2.6-linux-amd64.zip
+cd aliyunpan-v0.2.6-linux-amd64
+./aliyunpan
+login
+upload source target
+----
+
+
+----
+docker run -d --name=aliyunpan-webdav --restart=always -p 23077:23077 -e TZ="Asia/Shanghai" -e ALIYUNPAN_REFRESH_TOKEN="<your refreshToken>" -e ALIYUNPAN_AUTH_USER="admin" -e ALIYUNPAN_AUTH_PASSWORD="admin" -e ALIYUNPAN_WEBDAV_MODE="rw" -e ALIYUNPAN_PAN_DRIVE="File" -e ALIYUNPAN_PAN_DIR="/" tickstep/aliyunpan-webdav:v0.2.6
+
+
+ALIYUNPAN_REFRESH_TOKEN RefreshToken
+ALIYUNPAN_AUTH_USER webdav登录用户名
+ALIYUNPAN_AUTH_PASSWORD webdav登录密码
+ALIYUNPAN_WEBDAV_MODE webdav模式，支持：rw-读写，ro-只读
+ALIYUNPAN_PAN_DRIVE 网盘类型，可选： File-文件 Album-相册
+ALIYUNPAN_PAN_DIR 网盘文件夹的webdav服务根目录
+----
+
+refreshToken
+----
+JSON.parse(localStorage.getItem("token")).refresh_token
+----
+
+https://github.com/tickstep/aliyunpan/blob/main/docs/manual.md
+https://www.aliyundrive.com/drive/

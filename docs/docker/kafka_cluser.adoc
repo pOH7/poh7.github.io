@@ -1,0 +1,47 @@
+cd ~/Docker/kafka-for-mac
+docker-compose up -d
+
+## 创建kafka topic
+kafka-topics --zookeeper docker.for.mac.host.internal:32181 --create --topic tracelog --partitions 30  --replication-factor 1
+
+## 查看所有topic列表
+kafka-topics --zookeeper docker.for.mac.host.internal:32181 --list
+
+## 控制台消费topic的数据
+kafka-console-consumer --bootstrap-server docker.for.mac.host.internal:29092 --topic tracelog --from-beginning
+
+
+https://github.com/wurstmeister/kafka-docker
+vi docker-compose.yml
+----
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka:2.13-2.6.0
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: 172.16.173.42
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+----
+docker-compose up -d
+
+kafkacat
+
+
+kafkacat -b 172.16.173.42:9092 -L
+
+.Producer Mode
+kafkacat -P -b {broker} -t {new_topic}
+
+.Consumer Mode
+kafkacat -C -b {broker} -t {topic}
+
+[bibliography]
+- [[[kafkacat_project]]] https://github.com/edenhill/kafkacat

@@ -17,3 +17,12 @@ https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#docum
 pip install mkdocs_puml
 ----
 https://github.com/MikhailKravets/mkdocs_puml
+
+== preview
+----
+nvm use latest
+find docs -name '*.adoc' -exec npx downdoc {} \;
+
+pyenv activate gitbook
+mkdocs serve
+----

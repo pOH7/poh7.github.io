@@ -1,0 +1,26 @@
+= netcat
+
+== check network
+nc -zv IP PORT
+
+== check udp
+----
+nc -u -zv IP PORT
+----
+
+== download file
+----
+# server side
+nc -l -p 1234 > file
+# client side
+nc IP 1234 < file
+----
+
+
+----
+destination:
+nc -l -p 7777 | tar -xpf -
+
+source:
+tar -cf - sourceDir/ | pv | nc 192.168.0.111 7777
+----

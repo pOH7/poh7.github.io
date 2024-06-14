@@ -1,0 +1,6 @@
+
+grep -v '^ *#'
+
+- -o means show only the matching part of the line. This is useful to match the leading whitespace in the indentation for example.
+- -P means use Perl Compatible Regular Expressions, where \s matches any whitespace character.
+- -v means invert the match, i.e. only show lines that don't match.

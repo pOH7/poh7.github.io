@@ -1,0 +1,21 @@
+= Kibana
+
+:kibana_version: 6.8.15
+//:kibana_version: 7.16.3
+[source,bash,subs=attributes+]
+----
+docker run --name kibana --rm -d -p 15601:5601 -e "ELASTICSEARCH_HOSTS=http://172.16.0.234:9200" kibana:{kibana_version}
+----
+
+[source,shell script,subs=attributes+]
+:YOUR_ELASTICSEARCH_CONTAINER_NAME_OR_ID: elasticsearch
+:version: 7.16.3
+----
+docker run -d --name {YOUR_ELASTICSEARCH_CONTAINER_NAME_OR_ID} -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:{version}
+docker run -d --name kibana --link {YOUR_ELASTICSEARCH_CONTAINER_NAME_OR_ID}:elasticsearch -p 5601:5601 kibana:{version}
+----
+
+
+https://www.elastic.co/cn/support/matrix#matrix_compatibility
+https://hub.docker.com/_/kibana
+https://www.elastic.co/guide/en/kibana/current/docker.html

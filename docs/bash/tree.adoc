@@ -1,0 +1,5 @@
+
+tree display only n level
+----
+tree -L 2
+----

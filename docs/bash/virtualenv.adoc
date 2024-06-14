@@ -1,0 +1,5 @@
+virtualenv -p python3 .env
+cd .env
+source bin/activate.fish
+
+deactivate

@@ -1,0 +1,5 @@
+
+
+
+
+tail -f start.log | sed '/JVM running/ q' && echo "JVM running!"

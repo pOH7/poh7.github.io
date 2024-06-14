@@ -28,8 +28,8 @@ theme:
 plugins:
   - search
   - blog
-  - git-revision-date-localized:
-      enable_creation_date: true
+#  - git-revision-date-localized:
+#      enable_creation_date: true
   - plantuml:
       puml_url: https://www.plantuml.com/plantuml/
       puml_keyword: plantuml

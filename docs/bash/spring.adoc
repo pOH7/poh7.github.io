@@ -1,0 +1,7 @@
+
+----
+spring init --list
+
+spring init --type=gradle-build --java-version=1.8 --group-id=com.pohvii.note --dependencies=lombok,web,data-jpa build.gradle
+----
+https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#cli

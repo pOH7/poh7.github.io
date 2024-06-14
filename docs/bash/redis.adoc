@@ -1,0 +1,11 @@
+
+
+
+FLUSHALL : delete all keys from all Redis databases
+
+FLUSHDB : delete all keys of the selected Redis database only
+
+
+
+
+https://redis.io/commands/flushdb/

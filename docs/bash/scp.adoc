@@ -1,0 +1,8 @@
+
+
+scp -r filepath/* username@ip:filepath
+
+
+
+Make sure the scp command is available on both sides - both on the client and on the server
+yum -y install openssh-clients

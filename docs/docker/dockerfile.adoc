@@ -1,0 +1,14 @@
+
+----
+# If you run Debian or Ubuntu, you also need to install locales to have locale-gen with
+apt-get -y install locales
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+----
+
+https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-debian-ubuntu-docker-container

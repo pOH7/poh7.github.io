@@ -1,0 +1,60 @@
+= tcpdump
+
+== Option
+----
+
+----
+
+== save packets to pcap file
+----
+tcpdump -i eth0 -w /tmp/dns.pcap udp port 53 or tcp port 53
+----
+
+read pcap file
+----
+tcpdump -vvv -r /tmp/dns.pcap port 53
+----
+
+== output to Wireshark
+----
+tcpdump -i eth0 -w - | wireshark -k -i -
+----
+
+== DNS
+----
+tcpdump -i eth0 udp port 53 or tcp port 53
+----
+
+.check syslog
+tcpdump udp port 514 -A -i any
+echo "hello" > /dev/udp/172.28.65.32/514
+
+tcpdump -lnp -s0 udp port 514 -w - | tr -t '[^[:print:]]' ''
+
+.输出mysql语句
+tcpdump -i lo0 -qs0 -ttttnn -A dst port 3306 and mysql and "tcp[13] & 8 != 0"
+
+-i any : Listen on all interfaces just to see if you’re seeing any traffic.
+-i eth0 : Listen on the eth0 interface.
+-n : Don’t resolve hostnames.
+-nn: Don’t resolve hostnames or port names.
+-e: Get the ethernet header as well
+-l: Line-readable output (for viewing as you save, or sending to other commands)
+
+-q: Show less protocol information.
+
+tcp port 9200
+
+
+tcpdump -i eth1 -l -e -nn
+----
+14:00:48.707615 00:50:56:bd:1b:cf > 00:50:56:bd:09:5b, ethertype IPv4 (0x0800), length 114: 172.16.0.193.1080 > 172.16.0.44.51884: Flags [P.], seq 12869:12929, ack 36, win 39295, length 60
+----
+
+logstash
+----
+
+----
+
+
+https://www.redhat.com/sysadmin/tcpdump-part-one

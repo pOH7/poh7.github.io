@@ -1,0 +1,11 @@
+
+
+----
+yt-dlp --proxy socks5://127.0.0.1:1080/ --list-subs -- 'https://www.youtube.com/watch?v=QGr9T4MyBTM'
+yt-dlp --proxy socks5://127.0.0.1:1080/ -F -- 'https://www.youtube.com/watch?v=QGr9T4MyBTM'
+
+yt-dlp --proxy socks5://127.0.0.1:1080/ --write-auto-sub --sub-lang en -- 'https://youtu.be/7mlajCj4QPw'
+
+----
+
+https://github.com/yt-dlp/yt-dlp

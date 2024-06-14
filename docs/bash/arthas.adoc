@@ -1,0 +1,34 @@
+
+----
+curl -O https://arthas.aliyun.com/arthas-boot.jar
+java -jar arthas-boot.jar
+----
+
+get instance of class, get CGLIB target
+----
+vmtool --action getInstances --classLoaderClass org.springframework.boot.loader.LaunchedURLClassLoader --className org.springframework.context.ApplicationContext --express 'instances[0].getBean("licenseService").getCallback(0)'
+
+trace org.springframework.cache.interceptor.CacheAspectSupport execute
+
+logger --classLoaderClass org.springframework.boot.loader.LaunchedURLClassLoader
+logger --level trace -n org.springframework.cache.interceptor
+
+watch org.springframework.cache.interceptor.CacheAspectSupport handleSynchronizedGet "{params}" -x 3
+
+
+watch org.springframework.cache.interceptor.CacheAspectSupport findInCaches "{params[0].caches[0].map,params[1],returnObj}" "params[1] == 'machine_code'" -x 2
+
+watch org.redisson.spring.cache.RedissonCache get "{params,returnObj}" -x 2
+
+
+
+watch org.springframework.cache.interceptor.CacheAspectSupport findInCaches "{params[0].caches[0],params[1],returnObj}" "params[1] == 'machine_code'"
+
+org.redisson.spring.cache.RedissonCache@6ceb5353
+
+ognl '@org.redisson.spring.cache.RedissonCache@6ceb5353@get("machine_code")'
+----
+
+
+
+https://arthas.aliyun.com/en/doc/install-detail.html

@@ -1,0 +1,11 @@
+
+
+nmcli dev
+
+type: ethernet
+
+state: connected, disconnected, unmanaged
+
+
+
+nmcli con show

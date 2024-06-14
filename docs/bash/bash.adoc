@@ -1,0 +1,83 @@
+= bash
+
+----
+#!/usr/bin/env bash
+----
+
+bash config file.
+
+Interactive (non-login) shells, then the config is read from these files:
+
+$HOME/.bashrc
+For Login shells, the config is read from these files:
+
+/etc/profile (Always sourced)
+$HOME/.bash_profile (the rest of these files are checked in order until one is found, then no others are read)
+$HOME/.bash_login
+$HOME/.profile
+
+
+.file is a directory
+----
+if [ ! -d ~/dir ]; then
+  mkdir -p /opt/dir
+fi
+----
+
+----
+if [ ! -d "$HOME/dir" ]; then
+  mkdir -p "$HOME/dir"
+if
+----
+
+[NOTE]
+quotes prevent ~ from being expanded
+
+https://stackoverflow.com/questions/27238491/tilde-not-working-on-if-then-statement-in-shell-script
+
+.contains str
+----
+if [[ "$s" ~= "str" ]]; then
+  # contains str
+fi
+----
+
+.pattern matching
+----
+if [[ ${config_env} == *_PASSWORD ]] && [[ ${!config_env} == ENC* ]]; then
+  eval "${config_env}=\"$(decrypt_password "${!config_env}")\""
+fi
+----
+
+.The "if COMMAND" construct returns the exit status of COMMAND.
+----
+if cd "$dir" 2>/dev/null; then  # "2>/dev/null" hides error message.
+  echo "Now in $dir."
+else
+  echo "Can't change to $dir."
+fi
+----
+
+.sudo -u user test -r file
+----
+chmod u=rwx "$dir"
+while [ "$dir" != "/" ]; do
+  if sudo -u ${user_name} [ ! -r "$dir" ] || sudo -u ${user_name} [ ! -x "$dir" ]; then
+    chown ${user_name} "$dir"
+    chmod u=rwx "$dir"
+  fi
+  dir=$(dirname "$dir")
+done
+----
+
+.Deletion
+image::images/Deletion.png[]
+
+.Navigation
+image::images/Navigation.png[]
+
+----
+set -a
+# variables defined from now on to be automatically exported
+set +a
+----

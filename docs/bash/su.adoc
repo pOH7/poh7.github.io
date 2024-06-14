@@ -1,0 +1,10 @@
+= su
+
+sudo su -
+
+.switch to root user
+su -
+
+su - [username]
+
+su -c [command] [username]

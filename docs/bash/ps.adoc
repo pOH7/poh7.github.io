@@ -1,0 +1,39 @@
+
+ps -p <pid>
+ps -t <tty>
+
+
+----
+root@localhost ~# who
+root     tty1         2021-10-18 10:03
+root     pts/0        2021-10-20 13:58 (172.16.254.1)
+root     pts/1        2021-10-20 14:04 (172.16.254.1)
+root@localhost ~# ps -t tty1
+PID TTY          TIME CMD
+1397 tty1     00:00:00 bash
+----
+
+ps -ef
+
+-e show all processes
+
+-f show all fields
+[%autowidth.stretch,cols=",",options="header",stripes=even]
+|===
+|UID
+|uid
+|PID
+|pid
+|PPID
+|parent pid
+|C
+|recent CPU usage
+|STIME
+|process start time
+|TTY
+|controlling tty
+|TIME
+|elapsed CPU usage
+|CMD
+|associated command
+|===

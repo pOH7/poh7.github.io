@@ -1,0 +1,9 @@
+
+----
+brew tap Krish-sysadmin/homebrew-virt-manager
+brew install virt-manager virt-viewer
+
+----
+
+https://cloudcult.dev/libvirt-management-from-macos/
+https://github.com/Krish-sysadmin/homebrew-virt-manager

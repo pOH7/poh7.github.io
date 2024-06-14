@@ -1,0 +1,374 @@
+= Git
+
+blob::
+tree::
+git cat-file -p master^{tree}
+commit::
+reference::
+./git/refs
+
+== config
+----
+git config --local --list
+git config user.name pOH7
+git config user.email pOHVII@gmail.com
+# enforce ssh instead of https
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+git config --global --unset url.ssh://git@github.com/.insteadOf https://github.com/
+----
+
+== .gitignore
+https://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files
+https://theapache64.github.io/git-do-not-ignore/
+----
+!target/
+target/*
+!target/xx.jar
+----
+
+=== gpg
+----
+git config --global gpg.program /usr/local/bin/gpg
+gpg --list-keys
+git config user.signingkey 183BA08FDD477858F32593A845C942D3AB4C588C
+git config commit.gpgsign true
+----
+link:./ssh.adoc[SSH_keys]
+
+== Create repositories
+----
+git init
+----
+== git-clone
+[source,bash]
+----
+git clone --branch <branch_name> --depth <depth> <repository> <directory>
+
+git fetch --update-shallow origin <branch_name>
+----
+. full clone
+. partial clone
++
+----
+https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt
+git rev-list --filter=<filter> --all
+----
+.. blobless clone
++
+----
+git clone --filter=blob:none <url>
+----
+.. treeless clone
++
+----
+git clone --filter=tree:0 <url>
+----
+. shallow clone
++
+----
+# skip the commit history
+git clone --branch=<branch> --depth=<N> <url>
+----
+
+== git-fetch
+----
+git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+git fetch origin
+git fetch --depth=1 origin test_paas
+git fetch --depth=10
+git fetch --depth=20
+...
+git fetch --unshallow
+git fetch --tags
+----
+
+== git-pull
+git pull = git fetch + git merge
+
+== git-blame?
+
+----
+git rm --cached -r build
+----
+
+=== Synchronize changes
+----
+git branch -vv
+git branch -u <remote>/<branch>
+git merge --no-commit --no-ff <branch>
+----
+
+check if file tracked
+----
+git ls-files --error-unmatch <file name>
+----
+
+== commit
+----
+npm install -g commitizen cz-conventional-changelog
+echo '{ "path": "cz-conventional-changelog" }' > ~/.czrc
+git cz
+----
+
+commit case-sensitive only filename changes
+----
+git rm -r --cached .
+git add --all .
+git commit -a -m "Versioning untracked files"
+git push origin master
+----
+
+file, name.txt -> NAME.TXT
+----
+git mv --cached name.txt NAME.TXT
+----
+
+folder, foo -> FOO
+----
+git mv foo foo2
+git mv foo2 FOO
+----
+
+change commit info
+----
+git commit --amend --date="1 Jan 2023 12:00:00 +0000"
+git commit --amend --date="now" --no-edit
+git commit --amend --author="张磊 <zhanglei@pohvii.cloud>" --no-edit
+----
+
+== push
+----
+git config --global push.autoSetupRemotes true
+git push origin local-branch:remote-branch
+
+# set remote branch
+git push --set-upstream origin <branch>
+----
+
+=== reset
+git checkout <tree-ish> -- <pathspec>
+
+=== restore
+git reflog
+git reset --hard <tree-ish>
+git branch tmp <tree-ish>
+
+
+. modify first first
++
+git rebase [-i] --root $tip
+
+. modify commit author
++
+git rebase --root $tip --exec 'git commit --amend --author="张磊 <zhanglei@pohvii.cloud>" --no-edit'
+
+== submodule
+----
+git submodule init
+git submodule update
+# 新增
+git submodule add xxx.git yyy
+# 修改
+git submodule set-url xxx
+# remove
+git submodule deinit -f --all
+----
+
+== branch
+git checkout -b test origin/test
+git checkout -b tagName tagName
+git branch --list
+git branch -d xx yy zz
+
+== tag
+.fetch tags
+git fetch --all --tags
+
+.list remote tags
+git ls-remote --tags <remote>
+
+.list local tags
+git tag
+
+.push one tag
+git push origin 1.0.4
+
+.delete remote tag
+git push -d origin 1.0.4
+
+.delete local tag
+git tag -d 1.0.4
+
+git rev-list -n 1 tags/$TAG
+
+=== create empty branch
+----
+git switch --orphan <new branch>
+git commit --allow-empty -m "root commit"
+git push -u origin <new branch>
+----
+
+== git-clean
+----
+# show what would be done.
+git clean -n
+# remove untracked directiories in addition to untracked files.
+git clean -df
+# create a pristine working directory
+git clean -dfx
+
+git clean -dfx -e .idea
+----
+
+== git-log
+search all history for a string
+----
+git log -S password
+----
+
+== filter-branch
+----
+git filter-branch -f --tree-filter "sed -i -E '/SerialNumber/{n;s/>(.*?)</>GENERATE VALUE</}' EFI/CLOVER/config.plist" -- --all
+----
+
+all branches and tags
+----
+git filter-branch --env-filter '
+OLD_EMAIL="pOHVII@gmail.com"
+CORRECT_NAME="张磊"
+CORRECT_EMAIL="zhanglei@pohvii.cloud"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+----
+
+current branch
+----
+git filter-branch --env-filter '
+OLD_EMAIL="pOHVII@gmail.com"
+CORRECT_NAME="张磊"
+CORRECT_EMAIL="zhanglei@pohvii.cloud"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' HEAD
+----
+
+=== 保存和恢复进度
+.保存
+git stash push -m "message"
+
+.查询
+git stash list
+
+.恢复
+git stash apply 0
+
+.删除
+git stash drop 0
+
+.show files changed in the stash
+[source,bash]
+----
+# To show files changed in the last stash
+git stash show
+# So, to view the content of the most recent stash, run
+git stash show -p
+# To view the content of an arbitrary stash, run something like
+git stash show -p stash@{1}
+
+git diff stash@{0} -- example.txt
+git checkout stash@{0} -- example.txt
+----
+
+.restore dropped stash
+----
+# find the stash hash
+git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '/dangling commit/ {print $3}' )
+# apply the stash
+git stash apply $stash_hash
+# create a new branch
+git branch recovered $stash_hash
+----
+https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git
+
+## 多工作区
+https://www.git-scm.com/docs/git-worktree/
+git worktree list
+git worktree add <path> <branch>
+git worktree remove <path>
+
+## 通过usb同步repository
+git bundle create ~/Downloads/Gitbook.git --all
+git remote add usb ~/Downloads/Gitbook.git
+git pull usb
+
+git remote -v
+git remote add origin xxx.git
+git remote set-url origin xxx.git
+git remote rm usb
+
+== share using git-daemon
+----
+sudo yum install -y git-daemon
+# start the git daemon
+git daemon
+# allow git-daemon to read your project
+touch .git/git-daemon-export-ok
+# accessing the repository
+git clone git:localhost/your-path/project-X
+----
+
+== share using gitlab
+----
+sudo EXTERNAL_URL="http://172.16.173.42" yum install -y gitlab-ee
+default admin username is `root`
+//root@pohvii
+----
+
+== Troubleshooting
+=== fix error: invalid object / fatal: missing blob object
+----
+git fsck --name-objects
+git hash-object -w web-server/manager/lib/commons-jxpath-1.3.jar
+find . -type f ! -path "./.git/*" -exec git hash-object -w '{}' \;
+----
+
+=== unable to update local ref
+----
+git gc --prune=now
+git remote prune origin
+----
+
+## 教程
+[git book](https://git-scm.com/book/zh/v2)
+[learn-git-the-super-hard-way](https://github.com/b1f6c1c4/learn-git-the-super-hard-way)
+[git-flight-rules](https://github.com/k88hudson/git-flight-rules)
+https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+https://git.seveas.net/repairing-and-recovering-broken-git-repositories.html
+https://stackoverflow.com/questions/34100048/create-empty-branch-on-github
+https://stackoverflow.com/questions/10068640/git-error-on-git-pull-unable-to-update-local-ref
+
+== ignore ssl
+----
+git config --global http.<remote name>.sslVerify false
+git config --global http.https://10.10.16.8/.sslVerify false
+----
+https://stackoverflow.com/questions/38102285/git-http-sslverify-false-global-but-only-for-specific-remote

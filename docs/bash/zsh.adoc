@@ -1,0 +1,68 @@
+
+
+
+----
+zsh
+
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+done
+----
+
+vi .zpreztorc
+----
+zstyle ':prezto:load' pmodule \
+  'archive' \
+  'autosuggestions' \
+  'docker' \
+  'environment' \
+  'fasd' \
+  'git' \
+  'node' \
+  'osx' \
+  'rsync' \
+  'ruby' \
+  'screen' \
+  'syntax-highlighting' \
+  'terminal' \
+  'editor' \
+  'history' \
+  'directory' \
+  'spectrum' \
+  'utility' \
+  'completion' \
+  'prompt' \
+----
+
+vi .zshrc
+----
+# .. will already work as 'cd ..' in prezto ZSH
+# Go up two directories
+alias ...='cd ../..'
+# Go up three directories
+alias ....='cd ../../..'
+# Go up four directories
+alias .....='cd ../../../..'
+
+# Go up an abritrary number of directories
+# Use with 'up' or 'up 5' to go up N directories
+function up {
+    if [[ "$#" < 1 ]] ; then
+        cd ..
+    else
+        CDSTR=""
+        for i in {1..$1} ; do
+            CDSTR="../$CDSTR"
+        done
+        cd $CDSTR
+    fi
+}
+
+# Colorized CAT!
+alias ccat='pygmentize -g'
+----
+
+https://realjenius.com/2017/08/28/prezto/

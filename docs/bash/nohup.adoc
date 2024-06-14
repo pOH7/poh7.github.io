@@ -1,0 +1,28 @@
+
+
+----
+nohup bash -c 'while true; do ./server_keep_alive.sh >/dev/null 2>&1; sleep 60; done' >/dev/null 2>&1 &
+----
+
+---
+tags: nohup,fg,bg,jobs,&
+---
+# nohup
+
+nohup command > out.log 2>&1 &
+
+## 将命令放入后台运行
+command &
+Ctrl-Z
+
+## 查询后台运行的命令
+jobs
+## 将后台中的命令调至前台继续运行
+fg %jobnumber
+## 将一个在后台暂停的命令，变成继续执行
+bg %jobnumber
+
+## 终止进程
+Ctrl+C
+kill -9 pid
+kill -9 %jobnumber

@@ -1,0 +1,11 @@
+= cp
+
+cp -rf source/files /destination
+
+
+'cp' -rf source/. destination/
+
+use 'cp' to override cp's alias
+
+- https://stackoverflow.com/questions/14922562/how-do-i-copy-folder-with-files-to-another-folder-in-unix-linux
+- https://superuser.com/questions/358843/how-to-replace-all-the-contents-from-one-folder-with-another-one/358851
