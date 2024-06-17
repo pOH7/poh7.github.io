@@ -1,0 +1,29 @@
+
+== install
+----
+nvm use latest
+node -e "fs.writeFileSync('package.json', '{}')"
+npm i -D -E @antora/cli@3.1
+npm i -D -E @antora/site-generator@3.1
+npx antora -v
+----
+https://docs.antora.org/antora/latest/install/install-antora/
+
+== structure
+:module: ROOT
+[source,bash,subs=attributes+]
+----
+mkdir {module}/attachments
+mkdir {module}/examples
+mkdir {module}/images
+mkdir {module}/pages
+mkdir {module}/partials
+touch {module}/nav.adoc
+----
+https://docs.antora.org/antora/latest/standard-directories/
+
+== preview
+----
+npx antora antora-playbook.yml
+npx http-server build/site -c-1 -p 5000
+----
