@@ -1,0 +1,17 @@
+
+== install
+----
+gem install asciidoctor
+----
+https://rubygems.org/gems/asciidoctor
+
+----
+gem install asciidoctor-diagram
+----
+https://docs.asciidoctor.org/diagram-extension/latest/installation/
+
+----
+gem dependency asciidoctor-diagram
+gem install asciidoctor-diagram-plantuml
+----
+https://github.com/asciidoctor/asciidoctor-diagram/issues/387

@@ -1,0 +1,13 @@
+= Generate e-books
+
+== Lightnovel Crawler
+----
+pip install -U lightnovel-crawler
+lncrawl --help
+lncrawl
+# https://lightnovelstranslations.com/novel/gosick/
+----
+https://github.com/dipu-bd/lightnovel-crawler
+
+== EpubPress
+https://epub.press/

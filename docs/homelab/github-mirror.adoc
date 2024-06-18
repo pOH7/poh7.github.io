@@ -1,0 +1,24 @@
+= github mirror
+
+[plantuml,scale=0.5,svg]
+----
+!include <C4/C4_Container>
+Person(user, "want to mirror a repository")
+
+System_Ext(github, "GitHub", "Public Git repository")
+System(gitea, "Gitea", "Self-hosted Git repository")
+System(runner, "GitHub Action", "Gitea Mirror")
+
+Rel(user, github, "star a repository for mirror")
+Rel(runner, github, "pull started repositories from")
+Rel(runner, gitea, "push to")
+----
+
+https://github.com/varunsridharan/action-gitea-mirror
+
+== usage
+----
+git config --global url.https://git.pohvii.cloud/.insteadOf https://github.com/
+git config --global --unset url.https://git.pohvii.cloud/.insteadOf https://github.com/
+----
+https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a

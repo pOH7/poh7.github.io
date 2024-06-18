@@ -1,0 +1,11 @@
+
+[plantuml,scale=0.5,svg]
+----
+!include <C4/C4_Container>
+System_Ext(cloudflare, "Cloudflare", "DNS provider")
+System(router, "router", "Router Web")
+System(python, "Python Script", "schedule maintenance of DNS records")
+
+Rel(python, cloudflare, "update DNS records on", "api")
+Rel(python, router, "get current IP address from", "selenium")
+----

@@ -1,0 +1,12 @@
+
+== install
+----
+brew install gitleaks
+----
+
+== usage
+----
+gitleaks detect
+gitleaks protect
+----
+https://github.com/gitleaks/gitleaks
