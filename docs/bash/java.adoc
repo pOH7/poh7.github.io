@@ -2,6 +2,12 @@
 == install
 https://adoptium.net/temurin/archive/?version=8
 
+=== graalvm
+----
+brew install --cask graalvm/tap/graalvm-jdk21
+----
+https://github.com/graalvm/homebrew-tap
+
 == setup
 ----
 update-alternatives --install /usr/bin/java java /usr/java/jdk8u352-b08/bin/java 1
@@ -30,20 +36,24 @@ https://stackoverflow.com/questions/3093112/certificateexception-no-name-matchin
 
 . jre/lib/fonts/dejavu/
 . jre/lib/fontconfig.properties
++
+----
+version=1
+allfonts.chinese-arphic1=-misc-ar pl uming cn-light-r-normal--0-0-0-0-p-0-iso10646-1
+
+sequence.allfonts=default
+sequence.fallback=chinese-arphic1
+
+----
 
 https://docs.oracle.com/javase/8/docs/technotes/guides/intl/fontconfig.html
 https://github.com/adoptium/adoptium-support/issues/70#issuecomment-439984357
 https://blog.adoptopenjdk.net/2021/01/prerequisites-for-font-support-in-adoptopenjdk/
+http://linux-wiki.cn/wiki/zh-hant/配置JAVA程序字体
 
-
+== process info
 ----
 jps -l
 jinfo PID
 lsof -p PID
 ----
-
-== graalvm
-----
-brew install --cask graalvm/tap/graalvm-jdk21
-----
-https://github.com/graalvm/homebrew-tap

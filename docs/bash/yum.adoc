@@ -1,25 +1,46 @@
 
---nogpgcheck
-
-## 设置源
-
-vi /etc/resolv.conf
-
+== mirror
+----
 cd /etc/yum.repos.d
 wget http://mirrors.163.com/.help/CentOS7-Base-163.repo
 curl -O http://mirrors.163.com/.help/CentOS7-Base-163.repo
 mv CentOS7-Base-163.repo CentOS-Base.repo
 yum clean all
 yum makecache
+----
 
-### nginx
+== proxy
+/etc/yum.conf
+----
+proxy=http://proxy_host:proxy_port
+proxy_username=proxy_username
+proxy_password=proxy_password
+----
+https://stackoverflow.com/questions/32177112/set-proxy-in-yum-conf
+
+
+== repos
+=== to install git
+----
+rpm -i https://packages.endpointdev.com/rhel/7/os/x86_64/endpoint-repo.x86_64.rpm
+----
+
+=== to install fish
+----
+cd /etc/yum.repos.d/ && curl -L -O https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_7/shells:fish:release:3.repo
+----
+https://software.opensuse.org/download.html?project=shells:fish:release:3&package=fish
+
+=== to install nginx
 vi /etc/yum.repos.d/nginx.repo
-
+----
 [nginx]
 name=nginx repo
 baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
 gpgcheck=0
 enabled=1
-
-## 下载rpm包
+----
+== download rpm
 yum install --downloadonly --downloaddir=/opt/rpms nginx
+
+--nogpgcheck

@@ -3,3 +3,8 @@ tree display only n level
 ----
 tree -L 2
 ----
+
+display unicode
+----
+tree -N
+----

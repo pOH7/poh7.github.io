@@ -11,3 +11,4 @@ Acquire {
 ----
 apt update
 ----
+https://yanh.tech/2023/11/linux-proxy-acceleration-for-apt-docker/

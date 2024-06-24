@@ -372,3 +372,8 @@ git config --global http.<remote name>.sslVerify false
 git config --global http.https://10.10.16.8/.sslVerify false
 ----
 https://stackoverflow.com/questions/38102285/git-http-sslverify-false-global-but-only-for-specific-remote
+
+== commit executes a shell script on windows
+----
+git update-index --chmod=+x script.sh
+----
