@@ -1,0 +1,10 @@
+
+
+== learn newly created cards first
+----
+Display Order:
+  New card gather order: Descending position
+  New card sort order: Order gathered
+  New/review order: Show before reviews
+----
+https://forums.ankiweb.net/t/can-i-show-the-newly-created-cards-first-the-order-between-new-unseen-cards/17626

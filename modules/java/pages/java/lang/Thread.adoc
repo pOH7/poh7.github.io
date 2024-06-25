@@ -98,7 +98,7 @@ public boolean isInterrupted() {
 private native boolean isInterrupted(boolean ClearInterrupted);
 ----
 
-Thread respond to interruption by clearing the interrupted status and on some condition, it will throw an xref:Exception.adoc#InterruptedException[InterruptedException] or ClosedByInterruptException
+Thread respond to interruption by clearing the interrupted status and on some condition, it will throw an xref:./Exception.adoc#InterruptedException[InterruptedException] or ClosedByInterruptException
 
 [NOTE]
 Because each thread has its own interruption policy, you should not interrupt a thread unless you know what interruption means to that thread.

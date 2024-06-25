@@ -6,6 +6,6 @@ System_Ext(cloudflare, "Cloudflare", "DNS provider")
 System(router, "router", "Router Web")
 System(python, "Python Script", "schedule maintenance of DNS records")
 
-Rel(python, cloudflare, "update DNS records on", "api")
+Rel_R(python, cloudflare, "update DNS records on", "api")
 Rel(python, router, "get current IP address from", "selenium")
 ----

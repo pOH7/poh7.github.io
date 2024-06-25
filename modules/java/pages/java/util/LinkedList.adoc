@@ -1,5 +1,4 @@
 = LinkedList
-:images_dir: ../../images
 
 // tag::uml[]
 [plantuml,scale=0.5,svg]
@@ -37,4 +36,4 @@ LinkedList *-right- Node
 // end::uml[]
 
 .doubly linked list
-image::{images_dir}/linked_list.png[]
+image::linked_list.png[]

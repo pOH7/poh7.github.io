@@ -3,7 +3,7 @@
 administration tool for IPv4 packet filtering and NAT
 
 .Netfilter hooks into Linux networking packet flows
-image::images/nf-hooks.png[]
+image::nf-hooks.png[]
 
 table::
 Each table contains a number of built-in chains and may also contain user-defined chains.

@@ -31,7 +31,7 @@ class X {
 }
 ----
 
-xref:java/util/concurrent/locks/ReentrantLock.adoc[]
+xref:./ReentrantLock.adoc[]
 
 // TODO spinlock
 

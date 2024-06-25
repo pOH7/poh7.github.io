@@ -71,10 +71,10 @@ done
 ----
 
 .Deletion
-image::images/Deletion.png[]
+image::Deletion.png[]
 
 .Navigation
-image::images/Navigation.png[]
+image::Navigation.png[]
 
 ----
 set -a

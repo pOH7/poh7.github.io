@@ -41,8 +41,8 @@ System(k3s, "k3s", "Lightweight Kubernetes")
 System_Ext(cr, "Container Registry", "Docker image registry")
 
 Rel(flux, k3s, "Apply manifest to")
-Rel(flux, github, "Checkout manifests from")
-Rel(k3s, cr, "Pull image from")
+Rel_R(flux, github, "Checkout manifests from")
+Rel_R(k3s, cr, "Pull image from")
 ----
 
 Due to some network issues, I also use Alibaba Cloud Container Registry to store some public images, so my k3s cluster can pull them from there faster
@@ -54,10 +54,10 @@ System(github_runner, "GitHub Runner", "Check latest image")
 System(acr, "Alibaba Cloud Container Registry", "Docker image registry")
 System_Ext(cr, "Docker Hub / GitHub Packages / etc.", "Docker image registry")
 
-Rel(github_runner, github, "Get task from")
-Rel(github_runner, github, "Store result to")
+Rel_R(github_runner, github, "Get task from")
 Rel(github_runner, acr, "Push image to")
-Rel(github_runner, cr, "Pull image from")
+Rel_L(github_runner, cr, "Pull image from")
 ----
+// Rel_R(github_runner, github, "Store result to")
 
 I also use flux to automate update image version in my kubernetes manifests, then I can keep my applications up to date

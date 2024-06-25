@@ -50,7 +50,7 @@ https://www.ssh.com/ssh/tunneling/example[example]
 . *-N*      Do not execute a remote command.  This is useful for just forwarding ports.
 . *-f*      Requests ssh to go to background just before command execution.
 
-image::images/ssh-tunnels.png[SSH Tunneling]
+image::ssh-tunnels.png[SSH Tunneling]
 
 === Local Forwarding
 [source,shell script]

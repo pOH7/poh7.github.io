@@ -1,4 +1,4 @@
 = Stack
 
-== xref:queue.adoc#_deque[Deque]
-== xref:queue.adoc#_arraydeque[ArrayDeque]
+== xref:./Queue.adoc#_deque[Deque]
+== xref:./Queue.adoc#_arraydeque[ArrayDeque]

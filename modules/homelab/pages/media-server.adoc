@@ -62,7 +62,7 @@ System(storage, "Storage", "Store media files")
 
 Rel(admin, github, "Use Browser to add media (youtube)")
 Rel(client, storage, "Sync")
-Rel(client, minio, "Fetch")
+Rel_R(client, minio, "Fetch")
 
 Rel(runner, minio, "Upload")
 Rel(runner, github, "Fetch task")
@@ -82,10 +82,10 @@ System_Boundary(media, "Media Server", "Streaming media") {
 System(storage, "Storage", "Store media files")
 
 Rel(person, jellyfin, "Use Mobile App to watch media", "Infuse")
-Rel(jellyfin, storage, "Read media / write metadata")
+Rel_R(jellyfin, storage, "Read media / write metadata")
 
 Rel(jellyfin, metatube, "Fetch movie metadata")
 
 System_Ext(site, "Movie / TV Show DB Site")
-Rel(metatube, site, "Download metadata")
+Rel_R(metatube, site, "Download metadata")
 ----
