@@ -1,0 +1,46 @@
+name: GitHub Pages
+on:
+  push:
+    branches:
+      - master
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node_modules-
+
+      - name: Install dependencies
+        run: npm install
+
+      - run: echo "::add-mask::$KROKI_SERVER"
+      - run: |
+          sed -i "s#kroki-server-url:.*#kroki-server-url: $KROKI_SERVER#g" antora-playbook.yml
+          sed -i "s#kroki-fetch-diagram:.*#kroki-fetch-diagram: true#g" antora-playbook.yml
+        env:
+          PLANTUML_SERVER: ${{ secrets.KROKI_SERVER }}
+
+      - name: Build site
+        run: npx antora antora-playbook.yml
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+          force_orphan: true

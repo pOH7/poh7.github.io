@@ -1,0 +1,18 @@
+site:
+  title: Léon's Note
+  start_page: note:ROOT:index.adoc
+content:
+  sources:
+    - url: .
+      branches: HEAD
+ui:
+  bundle:
+    url: https://github.com/spring-io/antora-ui-spring/releases/download/v0.4.16/ui-bundle.zip
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+asciidoc:
+  extensions:
+    - asciidoctor-kroki
+  attributes:
+    kroki-fetch-diagram: false
+    kroki-server-url: https://kroki.pohvii.cloud
