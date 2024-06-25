@@ -1,0 +1,17 @@
+
+
+[plantuml,scale=0.5,svg]
+----
+object "commons-compress" as compress
+object "commons-codec" as codec
+object "commons-io" as io
+object "commons-lang3" as lang3
+object "commons-text" as text
+object "commons-collections4" as collections4
+
+compress --> codec
+compress --> io
+compress --> lang3
+text --> lang3
+collections4 --> codec
+----
