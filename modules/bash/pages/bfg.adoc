@@ -1,0 +1,15 @@
+
+== install
+----
+brew install bfg
+----
+
+== usage
+----
+bfg --delete-files YOUR-FILE-WITH-SENSITIVE-DATA
+git push --force
+----
+
+== References
+. https://rtyley.github.io/bfg-repo-cleaner/
+. https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository
