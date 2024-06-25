@@ -35,8 +35,8 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - run: echo "::add-mask::$KROKI_SERVER"
       - run: |
+          echo "::add-mask::$KROKI_SERVER"
           sed -i "s#kroki-server-url:.*#kroki-server-url: $KROKI_SERVER#g" antora-playbook.yml
           sed -i "s#kroki-fetch-diagram:.*#kroki-fetch-diagram: true#g" antora-playbook.yml
         env:
