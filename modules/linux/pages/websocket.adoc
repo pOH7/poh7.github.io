@@ -1,4 +1,8 @@
 
 == header
-no referer
+. no referer
+. browsers don't support custom headers
 
+=== References
+. https://stackoverflow.com/questions/4361173/http-headers-in-websockets-client-api
+. https://github.com/websockets/ws/issues/467
