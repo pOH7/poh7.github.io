@@ -16,6 +16,7 @@ $HOME/.bash_profile (the rest of these files are checked in order until one is f
 $HOME/.bash_login
 $HOME/.profile
 
+-z: True if the length of string is zero.
 
 .file is a directory
 ----

@@ -15,4 +15,17 @@ https://www.jenkins.io/blog/2022/12/27/run-jenkins-agent-as-a-service/
 https://www.jenkins.io/doc/book/managing/nodes/
 
 == Jenkinsfile
+
+=== parallel stages
+----
+stage('Deploy') {
+    parallel {
+        stage('Publish Jar') {
+            steps {
+                sh './mvnw deploy -Dmaven.test.skip=true'
+            }
+        }
+        ... stage
+----
+
 https://www.jenkins.io/doc/book/pipeline/syntax/

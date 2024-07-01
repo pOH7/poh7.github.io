@@ -1,0 +1,7 @@
+
+* -d: delete characters
++
+----
+tr -d '"'
+tr -d "'"
+----

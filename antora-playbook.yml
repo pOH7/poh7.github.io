@@ -5,6 +5,9 @@ content:
   sources:
     - url: .
       branches: HEAD
+      start_paths:
+        - .
+        - java
 ui:
   bundle:
     url: https://github.com/spring-io/antora-ui-spring/releases/download/v0.4.16/ui-bundle.zip

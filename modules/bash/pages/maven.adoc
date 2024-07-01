@@ -227,6 +227,7 @@ mvn -N wrapper:wrapper -Dmaven=3.5.2
 ----
 ./mvnw dependency:tree
 ./mvnw dependency:tree -pl :user-core
+./mvnw dependency:tree -Dincludes=io.netty
 ----
 
 == sort dependencies

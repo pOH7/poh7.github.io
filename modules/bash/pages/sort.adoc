@@ -1,0 +1,8 @@
+
+
+* -k: key location
+----
+sort -k2nr
+----
+* -n: numeric order
+* -r: reverse

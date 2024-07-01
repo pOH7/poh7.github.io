@@ -28,6 +28,7 @@ mkdir -p modules/{module}/partials
 touch modules/{module}/nav.adoc
 ----
 https://docs.antora.org/antora/latest/standard-directories/
+https://docs.antora.org/antora/latest/module-directory-names/
 
 == preview
 ----

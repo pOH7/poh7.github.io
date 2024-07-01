@@ -1,0 +1,7 @@
+vi ~/.gitconfig
+----
+[includeIf "gitdir:~/siv-dev/client-work/"]
+    path = ~/siv-dev/client-work/.gitconfig
+----
+
+https://alysivji.github.io/multiple-gitconfig-files.html
