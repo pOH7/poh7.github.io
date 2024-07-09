@@ -26,3 +26,11 @@ ffmpeg -i 大唐盛世_71s.mp4 -filter:v 'crop=in_w:40/81*in_h' \
 -c:v libx264 -crf 23 -preset veryfast -c:a copy 大唐盛世_71s_18_5.mp4
 ----
 https://superuser.com/questions/343951/how-can-i-crop-a-169-video-to-43-cutting-off-the-edges
+
+// == compress x265 10bit
+// ----
+// ffmpeg -i output.mkv -c:v libx265 -preset slow -crf 23 -pix_fmt yuv420p10le -tune film -profile:v main10 compressed_output.mkv
+// ----
+// -tune film / animation
+// https://www.reddit.com/r/ffmpeg/comments/wkhl9c/best_x265_settings/
+// https://trac.ffmpeg.org/wiki/Encode/H.265

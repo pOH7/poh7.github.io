@@ -1,0 +1,12 @@
+
+// convert BDMV to mkv
+// ----
+// mkvmerge /path/to/BDMV/PLAYLIST/00000.mpls -o /path/to/remux.mkv
+// ----
+// https://superuser.com/questions/1435639/create-mkv-from-bdmv-with-saving-chaptering
+
+Merge Multiple MKV Files
+----
+ls *.mkv > files.txt
+mkvmerge -o output.mkv $(cat files.txt)
+----

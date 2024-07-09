@@ -1,0 +1,18 @@
+
+
+substring
+----
+${variable:offset:length}
+echo "$variable" | cut -c start-end
+expr substr "$variable" start length
+----
+
+remove suffix
+----
+${variable%suffix}
+${image%.jp*}
+# remove after the last dot
+${filename%.*}
+# remove after the first dot
+${filename%%.*}
+----
