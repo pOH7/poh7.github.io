@@ -17,5 +17,6 @@ asciidoc:
   extensions:
     - asciidoctor-kroki
   attributes:
+    sectnums: all
     kroki-fetch-diagram: false
     kroki-server-url: https://kroki.pohvii.cloud

@@ -1,0 +1,11 @@
+= du
+
+查看foo目录的大小
+----
+du -sh foo
+----
+
+show sizes in the current directory
+----
+find . -maxdepth 1 -mindepth 1 -exec du -sh {} + | sort -h
+----

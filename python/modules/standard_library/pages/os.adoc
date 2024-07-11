@@ -1,0 +1,13 @@
+
+
+get filename
+----
+os.path.basename('/path/to/file.txt')
+----
+
+iterates over the files in the directory
+----
+for filename in sorted(os.listdir(folder_path), key=lambda x: x.lower()):
+    if (filename.endswith(".xlsx") or filename.endswith(".xls")) and not filename.startswith("~$"):
+        print(filename)
+----

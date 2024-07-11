@@ -1,0 +1,7 @@
+
+
+raw string
+----
+raw_path = r"C:\Users\Username\Documents\File.txt"
+path = "C:\\Users\\Username\\Documents\\File.txt"
+----

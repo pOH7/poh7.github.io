@@ -1,0 +1,78 @@
+
+read excel
+----
+df = pd.read_excel(file_path)
+# read sheet
+df = pd.read_excel(file_path, sheet_name='Sheet1')
+# header=2 means skip the first two rows
+# skipfooter=1 means skip the last row
+# usecols=['Column1', 'Column2'] means only read the specified columns
+
+df_header = pd.read_excel('file.xlsx', nrows=0)
+columns = df_header.columns.tolist()
+----
+
+write excel
+----
+df.to_excel(file_path, index=False)
+----
+
+filter data
+----
+df[df['column_name'] == 'value']
+df[df.duplicated(subset=['date'], keep=False)]
+df.drop_duplicates()
+df.drop_duplicates(subset=[col for col in combined.columns if col != 'source'], keep=False)
+df[df['original'].isnull()]
+----
+
+filter columns
+----
+df[['column_name1', 'column_name2']]
+df.reindex(columns=['column_name1', 'column_name2'])
+----
+
+map data
+----
+df.apply(lambda x: x.map(lambda y: y.strip() if isinstance(y, str) else y))
+df.apply(lambda x: extract_numbers(x) if pd.notna(x) else x)
+----
+
+update data
+----
+df.loc[df['a'] < 3, 'x'] = df['y']
+----
+
+handle missing data
+----
+df['column_name'].fillna('value', inplace=True)
+----
+
+regex replace
+----
+# Convert the column to string type
+df['text'] = df['text'].astype(str)
+df['text'] = df['text'].replace(r'abc', 'xyz', regex=True)
+----
+
+format data
+----
+pd.to_datetime(df['Due Date'], format='%m/%d/%Y')
+----
+
+delete column
+----
+df.drop("Liability Account", axis=1)
+----
+
+insert column
+----
+df.insert(0, 'new_column', df['column_name'])
+----
+
+== sql
+left join
+----
+df_bad_result = pd.merge(df, df_bad.dropna(subset=["Supplier name"]), how="left", left_on="Vendor Name",
+                         right_on="Supplier name", validate="m:1")
+----

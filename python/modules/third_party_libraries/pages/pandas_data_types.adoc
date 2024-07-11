@@ -1,0 +1,5 @@
+
+----
+date = pd.Timestamp('2023-07-11')
+isinstance(date, pd.Timestamp)
+----

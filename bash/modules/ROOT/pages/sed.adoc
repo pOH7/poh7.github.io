@@ -1,5 +1,20 @@
 = Sed
 
+== install
+----
+brew install "gnu-sed"
+----
+
+check in bash
+[source,bash]
+----
+if ! sed --version 2>&1 | grep -q "GNU"; then
+    echo "Error: GNU sed is not installed."
+    exit 1
+fi
+----
+
+== usage
 
 .替换「/」为「\」
 ----

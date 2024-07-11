@@ -1,0 +1,18 @@
+= getopt
+
+== install
+----
+brew install "gnu-getopt"
+----
+
+check in bash
+[source,bash]
+----
+out=$(getopt -T)
+if (( $? != 4 )) && [[ -n $out ]]; then
+    echo "Error: GNU getopt is not installed."
+    exit 1
+fi
+
+set -euo pipefail
+----
