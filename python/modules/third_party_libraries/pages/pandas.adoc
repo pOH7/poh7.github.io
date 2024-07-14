@@ -32,6 +32,11 @@ df[['column_name1', 'column_name2']]
 df.reindex(columns=['column_name1', 'column_name2'])
 ----
 
+rename columns
+----
+df.rename(columns={'old_name': 'new_name'})
+----
+
 map data
 ----
 df.apply(lambda x: x.map(lambda y: y.strip() if isinstance(y, str) else y))
