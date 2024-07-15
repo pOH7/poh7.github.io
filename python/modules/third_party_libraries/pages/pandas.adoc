@@ -1,20 +1,46 @@
+= pandas
 
+== install
+----
+pip install pandas
+pip install openpyxl,xlrd,pyxlsb, xlsxwriter
+----
+
+== usage
 read excel
 ----
+# read first sheet
 df = pd.read_excel(file_path)
-# read sheet
-df = pd.read_excel(file_path, sheet_name='Sheet1')
-# header=2 means skip the first two rows
-# skipfooter=1 means skip the last row
-# usecols=['Column1', 'Column2'] means only read the specified columns
 
+# read named sheet
+df = pd.read_excel(file_path, sheet_name='Sheet1')
+
+# n-th (index) row used as the column headers
+# header=n
+
+# skip the last n rows
+# skipfooter=n
+
+# read the specified columns
+# usecols=['Column1', 'Column2']
+
+# read the specified rows
 df_header = pd.read_excel('file.xlsx', nrows=0)
 columns = df_header.columns.tolist()
 ----
 
 write excel
 ----
+# write to sheet 'Sheet1'
 df.to_excel(file_path, index=False)
+
+# write to named sheet
+df.to_excel(file_path, sheet_name='Sheet1', index=False)
+
+# write to multiple sheets
+with pd.ExcelWriter("path_to_file.xlsx") as writer:
+    df1.to_excel(writer, sheet_name="Sheet1")
+    df2.to_excel(writer, sheet_name="Sheet2")
 ----
 
 filter data
@@ -24,6 +50,13 @@ df[df.duplicated(subset=['date'], keep=False)]
 df.drop_duplicates()
 df.drop_duplicates(subset=[col for col in combined.columns if col != 'source'], keep=False)
 df[df['original'].isnull()]
+----
+
+detect duplicates
+----
+if not df.columns.is_unique:
+    raise ValueError("Columns are not unique")
+df.set_flags(allows_duplicate_labels=False)
 ----
 
 filter columns
@@ -58,6 +91,7 @@ regex replace
 # Convert the column to string type
 df['text'] = df['text'].astype(str)
 df['text'] = df['text'].replace(r'abc', 'xyz', regex=True)
+titanic["Sex"].replace({"male": "M", "female": "F"})
 ----
 
 format data
@@ -70,8 +104,11 @@ delete column
 df.drop("Liability Account", axis=1)
 ----
 
-insert column
+add column
 ----
+df['new_column'] = 'value'
+
+# insert column at specific position
 df.insert(0, 'new_column', df['column_name'])
 ----
 
@@ -80,4 +117,10 @@ left join
 ----
 df_bad_result = pd.merge(df, df_bad.dropna(subset=["Supplier name"]), how="left", left_on="Vendor Name",
                          right_on="Supplier name", validate="m:1")
+----
+
+== clipboard
+----
+df = pd.read_clipboard(sep='\t')
+df.to_clipboard(index=False)
 ----

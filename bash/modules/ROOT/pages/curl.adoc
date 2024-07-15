@@ -31,3 +31,8 @@ socks5 = "127.0.0.1:1080"
 ----
 curl -u username:password https://www.example.com
 ----
+
+== timeout
+----
+curl -m 3
+----

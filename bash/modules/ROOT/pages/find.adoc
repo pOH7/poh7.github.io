@@ -52,3 +52,8 @@ find . -type f -size +100M -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'
 ----
 find . -name '*.md' -exec bash -c 'mv "$0" "${0%.md}.adoc"' {} \;
 ----
+
+== find by file content
+----
+find . -maxdepth 1 -name '*.sh' -exec grep -l 'string' {} \;
+----

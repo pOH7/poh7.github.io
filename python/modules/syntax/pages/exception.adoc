@@ -1,0 +1,13 @@
+
+----
+raise ExceptionType("Error message")
+----
+
+rethrow
+----
+try:
+    1 / 0
+except ZeroDivisionError:
+    print("Handling ZeroDivisionError")
+    raise
+----

@@ -1,5 +1,16 @@
 
+== DataFrame
+image:pandas/01_table_dataframe.svg[]
+
+== Series
+image:pandas/01_table_series.svg[]
+https://pandas.pydata.org/docs/getting_started/intro_tutorials/01_table_oriented.html
+
 ----
 date = pd.Timestamp('2023-07-11')
 isinstance(date, pd.Timestamp)
+----
+
+----
+pd.to_datetime(df['Due Date'], format='%m/%d/%Y')
 ----
