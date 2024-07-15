@@ -6,8 +6,12 @@ content:
     - url: .
       branches: HEAD
       start_paths:
-        - .
+        - bash
+        - blog
+        - docker
         - java
+        - linux
+        - python
 ui:
   bundle:
     url: https://github.com/spring-io/antora-ui-spring/releases/download/v0.4.16/ui-bundle.zip

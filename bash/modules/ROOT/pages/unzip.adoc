@@ -1,7 +1,11 @@
 
 
+extract to a folder
+----
 unzip -d arthas arthas-bin.zip
+----
 
+extract part of the files
 ----
 unzip -j nacos.zip target/nacos-server.jar
 ----

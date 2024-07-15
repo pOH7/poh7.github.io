@@ -1,0 +1,17 @@
+= Python
+
+== install
+use link:pyenv.adoc[pyenv] to manage python version
+
+== config
+=== pip mirror
+----
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
+----
+
+== usage
+start a simple HTTP server
+----
+python -m http.server 7800
+----

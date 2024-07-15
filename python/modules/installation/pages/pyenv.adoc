@@ -1,0 +1,62 @@
+= Pyenv
+
+== install
+=== macOS
+----
+brew install pyenv
+brew install pyenv-virtualenv
+----
+=== linux
+----
+git config --global url.https://git.pohvii.cloud/.insteadOf https://github.com/
+curl https://pyenv.run | bash
+git config --global --unset url.https://git.pohvii.cloud/.insteadOf https://github.com/
+
+set -Ux PYENV_ROOT $HOME/.pyenv
+fish_add_path $PYENV_ROOT/bin
+
+vi ~/.config/fish/conf.d/pyenv-virtualenv.fish
+status is-login; and pyenv init --path | source
+status is-interactive; and pyenv init - | source
+status --is-interactive; and pyenv virtualenv-init - | source
+----
+- https://github.com/pyenv/pyenv-virtualenv
+- https://github.com/pyenv/pyenv
+
+== usage
+=== install python
+----
+pyenv versions
+
+pyenv install -l
+pyenv install 3.12.4
+
+# pyenv uninstall 3.12.4
+----
+
+==== common problems
+----
+sudo apt install zlib1g zlib1g-dev libssl-dev libbz2-dev libsqlite3-dev
+sudo apt-get install libncurses5-dev libncursesw5-dev libffi-dev \
+    libreadline-dev liblzma-dev
+----
+https://github.com/pyenv/pyenv/wiki/Common-build-problems#build-failed-error-the-python-zlib-extension-was-not-compiled-missing-the-zlib
+
+=== create virtualenv
+----
+pyenv virtualenvs
+pyenv virtualenv 3.12.4 myenv
+
+pyenv virtualenv-delete myenv
+----
+
+=== activate virtualenv
+----
+pyenv activate myenv
+pyenv deactivate
+
+pyenv local myenv
+# vi .python-version
+pyenv local --unset
+----
+https://github.com/pyenv/pyenv/blob/master/COMMANDS.md#pyenv-local
