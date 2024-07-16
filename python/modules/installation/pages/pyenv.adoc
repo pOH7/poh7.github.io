@@ -1,5 +1,7 @@
 = Pyenv
 
+a tool to manage multiple python versions and virtualenvs
+
 == install
 === macOS
 ----

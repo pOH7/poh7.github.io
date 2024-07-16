@@ -1,0 +1,16 @@
+
+== import
+----
+import module
+import module as alias
+from module import attribute
+----
+
+.find order
+. . (same directory)
+. sys.path
+
+== packages
+----
+__init__.py
+----

@@ -1,0 +1,21 @@
+
+
+@decorator
+
+----
+import logging
+logging.basicConfig()
+def logged(func, *args, **kwargs):
+    logger = logging.getLogger()
+    def new_func(*args, **kwargs):
+        logger.debug("calling {} with args {} and kwargs {}".format(
+                     func.__name__, args, kwargs))
+        return func(*args, **kwargs)
+    return new_func
+
+@logged
+def bar():
+    print("I am inside bar.")
+----
+
+https://peps.python.org/pep-0318/

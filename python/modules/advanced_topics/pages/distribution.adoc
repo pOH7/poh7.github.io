@@ -1,0 +1,19 @@
+= Distribution
+
+----
+pip install --upgrade pip setuptools wheel
+----
+== source distribution
+----
+# .tar.gz
+python -m build --sdist source-tree-directory
+----
+
+== wheel
+----
+# .whl
+python -m build --wheel source-tree-directory
+----
+
+
+https://packaging.python.org/en/latest/

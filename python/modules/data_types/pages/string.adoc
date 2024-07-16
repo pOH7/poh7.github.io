@@ -1,7 +1,25 @@
 
+single quotes
+----
+'allows embedded "double" quotes'
+----
 
-raw string
+double quotes
+----
+"allows embedded 'single' quotes"
+----
+
+triple single/double quotes
+----
+'''Three single quotes
+another line'''
+----
+
+raw string, disable escape
 ----
 raw_path = r"C:\Users\Username\Documents\File.txt"
 path = "C:\\Users\\Username\\Documents\\File.txt"
 ----
+
+- https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str
+- https://docs.python.org/3/reference/lexical_analysis.html#escape-sequences

@@ -1,0 +1,16 @@
+
+----
+requirements.txt
+----
+
+based on installed packages
+----
+pip freeze > requirements.txt
+pip install -r requirements.txt
+----
+
+based on import statements
+----
+pip install pipreqs
+pipreqs /path/to/your/project
+----

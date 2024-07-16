@@ -1,0 +1,6 @@
+
+----
+# This function slows down program execution for some reason.
+def square_and_rooter(x):
+    """Return the square root of self times self."""
+----

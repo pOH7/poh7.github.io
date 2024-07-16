@@ -1,0 +1,12 @@
+
+----
+False
+True
+----
+
+== boolean operations
+---
+x or y
+x and y
+not x
+----
