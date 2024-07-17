@@ -1,0 +1,72 @@
+= macOS
+
+[excel_to_png]
+== excel to png
+. select range in excel, then copy
+. Preview - File - New from Clipboard
+. File - Export - PNG (Resolution: 300)
+
+== install application
+
+=== uninstall pkg
+[source,batch]
+----
+pkgutil --pkgs
+pkgutil --only-files --files the-package-name.pkg
+sudo pkgutil --forget the-package-name.pkg
+----
+
+//== wake-on-lan
+//----
+//wakeonlan -i 192.168.1.255 04:d4:c4:94:43:81
+//----
+
+== launchpad
+----
+cd $(getconf DARWIN_USER_DIR)/com.apple.dock.launchpad/db
+sqlite3 --column --header db
+----
+
+== play mkv
+ffmpeg -i your_video.mkv -vcodec copy -acodec libmp3lame your_video_noac3.mkv
+
+== install macOS
+https://support.apple.com/en-us/HT201372
+
+[source,bash]
+sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/MyVolume
+
+NOTE: should run with bash
+
+== Remove Duplicate Apps From Launchpad
+killall Dock
+
+== remove third party preference panes
+ls /Library/PreferencePanes
+
+== disable system/netbiosd
+sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.netbiosd.plist
+//sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.netbiosd.plist
+
+== Allow Apps downloaded from Anywhere
+----
+sudo spctl --master-disable
+# Disable the “Are you sure you want to open this application?” dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+----
+
+== remove .DS_Store
+----
+find . -name .DS_Store -type f -delete
+find . -type d | xargs dot_clean
+----
+
+== remove default ABC input
+----
+# change the keyboard layout to ABC
+# copy the file to the desktop, then open it in Xcode
+~/Library/Preferences/com.apple.HIToolbox.plist
+remove item (KeyboardLayout Name - ABC) in AppleEnabledInputSources
+restart
+----
+https://apple.stackexchange.com/questions/44921/how-to-remove-or-disable-a-default-keyboard-layout

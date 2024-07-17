@@ -4,3 +4,6 @@
 def square_and_rooter(x):
     """Return the square root of self times self."""
 ----
+
+== see also
+xref:bash:ROOT:idea.adoc#editor_fold[editor_fold]

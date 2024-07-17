@@ -1,0 +1,25 @@
+= IntelliJ IDEA
+
+== diff
+----
+idea diff <left file> <right file> [<base file>]
+----
+
+[#editor_fold]
+== editor-fold
+----
+# <editor-fold desc="Custom Region">
+# Your code here
+# </editor-fold>
+----
+https://www.jetbrains.com/help/idea/code-folding-settings.html
+
+== code completion
+- .arg - surround argument with invocation `method(expr)`
+
+- https://github.com/controlflow/intellij-postfix
+- https://www.jetbrains.com/help/idea/settings-postfix-completion.html
+
+- sout - System.out.println()
+
+- link:pass:<jetbrains://idea/settings?name=Editor--Live+Templates>[Settings | Editor | Live Templates]

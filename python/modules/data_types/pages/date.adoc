@@ -1,0 +1,18 @@
+
+----
+pip install python-dateutil
+----
+
+----
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+# Example date
+example_date = datetime(2023, 1, 31)
+
+# Add one month
+new_date = example_date + relativedelta(months=1)
+
+print("Original date:", example_date)
+print("New date after adding one month:", new_date)
+----

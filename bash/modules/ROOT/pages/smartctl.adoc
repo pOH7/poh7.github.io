@@ -1,0 +1,11 @@
+
+== install
+----
+apt-get install smartmontools
+----
+
+== usage
+----
+smartctl -a /dev/sdb -d sat
+# check Reallocated_Sector_Ct and Current_Pending_Sector
+----

@@ -5,6 +5,8 @@ substring
 ${variable:offset:length}
 echo "$variable" | cut -c start-end
 expr substr "$variable" start length
+
+${variable:offset}
 ----
 
 remove suffix
@@ -16,3 +18,14 @@ ${filename%.*}
 # remove after the first dot
 ${filename%%.*}
 ----
+
+replace
+----
+# replace first
+${parameter/pattern/string}
+# replace all
+${parameter//pattern/string}
+----
+
+
+https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
