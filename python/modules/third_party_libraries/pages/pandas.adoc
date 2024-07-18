@@ -3,7 +3,7 @@
 == install
 ----
 pip install pandas
-pip install openpyxl,xlrd,pyxlsb, xlsxwriter
+pip install openpyxl xlrd pyxlsb xlsxwriter
 ----
 
 == usage
@@ -83,14 +83,15 @@ df.loc[df['a'] < 3, 'x'] = df['y']
 
 handle missing data
 ----
-df['column_name'].fillna('value', inplace=True)
+df['column_name'].fillna('value')
 ----
 
-regex replace
+replace
 ----
 # Convert the column to string type
 df['text'] = df['text'].astype(str)
 df['text'] = df['text'].replace(r'abc', 'xyz', regex=True)
+
 titanic["Sex"].replace({"male": "M", "female": "F"})
 ----
 
