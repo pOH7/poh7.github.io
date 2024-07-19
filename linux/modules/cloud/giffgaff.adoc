@@ -1,0 +1,27 @@
+= GiffGaff
+
+United Kingdom, +44
+
+
+* sed a sms every 180 days to keep the sim active
+* disable iMessage/Facetime
+* xref:#disable_voicemail[disable voicemail]
+
+== References
+- https://staging.v2ex.com/t/1039877
+- https://y1gkws5zoce.feishu.cn/docx/XVvodQcJuoLRZ2xNU6PcXdbBn1e
+
+== tips
+- 首次充值激活： https://www.giffgaff.com/activate
+- 登录个人账户/重置密码： https://www.giffgaff.com/auth/login
+- 查询话费余额/SIM 号码： https://www.giffgaff.com/dashboard
+- 续费充值： https://www.giffgaff.com/top-up
+- 话费账单查询： https://www.giffgaff.com/profile/usage-statement
+- 个人资料修改： https://www.giffgaff.com/profile/details
+- 申请换号： https://www.giffgaff.com/profile/details/getnumber （一般在被 app 封号后建议用，有 2 次额度）
+
+- 查询 SIM 号码：发送 pass:[ NUMBER ] 到 43430
+- 查询话费余额：直接拨打 pass:[*100#]
+[#disable_voicemail]
+- 关闭语音信箱：直接拨打 pass:[##002#]
+- 打开语音信箱：直接拨打 pass:[**61*443*10*20#]

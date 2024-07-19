@@ -16,5 +16,5 @@ DELIMITER
 . The here-document block can contain strings, variables, commands and any other type of input.
 . The last line ends with the delimiting identifier. White space in front of the delimiter is not allowed.
 
-=== reference
+=== References
 https://linuxize.com/post/bash-heredoc/[Bash Heredoc]

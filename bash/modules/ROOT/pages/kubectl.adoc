@@ -1,0 +1,9 @@
+
+
+== patch imagePullPolicy
+:deployment-name: openvscode-server
+:container-name: openvscode-server
+[source,bash,subs=attributes+]
+----
+kubectl patch deployment {deployment-name} --patch '{"spec": {"template": {"spec": {"containers": [{"name": "{container-name}", "imagePullPolicy": "Always"}]}}}}'
+----

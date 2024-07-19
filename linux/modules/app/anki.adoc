@@ -1,0 +1,15 @@
+= Anki
+
+== keyboard
+https://keycombiner.com/collections/anki/
+
+== plugin
+=== WordQuery
+https://finalion.github.io/WordQuery/guide-cn.html
+
+=== pronunciation
+Forvo Pronunciation Downloader
+https://ankiweb.net/shared/info/1784714388
+
+== create deck
+https://github.com/kerrickstaley/genanki
