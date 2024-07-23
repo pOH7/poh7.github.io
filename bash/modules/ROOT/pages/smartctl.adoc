@@ -1,5 +1,5 @@
 
-== install
+== installation
 ----
 apt-get install smartmontools
 ----

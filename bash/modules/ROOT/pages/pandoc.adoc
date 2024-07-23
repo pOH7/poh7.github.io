@@ -1,6 +1,6 @@
 = pandoc
 
-== install
+== installation
 ----
 # https://github.com/jgm/pandoc/releases/tag/2.11.3.2
 tar -zxf pandoc-2.11.3.2-linux-amd64.tar.gz

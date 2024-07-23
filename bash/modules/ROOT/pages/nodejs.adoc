@@ -1,5 +1,5 @@
 
-== install
+== installation
 sudo yum install centos-release-scl-rh
 sudo yum-config-manager --enable rhel-server-rhscl-7-rpms
 sudo yum install rh-nodejs10

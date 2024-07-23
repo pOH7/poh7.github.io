@@ -1,5 +1,5 @@
 
-== install
+== installation
 ----
 gem install asciidoctor
 ----

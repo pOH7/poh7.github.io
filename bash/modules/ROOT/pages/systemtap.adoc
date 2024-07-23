@@ -1,6 +1,6 @@
 
 
-== install
+== installation
 ----
 yum install -y systemtap systemtap-runtime
 

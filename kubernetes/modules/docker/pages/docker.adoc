@@ -10,7 +10,7 @@ systemctl restart network
 systemctl restart docker
 ----
 
-== install
+== installation
 https://docs.docker.com/engine/install/centos/
 https://yeasy.gitbook.io/docker_practice/install/centos
 [source,shell script]
@@ -101,7 +101,7 @@ export DOCKER_HOST=ssh://sammy@your_server_ip
 ----
 
 == docker compose
-=== install
+=== installation
 [source,shell script]
 ----
 #yum -y install python-pip python-devel python-subprocess32

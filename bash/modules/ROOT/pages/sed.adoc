@@ -1,6 +1,6 @@
 = Sed
 
-== install
+== installation
 ----
 brew install "gnu-sed"
 ----

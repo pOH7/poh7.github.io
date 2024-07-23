@@ -1,0 +1,11 @@
+
+
+show info
+----
+hostnamectl
+----
+
+set hostname
+----
+hostnamectl --static set-hostname 'remote-dev'
+----

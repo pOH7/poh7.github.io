@@ -1,0 +1,28 @@
+
+== installation
+----
+kubectl apply -f https://raw.githubusercontent.com/istio/istio/release-1.22/samples/addons/jaeger.yaml
+----
+https://istio.io/latest/docs/ops/integrations/jaeger/
+
+
+----
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+spec:
+  meshConfig:
+    enableTracing: true
+    defaultConfig:
+      tracing:
+        sampling: 100
+----
+- https://istio.io/latest/docs/tasks/observability/distributed-tracing/mesh-and-proxy-config/#customizing-trace-sampling
+- xref:istio.adoc#_upgrade[istioctl upgrade -f istio-install-config.yaml]
+
+== test
+----
+istioctl dashboard jaeger
+----
+
+== References
+https://istio.io/latest/docs/tasks/observability/distributed-tracing/jaeger/

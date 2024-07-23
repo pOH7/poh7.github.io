@@ -1,0 +1,31 @@
+= JNA
+
+----
+<dependency>
+    <groupId>net.java.dev.jna</groupId>
+    <artifactId>jna</artifactId>
+</dependency>
+----
+
+== argument as result
+----
+char* buffer
+byte[] buf
+
+String normalCString = Native.toString(buf);
+----
+
+----
+char **bufp
+PointerByReference bufp
+
+PointerByReference bufp = new PointerByReference();
+String normalCString = bufp.getValue().getString(0);
+----
+- https://github.com/java-native-access/jna/blob/master/www/FrequentlyAskedQuestions.md
+- https://github.com/java-native-access/jna/blob/master/www/Mappings.md
+- https://github.com/java-native-access/jna/blob/master/www/ByRefArguments.md
+
+
+
+https://github.com/java-native-access/jna

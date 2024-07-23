@@ -1,5 +1,5 @@
 
-== install
+== installation
 ----
 # user
 adduser jenkins

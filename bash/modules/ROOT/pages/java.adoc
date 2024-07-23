@@ -1,5 +1,5 @@
 
-== install
+== installation
 https://adoptium.net/temurin/archive/?version=8
 
 === graalvm

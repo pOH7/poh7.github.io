@@ -1,0 +1,19 @@
+
+== install istio
+----
+istioctl profile dump default > istio.yaml
+curl -sSL https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/istio-csr/example/istio-config-getting-started.yaml > istio-install-config.yaml
+istioctl install -f istio-install-config.yaml
+----
+
+[#_upgrade]
+== upgrade istio
+----
+# kubectl get mutatingwebhookconfigurations
+istioctl version
+istioctl x precheck
+istioctl upgrade -f istio-install-config.yaml
+----
+
+https://istio.io/latest/docs/releases/supported-releases/
+https://istio.io/latest/docs/setup/upgrade/

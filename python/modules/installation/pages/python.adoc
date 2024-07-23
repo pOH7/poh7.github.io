@@ -1,6 +1,6 @@
 = Python
 
-== install
+== installation
 use link:pyenv.adoc[pyenv] to manage python version
 
 == config

@@ -1,5 +1,5 @@
 
-== install
+== installation
 ----
 nvm use latest
 node -e "fs.writeFileSync('package.json', '{}')"

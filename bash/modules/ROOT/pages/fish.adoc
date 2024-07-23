@@ -1,7 +1,7 @@
 = fish
 
 == oh-my-fish
-=== install
+=== installation
 curl -L https://get.oh-my.fish | fish
 
 === update

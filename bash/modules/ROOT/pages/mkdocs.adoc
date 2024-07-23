@@ -1,5 +1,5 @@
 
-== install
+== installation
 ----
 pyenv activate gitbook
 pip install mkdocs-material

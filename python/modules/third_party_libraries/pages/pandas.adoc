@@ -1,6 +1,6 @@
 = pandas
 
-== install
+== installation
 ----
 pip install pandas
 pip install openpyxl xlrd pyxlsb xlsxwriter

@@ -2,7 +2,7 @@
 
 a tool to manage multiple python versions and virtualenvs
 
-== install
+== installation
 === macOS
 ----
 brew install pyenv

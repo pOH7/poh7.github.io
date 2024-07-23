@@ -1,5 +1,5 @@
 
-== install
+== installation
 ----
 brew install bfg
 ----

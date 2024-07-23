@@ -1,6 +1,6 @@
 = getopt
 
-== install
+== installation
 ----
 brew install "gnu-getopt"
 ----
