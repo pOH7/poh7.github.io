@@ -1,0 +1,46 @@
+
+== installation
+----
+<dependency>
+   <groupId>org.springdoc</groupId>
+   <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+</dependency>
+----
+
+----
+springdoc.packagesToScan=package1, package2
+springdoc.pathsToMatch=/v1, /api/balance/**
+----
+
+https://springdoc.org/#migrating-from-springfox
+
+== usage
+@Api → @Tag
+
+@ApiIgnore → @Parameter(hidden = true) or @Operation(hidden = true) or @Hidden
+
+@ApiImplicitParam → @Parameter
+
+@ApiImplicitParams → @Parameters
+
+@ApiModel → @Schema
+
+@ApiModelProperty(hidden = true) → @Schema(accessMode = READ_ONLY)
+
+@ApiModelProperty → @Schema
+
+@ApiOperation(value = "foo", notes = "bar") → @Operation(summary = "foo", description = "bar")
+
+@ApiParam → @Parameter
+
+@ApiResponse(code = 404, message = "foo") → @ApiResponse(responseCode = "404", description = "foo")
+
+https://springdoc.org/#migrating-from-springfox
+
+== convert to swagger 2
+----
+nvm use v8.6.0
+npm install -g api-spec-converter
+api-spec-converter --from=openapi_3 --to=swagger_2 --syntax=json --order=alpha openapi.json > swagger.json
+----
+https://www.npmjs.com/package/api-spec-converter

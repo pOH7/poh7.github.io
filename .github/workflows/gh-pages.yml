@@ -40,7 +40,7 @@ jobs:
           sed -i "s#kroki-server-url:.*#kroki-server-url: $KROKI_SERVER#g" antora-playbook.yml
           sed -i "s#kroki-fetch-diagram:.*#kroki-fetch-diagram: true#g" antora-playbook.yml
         env:
-          PLANTUML_SERVER: ${{ secrets.KROKI_SERVER }}
+          KROKI_SERVER: ${{ secrets.KROKI_SERVER }}
 
       - name: Build site
         run: npx antora antora-playbook.yml

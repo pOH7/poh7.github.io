@@ -8,8 +8,8 @@ content:
       start_paths:
         - bash
         - blog
-        - docker
         - java
+        - kubernetes
         - linux
         - python
 ui:
