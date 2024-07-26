@@ -3,7 +3,8 @@
 == installation
 ----
 pip install pandas
-pip install openpyxl xlrd pyxlsb xlsxwriter
+pip install openpyxl xlrd pyxlsb
+# pip install xlsxwriter
 ----
 
 == usage
@@ -119,6 +120,9 @@ left join
 df_bad_result = pd.merge(df, df_bad.dropna(subset=["Supplier name"]), how="left", left_on="Vendor Name",
                          right_on="Supplier name", validate="m:1")
 ----
+[NOTE]
+join key type should be the same
+
 https://pandas.pydata.org/docs/getting_started/comparison/comparison_with_sql.html
 
 == clipboard

@@ -1,0 +1,14 @@
+
+
+== delete replica
+
+. drop database
+. restart clickhouse to refreshing metadata
+
+DROP TABLE query deletes the replica located on the server where the query is run. <<Data_Replication>>
+
+
+:numbered!:
+== References
+[bibliography]
+- [[[Data_Replication]]] https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/replication

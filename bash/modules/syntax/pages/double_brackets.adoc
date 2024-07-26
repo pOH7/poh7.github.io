@@ -1,0 +1,12 @@
+= [[
+
+== Word Splitting
+Bash doesn't perform word splitting inside double brackets
+
+----
+filename="nonexistent file"
+[[ ! -e $filename ]] && echo "File doesn't exist"
+# File doesn't exist
+----
+
+https://www.baeldung.com/linux/bash-single-vs-double-brackets

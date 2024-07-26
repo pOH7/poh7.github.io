@@ -2,19 +2,24 @@
 == installation
 ----
 <dependency>
-   <groupId>org.springdoc</groupId>
-   <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <groupId>org.springdoc</groupId>
+    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+    <scope>provided</scope>
 </dependency>
 ----
 
 ----
-springdoc.packagesToScan=package1, package2
-springdoc.pathsToMatch=/v1, /api/balance/**
+springdoc:
+  packagesToScan: package1, package2
+  pathsToMatch: /v1, /api/balance/**
 ----
 
 https://springdoc.org/#migrating-from-springfox
 
 == usage
+@Schema(description = "license路径")
+
+== migration
 @Api → @Tag
 
 @ApiIgnore → @Parameter(hidden = true) or @Operation(hidden = true) or @Hidden

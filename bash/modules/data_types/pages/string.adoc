@@ -27,5 +27,26 @@ ${parameter/pattern/string}
 ${parameter//pattern/string}
 ----
 
+Pattern Matching
+----
+[[ $variable = *pattern* ]] && echo true
+
+variable="va ar"
+pattern="a a"
+[[ $variable = *"a a"* ]] && echo true
+[[ $variable = *${pattern}* ]] && echo true
+----
+https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html
+
+equal comparison
+----
+[[ $variable == "$variable" ]] && echo true
+
+# below is pattern matching
+variable="*ar"
+[[ myar == $variable ]] && echo true
+----
 
 https://www.gnu.org/software/bash/manual/bash.html#Shell-Parameter-Expansion
+
+
