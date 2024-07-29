@@ -47,13 +47,17 @@ with pd.ExcelWriter("path_to_file.xlsx") as writer:
 filter data
 ----
 df[df['column_name'] == 'value']
-df[df.duplicated(subset=['date'], keep=False)]
-df.drop_duplicates()
-df.drop_duplicates(subset=[col for col in combined.columns if col != 'source'], keep=False)
+df[df['column_name'].str.contains('value', na=False)]
 df[df['original'].isnull()]
+
+# detect duplicates
+df[df.duplicated(subset=['column_name'], keep=False)]
+
+# drop duplicates
+df.drop_duplicates()
 ----
 
-detect duplicates
+detect duplicated columns
 ----
 if not df.columns.is_unique:
     raise ValueError("Columns are not unique")
