@@ -48,13 +48,13 @@ filter data
 ----
 df[df['column_name'] == 'value']
 df[df['column_name'].str.contains('value', na=False)]
-df[df['original'].isnull()]
+df[df['original'].isna()]
 
 # detect duplicates
 df[df.duplicated(subset=['column_name'], keep=False)]
 
 # drop duplicates
-df.drop_duplicates()
+df.drop_duplicates(subset=['column_name'])
 ----
 
 detect duplicated columns

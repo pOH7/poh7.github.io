@@ -1,0 +1,12 @@
+= List Comprehension
+
+----
+col for col in combined.columns if col != 'source'
+----
+
+----
+[(x, y) for x in [1,2,3] for y in [3,1,4] if x != y]
+----
+
+- https://docs.python.org/3/tutorial/datastructures.html
+- https://en.wikipedia.org/wiki/List_comprehension
