@@ -1,0 +1,17 @@
+= imagemagick
+
+== installation
+----
+brew install imagemagick
+----
+
+== usage
+
+----
+magick -density 300 -trim input.pdf -quality 100 output-%d.png
+----
+[NOTE]
+density parameter must come before the input file
+
+- https://stackoverflow.com/questions/6605006/convert-pdf-to-image-with-high-resolution
+- https://imagemagick.org/script/command-line-options.php

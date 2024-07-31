@@ -1,5 +1,15 @@
 = Anki
 
+== search <<docs_searching>>
+
+=== search by field
+"Field Name:"
+
+=== not condition
+-"Field Name:"
+
+
+
 == keyboard
 https://keycombiner.com/collections/anki/
 
@@ -13,3 +23,14 @@ https://ankiweb.net/shared/info/1784714388
 
 == create deck
 https://github.com/kerrickstaley/genanki
+
+== database
+----
+~/Library/Application\ Support/Anki2/用户1/collection.anki2
+----
+https://docs.ankiweb.net/files.html#file-locations
+
+:numbered!:
+== References
+[bibliography]
+- [[[docs_searching]]] https://docs.ankiweb.net/searching.html

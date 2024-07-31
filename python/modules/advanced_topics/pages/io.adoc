@@ -1,0 +1,7 @@
+
+
+== copy file
+----
+import shutil
+shutil.copy2(src, dest)
+----

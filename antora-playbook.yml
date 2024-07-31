@@ -8,6 +8,7 @@ content:
       start_paths:
         - bash
         - blog
+        - database
         - java
         - kubernetes
         - linux

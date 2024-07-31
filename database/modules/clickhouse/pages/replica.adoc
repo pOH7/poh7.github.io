@@ -7,6 +7,7 @@
 
 DROP TABLE query deletes the replica located on the server where the query is run. <<Data_Replication>>
 
+因为复制表需要在zookeeper上建立一个路径，存放相关数据。clickhouse默认的库引擎是原子数据库引擎，删除Atomic数据库中的表后，它不会立即删除，而是会在480秒后删除。由下面这个参数控制：<database_atomic_delay_before_drop_table_sec>480</database_atomic_delay_before_drop_table_sec>
 
 :numbered!:
 == References

@@ -1,0 +1,13 @@
+
+
+connect in read-only mode
+[source,python]
+----
+import sqlite3
+con = sqlite3.connect("file:tutorial.db?mode=ro", uri=True)
+----
+
+[NOTE]
+doesn't support simultaneous write
+
+https://docs.python.org/3/library/sqlite3.html
