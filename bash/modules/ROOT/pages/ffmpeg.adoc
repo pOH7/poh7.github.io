@@ -34,3 +34,10 @@ https://superuser.com/questions/343951/how-can-i-crop-a-169-video-to-43-cutting-
 // -tune film / animation
 // https://www.reddit.com/r/ffmpeg/comments/wkhl9c/best_x265_settings/
 // https://trac.ffmpeg.org/wiki/Encode/H.265
+
+== compress video
+----
+ffmpeg -i "input.mp4" -c:v libx264 -tag:v avc1 -movflags faststart -crf 30 -preset superfast "output.mp4"
+----
+- -crf 30: This sets the Constant Rate Factor (CRF) to 30, balancing quality and file size (lower values mean higher quality).
+- -preset superfast: This sets the encoding speed to "superfast," which affects compression efficiency and speed.
