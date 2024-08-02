@@ -1,13 +1,20 @@
-
-
-connect in read-only mode
-[source,python]
-----
-import sqlite3
-con = sqlite3.connect("file:tutorial.db?mode=ro", uri=True)
-----
+= SQLite3
 
 [NOTE]
 doesn't support simultaneous write
 
-https://docs.python.org/3/library/sqlite3.html
+
+== connect a read-only database
+[source,python]
+----
+import sqlite3
+con = sqlite3.connect("file:tutorial.db?mode=ro&immutable=1", uri=True)
+----
+
+____
+Even though it is possible to open a read-only WAL-mode database, it is good practice to converted to PRAGMA journal_mode=DELETE prior to burning an SQLite database image onto read-only media.
+____
+
+
+- https://docs.python.org/3/library/sqlite3.html
+- https://www.sqlite.org/wal.html

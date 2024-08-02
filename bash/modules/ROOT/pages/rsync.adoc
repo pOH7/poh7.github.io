@@ -1,12 +1,16 @@
-# Rsync
+= Rsync
 
 安装
+----
 brew install rsync
+----
 
 同步
 
+----
 rsync -avzP /src/foo /dest
 rsync -avzP /src/foo/ /dest/foo
+----
 
 == debug
 ----
@@ -24,14 +28,14 @@ ssh remotehost false
 
 //--iconv=LOCAL,REMOTE 防止中文乱码
 
--a: archive mode
--c: checksum
--z: compress
--v: verbose
--P: sow progress
---exclude=PATTERN: exclude files
---delete: delete from dest dirs
---list-only:
+- -a: archive mode
+- -c: checksum
+- -z: compress
+- -v: verbose
+- -P: sow progress
+- --exclude=PATTERN: exclude files
+- --delete: delete from dest dirs
+- --list-only:
 
 
 == sync CentOS
@@ -49,7 +53,9 @@ ssh remotehost false
 /etc/sysconfig/network*
 /etc/crypttab
 
+----
 rsync -vPa -e 'ssh -o StrictHostKeyChecking=no' --exclude-from=/root/exclude-files.txt / REMOTE-IP:/
+----
 
 IMPORTANT: disable selinux
 
@@ -104,4 +110,10 @@ rsync -av --itemize-changes --exclude ".*" "$SOURCE_DIR" "$DEST_DIR" | while rea
         npx downdoc "$DEST_DIR/$FILE_PATH"
     fi
 done
+----
+
+=== fast delete a folder
+----
+mkdir empty_dir
+rsync -a --delete empty_dir/ /path/to/folder
 ----

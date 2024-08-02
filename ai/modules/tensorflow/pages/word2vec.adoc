@@ -1,0 +1,8 @@
+= Word2Vec
+
+Skip-Gram
+
+https://www.tensorflow.org/text/tutorials/word2vec
+https://medium.com/@manansuri/a-dummys-guide-to-word2vec-456444f3c673
+
+- [[[pre-trained_model]]] https://ai.tencent.com/ailab/nlp/en/embedding.html

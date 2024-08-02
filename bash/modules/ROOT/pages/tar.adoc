@@ -1,17 +1,24 @@
-# tar
+= tar
 
-## 示例
+== 示例
 
 压缩
+----
 tar -zcvf archive.tar.gz dir
+----
 
 解压
+----
 tar -zxvf archive.tar.gz
+tar -xf archive.tar.xz
+----
 
 查看
+----
 tar -tvf archive.tar.gz
+----
 
-## 参数说明
+== 参数说明
 create a new archive file
 ----
 -c

@@ -18,7 +18,7 @@ https://yeasy.gitbook.io/docker_practice/install/centos
 # yum -y install yum-utils
 sudo yum-config-manager \
     --add-repo \
-    https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo
+    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 # sudo sed -i 's/download.docker.com/mirrors.ustc.edu.cn\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
 
 # uninstall
@@ -134,33 +134,42 @@ ENV LANG C.UTF-8
 ----
 
 == clean
+----
 docker system prune
+----
 
 == 复制
+----
 docker cp
+----
 
 == run
+----
 docker run -it --rm --entrypoint=/bin/bash IMAGE
 docker run --name=NAME -d IMAGE
 docker exec -it NAME /bin/bash
+----
 
 == images
+----
 docker save -o file.tar IMAGE
 
 docker save IMAGE | gzip > file.tar.gz
 
 gunzip -c file.tar.gz | docker load
 
-.sha256
+# sha256
 docker inspect --format='{{.RepoDigests}}' IMAGE
+----
 
 == clean
 https://docs.docker.com/config/pruning/
+----
 docker image prune
 docker container prune
 
 docker images | grep none | awk '{print $3}'| xargs docker rmi -f
-
+----
 
 https://www.digitalocean.com/community/tutorials/how-to-use-a-remote-docker-server-to-speed-up-your-workflow
 

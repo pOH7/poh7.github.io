@@ -16,3 +16,40 @@ fi
 
 set -euo pipefail
 ----
+
+== usage
+----
+FROM=
+TO=
+
+TEMP=$(getopt -o h --long help,current:,target: -- "$@") || (usage && exit 1)
+eval set -- "$TEMP"
+
+while true; do
+  case "$1" in
+  -h | --help)
+    usage
+    exit
+    ;;
+  --current)
+    FROM=$2
+    shift 2
+    ;;
+  --target)
+    TO=$2
+    shift 2
+    ;;
+  --)
+    shift
+    break
+    ;;
+  *)
+    echo "Error: unsupported argument $1"
+    exit 1
+    ;;
+  esac
+done
+----
+
+https://stackoverflow.com/questions/402377/using-getopts-to-process-long-and-short-command-line-options
+https://linux.die.net/man/1/getopt

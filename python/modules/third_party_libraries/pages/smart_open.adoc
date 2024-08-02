@@ -1,0 +1,9 @@
+
+
+----
+from smart_open import open
+for line in open('https://radimrehurek.com/mycorpus.txt'):
+    print(line)
+----
+
+https://pypi.org/project/smart-open/

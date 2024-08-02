@@ -6,6 +6,7 @@ content:
     - url: .
       branches: HEAD
       start_paths:
+        - ai
         - bash
         - blog
         - database

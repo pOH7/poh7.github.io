@@ -1,0 +1,36 @@
+= CentOS 7
+
+== Installation
+https://mirrors.aliyun.com/centos/7/isos/x86_64/
+
+== Configuration
+=== Repositories
+----
+sudo yum makecache
+----
+==== CentOS-Base
+/etc/yum.repos.d/CentOS-Base.repo
+----
+include::attachment$CentOS-7/CentOS-Base.repo[]
+----
+https://mirrors.aliyun.com/repo/Centos-7.repo
+
+==== epel-7
+----
+# curl -o /etc/yum.repos.d/epel-7.repo http://mirrors.aliyun.com/repo/epel-7.repo
+sudo yum-config-manager \
+    --add-repo \
+    https://mirrors.aliyun.com/repo/epel-7.repo
+----
+https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+=== Users
+create a new sudo user
+----
+cat /etc/passwd
+adduser username
+passwd username
+# By default, on CentOS, members of the wheel group have sudo privileges
+usermod -aG wheel username
+usermod -s /bin/bash username
+----

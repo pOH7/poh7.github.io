@@ -1,0 +1,7 @@
+
+== installation
+----
+pip install gensim
+----
+
+https://radimrehurek.com/gensim/
