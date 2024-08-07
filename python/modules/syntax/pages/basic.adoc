@@ -1,8 +1,0 @@
-
-
-. expression
-. values
-. operators
-. evaluate
-
-image::math_operators.png[]

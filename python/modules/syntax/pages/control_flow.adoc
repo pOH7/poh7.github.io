@@ -1,3 +1,30 @@
+= Control Flow
+
+- condition: a statement that is either true or false
+- clause: a block of statements
+
+== statement
+. if
+. else
+. elif
+. while
+. break
+. continue
+. for
+- range()
+
+
+
+[NOTE]
+False: 0, 0.0, '', [], {}, None
+
+== exit
+----
+import sys
+
+sys.exit()
+----
+
 
 ----
 compound_stmt ::=  if_stmt

@@ -6,5 +6,12 @@ spam = 1  # and this is the second comment
 text = "# This is not a comment because it's inside quotes."
 ----
 
+== see also
+- xref:bash:ROOT:idea.adoc#editor_fold[editor_fold]
+- xref:function.adoc#docstring[use multi-line string as comment]
+
+:numbered!:
+== References
+[bibliography]
 - https://docs.python.org/3/tutorial/introduction.html
 - https://docs.python.org/3/reference/lexical_analysis.html#comments

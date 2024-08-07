@@ -1,0 +1,59 @@
+= Stable Diffusion
+
+== Installation
+=== install nvidia driver
+:nvidia-version: 550.107.02
+[source, bash, subs="attributes"]
+----
+pveversion --verbose
+sudo apt install pve-headers
+# https://www.nvidia.com/Download/index.aspx?lang=en-us
+wget https://us.download.nvidia.com/XFree86/Linux-x86_64/{nvidia-version}/NVIDIA-Linux-x86_64-{nvidia-version}.run
+chmod +x ./NVIDIA-Linux-x86_64-{nvidia-version}.run
+sudo ./NVIDIA-Linux-x86_64-{nvidia-version}.run --dkms --kernel-source-path=/usr/src/linux-headers-$(uname -r)
+nvidia-smi
+----
+==== fix
+lspci -k
+----
+2d:00.0 VGA compatible controller: NVIDIA Corporation GP104 [GeForce GTX 1070] (rev a1)
+	Subsystem: NVIDIA Corporation GP104 [GeForce GTX 1070]
+	Kernel driver in use: vfio-pci
+	Kernel modules: nvidiafb, nouveau
+2d:00.1 Audio device: NVIDIA Corporation GP104 High Definition Audio Controller (rev a1)
+	Subsystem: NVIDIA Corporation GP104 High Definition Audio Controller
+	Kernel driver in use: vfio-pci
+	Kernel modules: snd_hda_intel
+----
+----
+echo "0000:2d:00.0" > /sys/bus/pci/devices/0000:2d:00.0/driver/unbind
+echo "0000:2d:00.1" > /sys/bus/pci/devices/0000:2d:00.1/driver/unbind
+----
+https://forum.proxmox.com/threads/unable-to-load-the-kernel-module-nvidia-ko.89428/
+
+=== install stable-diffusion-webui
+xref:stable-diffusion-webui.adoc[]
+
+=== install ComfyUI
+----
+source ~/stable-diffusion-webui/venv/bin/activate.fish
+cd ~/ComfyUI/
+# python3 main.py -h
+python3 main.py --listen --port 7860
+
+cd ~/ComfyUI/custom_nodes
+git clone https://github.com/ltdrdata/ComfyUI-Manager.git
+
+----
+https://github.com/comfyanonymous/ComfyUI
+https://www.comflowy.com/zh-CN/basics/prompt
+
+:numbered!:
+== References
+[bibliography]
+- https://pve.proxmox.com/wiki/NVIDIA_vGPU_on_Proxmox_VE_7.x
+- https://forum.proxmox.com/threads/install-nvidia-drivers.99597/
+- https://wiki.debian.org/NvidiaGraphicsDrivers#Debian_11_.22Bullseye.22
+
+
+- https://medium.com/@croath/低成本体验生成-ai-小姐姐照片-85ffa7c13cd7

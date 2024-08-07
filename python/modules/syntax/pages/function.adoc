@@ -5,4 +5,46 @@ def foo():
     print("I am inside foo.")
 ----
 
-https://docs.python.org/3/reference/compound_stmts.html#function-definitions
+== statement
+- return
++
+----
+return
+return None
+----
+
+== arguments
+=== keyword arguments
+=== reference arguments
+mutable variable is passed by reference
+
+
+
+== scope
+- local
+- global
++
+----
+x = 10  # Global variable
+
+def modify_global():
+    global x  # Declare x as global
+    x = 20    # Modify the global variable
+----
+
+
+
+[#docstring]
+== docstring
+----
+# This function slows down program execution for some reason.
+def square_and_rooter(x):
+    """Return the square root of self times self."""
+----
+
+
+:numbered!:
+== References
+[bibliography]
+- https://docs.python.org/3/reference/compound_stmts.html#function-definitions
+- [[[Built-in_Functions]]]https://docs.python.org/3/library/functions.html

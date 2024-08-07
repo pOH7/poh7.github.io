@@ -1,0 +1,7 @@
+
+
+
+- https://education.civitai.com/quickstart-guide-to-stable-diffusion-3/
+- https://civitai.com/models/497255?modelVersionId=568256
+- https://huggingface.co/stabilityai/stable-diffusion-3-medium
+- https://comfyanonymous.github.io/ComfyUI_examples/sd3/

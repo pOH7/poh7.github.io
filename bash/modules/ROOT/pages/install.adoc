@@ -1,0 +1,5 @@
+
+
+----
+install -m 755 "$SCRIPT_DIR/bin/q" "$HOME/.local/bin/"
+----

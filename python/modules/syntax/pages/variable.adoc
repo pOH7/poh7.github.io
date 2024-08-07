@@ -1,0 +1,27 @@
+----
+my_var = 3
+
+del(my_var)
+----
+
+tuple unpacking
+----
+cat = ('fat', 'orange', 'loud')
+size, color, disposition = cat
+----
+
+image::augmented_assignment.png[]
+
+== reference
+. python uses reference when assigning a multable variable
+. use id() to get the memory address of a variable
+
+----
+import copy
+
+a = [1, 2, 3]
+b = a
+c = copy.copy(a)
+d = copy.deepcopy(a) # copy inner items as well
+
+----

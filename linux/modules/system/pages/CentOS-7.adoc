@@ -34,3 +34,4 @@ passwd username
 usermod -aG wheel username
 usermod -s /bin/bash username
 ----
+xref:bash::sudo.adoc[]

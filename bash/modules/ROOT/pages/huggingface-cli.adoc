@@ -1,0 +1,15 @@
+= huggingface-cli
+
+----
+pip install --upgrade huggingface_hub
+----
+
+----
+export HF_TOKEN=hf_xxx
+export HF_HUB_CACHE=~/.cache/huggingface/hub
+huggingface-cli download stabilityai/stable-diffusion-3-medium sd3_medium_incl_clips_t5xxlfp16.safetensors
+----
+
+- https://huggingface.co/docs/huggingface_hub/installation
+- https://huggingface.co/docs/huggingface_hub/package_reference/file_download
+- https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables

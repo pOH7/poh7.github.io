@@ -1,4 +1,6 @@
 
+immutable, sequence of characters
+
 single quotes
 ----
 'allows embedded "double" quotes'
@@ -30,3 +32,42 @@ f-string, format string
 f"Hello, {name}"
 ----
 https://docs.python.org/3/tutorial/inputoutput.html
+
+== function
+- len()
+- str()
+
+== operator
+- in
+- not in
+
+== method
+- upper()
+- lower()
+- isupper()
+- islower()
+
+- startswith()
+- endswith()
+
+- join()
+- split()
+
+- rjust()
+- ljust()
+- center()
+
+- strip()
+- rstrip()
+- lstrip()
+
+== clipboard
+----
+import pyperclip
+
+pyperclip.copy('Hello, world!')
+print(pyperclip.paste())
+----
+
+== see also
+- xref:syntax:function.adoc#docstring[use multi-line string as comment]

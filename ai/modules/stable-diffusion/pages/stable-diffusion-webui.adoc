@@ -1,0 +1,32 @@
+= stable-diffusion-webui
+
+== installation
+----
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
+git config --global url.https://git.pohvii.cloud/.insteadOf https://github.com/
+----
+----
+cd stable-diffusion-webui/
+bash webui.sh --listen --enable-insecure-extension-access
+
+# install extension
+# https://github.com/civitai/sd_civitai_extension
+----
+
+=== config systemd
+xref:attachment$stablediffusion.service[/etc/systemd/system/stablediffusion.service]
+----
+sudo systemctl daemon-reload
+sudo systemctl enable stablediffusion.service
+sudo systemctl start stablediffusion.service
+sudo systemctl status stablediffusion.service
+sudo journalctl -u stablediffusion.service -f
+
+sudo systemctl stop stablediffusion.service
+----
+
+:numbered!:
+== References
+[bibliography]
+- https://github.com/AUTOMATIC1111/stable-diffusion-webui

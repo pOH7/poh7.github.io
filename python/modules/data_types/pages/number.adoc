@@ -1,0 +1,11 @@
+
+== integer
+
+=== function
+- int()
+
+== float
+
+=== function
+- int()
+- float()

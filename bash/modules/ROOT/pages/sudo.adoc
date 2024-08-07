@@ -5,3 +5,18 @@
 ----
 sudo -u <user> <command>
 ----
+
+== allow user to run all commands
+. add user to group wheel
++
+----
+usermod -aG wheel <username>
+----
+
+== allow user to run all commands without a password
+----
+sudo visudo -f /etc/sudoers.d/<username>
+
+<username>        ALL=(ALL)       NOPASSWD: ALL
+----
+

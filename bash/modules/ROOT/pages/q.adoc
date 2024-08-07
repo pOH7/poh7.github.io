@@ -1,0 +1,27 @@
+= Amazon Q
+
+== Installation
+----
+# glibc 2.34 or newer
+ldd --version
+
+curl --proto '=https' --tlsv1.2 -sSf "https://desktop-release.codewhisperer.us-east-1.amazonaws.com/latest/q-x86_64-linux.zip" -o "q.zip"
+unzip q.zip
+./q/install.sh
+
+sudo -e /etc/ssh/sshd_config
+AcceptEnv Q_SET_PARENT
+AllowStreamLocalForwarding yes
+
+sudo systemctl restart sshd
+----
+
+== Setup
+----
+q login
+
+q doctor
+----
+
+
+https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line-autocomplete-ssh.html

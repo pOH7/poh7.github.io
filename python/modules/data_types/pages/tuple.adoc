@@ -1,0 +1,12 @@
+
+immutable, ordered, iterable, and indexed collection of items
+
+----
+('only one item',)  # trailing comma
+('one', 'two', 'three')
+
+tuple()  # empty tuple
+tuple('hello')  # tuple of characters
+tuple([1, 2, 3])  # tuple from list
+
+----

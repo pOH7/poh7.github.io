@@ -184,3 +184,10 @@ docker build . \
     -t your/image:tag
 ----
 https://yanh.tech/2023/11/linux-proxy-acceleration-for-apt-docker/
+
+== network
+open port in a running container
+----
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container_name_or_id>
+sudo iptables -t nat -A DOCKER -p tcp --dport 8080 -j DNAT --to-destination <container_ip>:80
+----

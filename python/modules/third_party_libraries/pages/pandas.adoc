@@ -49,6 +49,7 @@ filter data
 df[df['column_name'] == 'value']
 df[df['column_name'].str.contains('value', na=False)]
 df[df['original'].isna()]
+df[df['original'].notna()]
 
 # detect duplicates
 df[df.duplicated(subset=['column_name'], keep=False)]
@@ -67,12 +68,16 @@ df.set_flags(allows_duplicate_labels=False)
 filter columns
 ----
 df[['column_name1', 'column_name2']]
+df.iloc[:, :4]
+
 df.reindex(columns=['column_name1', 'column_name2'])
 ----
 
 rename columns
 ----
 df.rename(columns={'old_name': 'new_name'})
+
+df.columns = ['new_name1', 'new_name2']
 ----
 
 map data
@@ -89,6 +94,9 @@ df.loc[df['a'] < 3, 'x'] = df['y']
 handle missing data
 ----
 df['column_name'].fillna('value')
+
+# from the previous row
+df.ffill()
 ----
 
 replace

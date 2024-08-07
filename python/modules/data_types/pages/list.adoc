@@ -1,0 +1,62 @@
+
+----
+[]
+
+list()  # empty list
+list('hello')  # list of characters
+list((1, 2, 3))  # list from tuple
+
+----
+
+- item
+- index
++
+----
+spam[-1]
+----
+* IndexError
+- slice
++
+----
+spam[1:4]
+----
+- len()
+- +
+- *
+- del()
+- in
++
+----
+'hello' in spam
+----
+- not in
+- append()
+- insert()
+- remove()
+- sort()
+- reverse()
+
+
+== iterator
+----
+for i in range(len(spam)):
+    print(spam[i])
+----
+----
+for index, item in enumerate(spam):
+    print('Index ' + str(index) + ' in spam is: ' + item)
+----
+
+== random
+----
+random.shuffle(spam)
+random.choice(spam)
+----
+
+== See Also
+- xref:syntax:list_comprehension.adoc[]
+
+
+:numbered!:
+== References
+[bibliography]

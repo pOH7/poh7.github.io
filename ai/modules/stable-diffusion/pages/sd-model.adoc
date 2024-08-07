@@ -1,0 +1,54 @@
+= models
+
+
+== controlnet
+- https://huggingface.co/InstantX/SD3-Controlnet-Canny/blob/main/diffusion_pytorch_model.safetensors[sd3_controlnet_canny.safetensors]
+
+== clip
+- https://huggingface.co/stabilityai/stable-diffusion-3-medium/tree/main/text_encoders[Stable Diffusion 3 Medium / text_encoders]
++
+----
+huggingface-cli download stabilityai/stable-diffusion-3-medium text_encoders/t5xxl_fp16.safetensors
+----
+
+== clip_vision
+- https://huggingface.co/openai/clip-vit-large-patch14[OpenAI CLIP Model]
++
+----
+huggingface-cli download openai/clip-vit-large-patch14 model.safetensors
+----
+
+== checkpoints
+- https://huggingface.co/stabilityai/stable-diffusion-3-medium[Stable Diffusion 3 Medium]
++
+----
+huggingface-cli download stabilityai/stable-diffusion-3-medium sd3_medium_incl_clips_t5xxlfp16.safetensors
+----
+- https://huggingface.co/stabilityai/stable-diffusion-2-1-unclip[stable-diffusion-2-1-unclip]
++
+----
+huggingface-cli download stabilityai/stable-diffusion-2-1-unclip sd21-unclip-h.ckpt
+----
+- https://civitai.com/models/4384/dreamshaper[Dreamshaper]
+
+== style_models
+- https://huggingface.co/TencentARC/T2I-Adapter/blob/main/models/coadapter-style-sd15v1.pth[coadapter-style-sd15v1]
++
+----
+huggingface-cli download TencentARC/T2I-Adapter models/coadapter-style-sd15v1.pth
+----
+
+
+
+== download civitai models
+----
+wget https://civitai.com/api/download/models/{modelVersionId} --content-disposition
+wget "https://civitai.com/api/download/models/####?type=Model&format=SafeTensor&token=****"
+----
+
+:numbered!:
+== References
+[bibliography]
+- https://civitai.com/
+- xref:bash::huggingface-cli.adoc[]
+- https://www.reddit.com/r/StableDiffusion/comments/zt8b7q/can_you_download_from_civitai_onto_colab_without/

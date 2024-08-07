@@ -1,0 +1,51 @@
+
+multable, key-value pairs, unordered
+
+----
+{} # empty dictionary
+{'name': 'Zophie', 'species': 'cat', 'age': 7} # dictionary
+----
+
+
+- keys()
++
+----
+for k in spam.keys():
+    print(k)
+----
+- values()
++
+----
+for v in spam.values():
+    print(v)
+----
+- items()
++
+----
+for i in spam.items():
+    print(i)
+
+for k, v in spam.items():
+    print('Key: ' + k + ' Value: ' + str(v))
+----
+
+- in
+- not in
+
+- get()
++
+----
+spam.get('name', 'default value')
+----
+- setdefault()
++
+----
+spam.setdefault('color', 'black')
+----
+
+== print
+----
+import pprint
+
+pprint.pprint(spam)
+----

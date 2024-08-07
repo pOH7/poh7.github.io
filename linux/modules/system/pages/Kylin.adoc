@@ -1,0 +1,12 @@
+
+----
+[root@localhost ~]# hostnamectl
+   Static hostname: localhost.localdomain
+         Icon name: computer-server
+           Chassis: server
+        Machine ID: 336dbe2c063644c6b87cb7a8e41d843d
+           Boot ID: 2e51b0b4dd0e418594774c6055ddf17d
+  Operating System: Kylin Linux Advanced Server V10 (Halberd)
+            Kernel: Linux 4.19.90-89.14.v2401.ky10.x86_64
+      Architecture: x86-64
+----

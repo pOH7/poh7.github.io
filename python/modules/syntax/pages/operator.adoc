@@ -1,0 +1,22 @@
+
+== Math Operators
+image::math_operators.png[]
+
+== Assignment Operator
+- =
+
+== Comparison Operators
+image::comparison_operators.png[]
+
+== Boolean Operators
+- and
+- or
+- not
+
+== Augmented Assignment Operators
+image::augmented_assignment.png[]
+
+== Binary Operators
+// TODO
+
+
