@@ -1,0 +1,14 @@
+
+----
+<dependency>
+    <groupId>com.huaban</groupId>
+    <artifactId>jieba-analysis</artifactId>
+</dependency>
+----
+
+----
+JiebaSegmenter segmenter = new JiebaSegmenter();
+segmenter.process(sentence, SegMode.INDEX);
+----
+
+https://github.com/huaban/jieba-analysis

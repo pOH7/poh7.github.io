@@ -6,7 +6,7 @@ After=network.target
 Type=simple
 Restart=always
 User=zhanglei
-WorkingDirectory=/home/zhanglei/stable-diffusion-webui
+WorkingDirectory=/home/zhanglei/apps/stable-diffusion-webui
 ExecStart=/bin/bash webui.sh --listen --enable-insecure-extension-access
 
 [Install]

@@ -1,0 +1,10 @@
+
+----
+sudo systemctl daemon-reload
+sudo systemctl enable stablediffusion.service
+sudo systemctl start stablediffusion.service
+sudo systemctl status stablediffusion.service
+sudo journalctl -u stablediffusion.service -f
+
+sudo systemctl stop stablediffusion.service
+----

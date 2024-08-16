@@ -1,0 +1,20 @@
+
+[#mirror]
+== mirror
+----
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip config set install.trusted-host pypi.tuna.tsinghua.edu.cn
+----
+
+// ----
+// # ~/.config/pip/pip.conf
+// [global]
+// index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+// extra-index-url = https://mirrors.aliyun.com/pypi/simple
+//
+// [install]
+// trusted-host = pypi.tuna.tsinghua.edu.cn
+//                mirrors.aliyun.com
+// ----
+//
+// - https://developer.aliyun.com/mirror/pypi/

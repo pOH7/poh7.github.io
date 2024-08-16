@@ -1,0 +1,9 @@
+= KoboldCpp
+
+----
+koboldai/koboldcpp:cu12
+----
+
+KCPP_ARGS="--model Llama-3.1-8B-Instruct-abliterated_via_adapter.Q8_0.gguf --usecublas --gpulayers -1"
+
+https://hub.docker.com/r/koboldai/koboldcpp

@@ -33,5 +33,5 @@ $ useradd -d /var/ftp -s /sbin/nologin ftp
 $ mkdir /var/ftp
 $ chmod 777 /var/ftp
 
-# 参考
+== 参考
 [使用 Docker 快速搭建 FTP 服务](https://www.jianshu.com/p/e51fe1975c29)

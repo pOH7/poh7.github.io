@@ -1,0 +1,21 @@
+= ComfyUI
+
+== Installation
+----
+source ~/apps/stable-diffusion-webui/venv/bin/activate.fish
+cd ~/apps/ComfyUI/
+# python3 -m pip install -r requirements.txt
+# python3 main.py -h
+python3 main.py --listen --port 7860
+
+cd ~/apps/ComfyUI/custom_nodes
+git clone https://github.com/ltdrdata/ComfyUI-Manager.git
+
+# extra_model_paths.yaml
+----
+- https://github.com/comfyanonymous/ComfyUI
+- https://www.comflowy.com/zh-CN/basics/prompt
+
+=== config xref:bash::systemctl.adoc[systemd]
+- xref:attachment$comfyui.service[/etc/systemd/system/comfyui.service]
+- xref:attachment$start_comfyui.sh[~/apps/scripts/start_comfyui.sh]

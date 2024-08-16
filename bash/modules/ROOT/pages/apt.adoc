@@ -3,8 +3,8 @@
 vi /etc/apt/apt.conf.d/proxy.conf
 ----
 Acquire {
-  HTTP::proxy "http://127.0.0.1:10809";
-  HTTPS::proxy "http://127.0.0.1:10809";
+  HTTP::proxy "http://127.0.0.1:20172";
+  HTTPS::proxy "http://127.0.0.1:20172";
 }
 ----
 

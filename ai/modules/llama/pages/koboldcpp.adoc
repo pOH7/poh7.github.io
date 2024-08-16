@@ -1,0 +1,14 @@
+= KoboldCpp
+
+== Installation
+
+=== config xref:bash::systemctl.adoc[systemd]
+- xref:attachment$koboldcpp.service[/etc/systemd/system/koboldcpp.service]
+
+== Usage
+----
+koboldcpp --model Llama-3.1-8B-Instruct-abliterated_via_adapter.Q8_0.gguf --port 7860 \
+--usecublas --gpulayers -1
+----
+
+- https://github.com/LostRuins/koboldcpp

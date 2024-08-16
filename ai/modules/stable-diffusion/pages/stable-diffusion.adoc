@@ -35,18 +35,7 @@ https://forum.proxmox.com/threads/unable-to-load-the-kernel-module-nvidia-ko.894
 xref:stable-diffusion-webui.adoc[]
 
 === install ComfyUI
-----
-source ~/stable-diffusion-webui/venv/bin/activate.fish
-cd ~/ComfyUI/
-# python3 main.py -h
-python3 main.py --listen --port 7860
-
-cd ~/ComfyUI/custom_nodes
-git clone https://github.com/ltdrdata/ComfyUI-Manager.git
-
-----
-https://github.com/comfyanonymous/ComfyUI
-https://www.comflowy.com/zh-CN/basics/prompt
+xref:comfyui.adoc[]
 
 :numbered!:
 == References

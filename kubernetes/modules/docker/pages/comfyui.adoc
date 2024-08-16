@@ -1,0 +1,20 @@
+= ComfyUI
+
+----
+yanwk/comfyui-boot:cu124-megapak
+----
+----
+docker run -it --rm \
+  --name comfyui-cu124-mega \
+  -p 8188:8188 \
+  -v "$(pwd)"/storage:/root \
+  docker.io/yanwk/comfyui-boot:cu124-megapak
+----
+
+== config
+- config:/root
+
+:numbered!:
+== References
+[bibliography]
+- https://github.com/YanWenKun/ComfyUI-Docker

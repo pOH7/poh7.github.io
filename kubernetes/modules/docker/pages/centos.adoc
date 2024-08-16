@@ -1,4 +1,10 @@
 
+== mirror
+----
+RUN sed -i 's/^enabled=1/enabled=0/' /etc/yum/pluginconf.d/fastestmirror.conf \
+    && sed -i 's/^\(mirrorlist=.*\)$/#\1/; s/^#\(baseurl=.*\)$/\1/; s/mirror.centos.org/mirrors.aliyun.com/' /etc/yum.repos.d/CentOS-Base.repo
+----
+
 == utf8
 ----
 RUN yum install -y glibc-common && \

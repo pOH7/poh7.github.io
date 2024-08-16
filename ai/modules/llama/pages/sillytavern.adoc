@@ -1,0 +1,21 @@
+= SillyTavern
+
+== config
+- Text Completion presets: Universal-Light
+
+=== settings
+- 'Response' is a hard limit of how many tokens a single response is allowed to have.
+- Temperature changes the confidence of the model's initial scores for each word. If you go lower than 1.0, the model will increase the chance of already probable words. If you go higher than 1.0, the chances of less likely scores will be more probable. Values of 1.25-1.75 seem like the sweetspot.
+- Min P controls the word diversity based on how likely each word is compared to the most probable one. For instance, if you set Min P to 0.1, only words at least 1/10th as likely as the top choice will be considered during generation; the rest will be discarded.
+
+== character
+- https://www.characterhub.org/
+- https://character.ai/
+
+:numbered!:
+== References
+[bibliography]
+- https://github.com/SillyTavern/SillyTavern
+- https://docs.sillytavern.app/installation/docker/
+- https://docs.sillytavern.app/usage/local-llm-guide/how-to-use-a-self-hosted-model/
+- https://rentry.org/llama_v2_sillytavern

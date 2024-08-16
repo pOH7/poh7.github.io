@@ -1,0 +1,8 @@
+version: v1
+#flags:
+#  runtimeClassName: nvidia
+sharing:
+  mps:
+    resources:
+      - name: nvidia.com/gpu
+        replicas: 10

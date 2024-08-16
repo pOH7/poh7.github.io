@@ -10,16 +10,16 @@ object "[[https://fluxcd.io/flux/installation/ flux]]" as flux {
   version: 2.3.0
 }
 object "[[https://istio.io/latest/docs/releases/supported-releases/ istio]]" as istio {
-  version: 1.22.1
+  version: 1.22.3
 }
 object "[[https://cert-manager.io/docs/releases/ cert-manager]]" as certmanager {
-  version: 1.15
+  version: v1.15.2
 }
 object "[[https://github.com/k3s-io/k3s/releases k3s]]" as k3s {
-  version: 1.30.1+k3s1
+  version: v1.30.3+k3s1
 }
 object "[[https://github.com/cert-manager/istio-csr cert-manager/istio-csr]]" as csr {
-  version: 0.9.0
+  version: v0.11.0
 }
 flux --> k3s
 istio --> k3s

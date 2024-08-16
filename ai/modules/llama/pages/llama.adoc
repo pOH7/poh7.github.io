@@ -1,0 +1,13 @@
+
+
+== model
+- https://www.reddit.com/r/LocalLLaMA/comments/1ec6apr/jailbroken_llama318binstruct/
+- https://huggingface.co/grimjim/Llama-3.1-8B-Instruct-abliterated_via_adapter-GGUF
+
+== web-ui
+- xref:koboldcpp.adoc[]
+- xref:sillytavern.adoc[]
+
+
+// 2024-08-08
+// - https://github.com/oobabooga/text-generation-webui

@@ -6,7 +6,11 @@
 . Preview - File - New from Clipboard
 . File - Export - PNG (Resolution: 300)
 
-== install application
+== application
+
+=== crack
+- https://github.com/QiuChenly/InjectLib
+- https://github.com/wibus-wee/InjectGUI
 
 === uninstall pkg
 [source,batch]
@@ -28,7 +32,9 @@ sqlite3 --column --header db
 ----
 
 == play mkv
+----
 ffmpeg -i your_video.mkv -vcodec copy -acodec libmp3lame your_video_noac3.mkv
+----
 
 == install macOS
 https://support.apple.com/en-us/HT201372
@@ -39,13 +45,19 @@ sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstall
 NOTE: should run with bash
 
 == Remove Duplicate Apps From Launchpad
+----
 killall Dock
+----
 
 == remove third party preference panes
+----
 ls /Library/PreferencePanes
+----
 
 == disable system/netbiosd
+----
 sudo launchctl unload -w /System/Library/LaunchDaemons/com.apple.netbiosd.plist
+----
 //sudo launchctl unload -w /System/Library/LaunchAgents/com.apple.netbiosd.plist
 
 == Allow Apps downloaded from Anywhere
