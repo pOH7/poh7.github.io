@@ -1,0 +1,10 @@
+
+----
+brew install mkvtoolnix
+----
+
+extract subtitle
+----
+mkvinfo input.mkv
+mkvextract tracks input.mkv <track_number>:output.srt
+----

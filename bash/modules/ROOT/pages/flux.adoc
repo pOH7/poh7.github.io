@@ -1,0 +1,14 @@
+
+----
+brew install fluxcd/tap/flux
+----
+
+----
+flux get kustomization
+flux reconcile kustomization flux-system --with-source
+
+flux suspend kustomization flux-system
+flux resume kustomization flux-system
+----
+
+https://fluxcd.io/flux/cmd/flux_suspend_kustomization/

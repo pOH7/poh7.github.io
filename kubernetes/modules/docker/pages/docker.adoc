@@ -44,6 +44,7 @@ sudo systemctl start docker
 sudo docker run hello-world
 ----
 
+[#proxy]
 == proxy
 vi /etc/systemd/system/docker.service.d/proxy.conf
 ----
@@ -80,12 +81,15 @@ https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6
 }
 ----
 
-// TODO not work
-//# without sudo
-//groupadd docker
-//usermod -aG docker $USER
-//newgrp docker
-// https://docs.docker.com/engine/install/linux-postinstall/
+== run docker commands without sudo
+----
+groupadd docker
+usermod -aG docker $USER
+
+# re-login, or activate the changes
+newgrp docker
+----
+https://docs.docker.com/engine/install/linux-postinstall/
 
 == remote access
 //https://docs.docker.com/engine/security/https/

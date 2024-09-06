@@ -9,6 +9,13 @@ expr substr "$variable" start length
 ${variable:offset}
 ----
 
+remove prefix
+----
+${variable#prefix}
+# remove before the last slash
+${variable##*/}
+----
+
 remove suffix
 ----
 ${variable%suffix}

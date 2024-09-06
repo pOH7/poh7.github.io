@@ -165,31 +165,34 @@ ssh-keygen -y -f ~/.ssh/id_rsa
 ----
 
 
-== OpenSSH
-=== https://github.com/Junyangz/upgrade-openssh-centos[Upgrade OpenSSH for CentOS]
-[source,bash,subs=attributes+]
-:openssh_version: 8.4p1
-----
-./build-RPMs-OpenSSH-CentOS.sh \
-    --version {openssh_version} \
-    --output_rpm_dir /tmp/tmp.dirs \
-    --upgrade_now no
-----
-[source,bash,subs=attributes+]
-----
-rpm -ivh --nosignature --nodeps --force openssh-{openssh_version}-1.el7.x86_64.rpm openssh-clients-{openssh_version}-1.el7.x86_64.rpm openssh-server-{openssh_version}-1.el7.x86_64.rpm
-chmod 600 /etc/ssh/ssh_host_*_key
-#sed -i -e "s/#PasswordAuthentication yes/PasswordAuthentication yes/g" /etc/ssh/sshd_config
-sed -i -e "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
-#sed -i -e "s/#PermitEmptyPasswords no/PermitEmptyPasswords no/g" /etc/ssh/sshd_config
-sed -i -e "s/#UsePAM no/UsePAM yes/g" /etc/ssh/sshd_config
-----
+// == OpenSSH
+// === https://github.com/Junyangz/upgrade-openssh-centos[Upgrade OpenSSH for CentOS]
+// [source,bash,subs=attributes+]
+// :openssh_version: 8.4p1
+// ----
+// ./build-RPMs-OpenSSH-CentOS.sh \
+//     --version {openssh_version} \
+//     --output_rpm_dir /tmp/tmp.dirs \
+//     --upgrade_now no
+// ----
+// [source,bash,subs=attributes+]
+// ----
+// rpm -ivh --nosignature --nodeps --force openssh-{openssh_version}-1.el7.x86_64.rpm openssh-clients-{openssh_version}-1.el7.x86_64.rpm openssh-server-{openssh_version}-1.el7.x86_64.rpm
+// chmod 600 /etc/ssh/ssh_host_*_key
+// #sed -i -e "s/#PasswordAuthentication yes/PasswordAuthentication yes/g" /etc/ssh/sshd_config
+// sed -i -e "s/#PermitRootLogin prohibit-password/PermitRootLogin yes/g" /etc/ssh/sshd_config
+// #sed -i -e "s/#PermitEmptyPasswords no/PermitEmptyPasswords no/g" /etc/ssh/sshd_config
+// sed -i -e "s/#UsePAM no/UsePAM yes/g" /etc/ssh/sshd_config
+// ----
 
 == session
 ends the current session
 ----
 Ctrl+D
 ----
+
+== revoke ssh key
+https://docs.rundeck.com/docs/learning/howto/revoke-ssh-keys.html#using-revocation-currently
 
 == docs
 http://wangdoc.com/ssh

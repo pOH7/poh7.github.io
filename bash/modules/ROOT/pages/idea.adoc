@@ -27,3 +27,36 @@ https://www.jetbrains.com/help/idea/code-folding-settings.html
 - sout - System.out.println()
 
 - link:pass:<jetbrains://idea/settings?name=Editor--Live+Templates>[Settings | Editor | Live Templates]
+
+== fix this file is too large
+----
+# idea.properties
+#---------------------------------------------------------------------
+# Maximum file size (kilobytes) IDE should provide code assistance for.
+# The larger file is the slower its editor works and higher overall system memory requirements are
+# if code assistance is enabled. Remove this property or set to very large number if you need
+# code assistance for any files available regardless their size.
+#---------------------------------------------------------------------
+idea.max.intellisense.filesize=51200
+----
+- https://stackoverflow.com/questions/55626314/how-to-fix-the-file-is-too-large-showing-a-read-only-preview-of-the-firs
+- https://intellij-support.jetbrains.com/hc/en-us/articles/206544869-Configuring-JVM-options-and-platform-properties
+
+== keep more console log
+----
+# idea.properties
+#---------------------------------------------------------------------
+# This option controls console cyclic buffer: keeps the console output size not higher than the specified buffer size (Kb)
+# Older lines are deleted. In order to disable cycle buffer use idea.cycle.buffer.size=disabled
+#---------------------------------------------------------------------
+idea.cycle.buffer.size=disabled
+----
+
+== clean leftovers
+----
+~/Library/Application\ Support/JetBrains/IntelliJIdea2022.2
+~/Library/Application\ Support/JetBrains/IntelliJIdea2022.2/plugins
+~/Library/Caches/JetBrains/IntelliJIdea2022.2
+~/Library/Logs/JetBrains/IntelliJIdea2022.2
+----
+https://intellij-support.jetbrains.com/hc/en-us/articles/206544519-Directories-used-by-the-IDE-to-store-settings-caches-plugins-and-logs

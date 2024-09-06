@@ -1,0 +1,7 @@
+
+
+== health check
+----
+curl -m 3 -X GET http://${NACOS_IP}:${NACOS_PORT}/nacos/v1/console/health/readiness 2>/dev/null | grep 'OK'
+----
+https://github.com/alibaba/nacos/pull/459/files#diff-fd7bfd3931b87bc280bda5a4351388d260fd6a3a67a1fd091308b734759d3399

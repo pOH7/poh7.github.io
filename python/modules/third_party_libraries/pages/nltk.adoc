@@ -1,0 +1,10 @@
+
+== Installing NLTK Data
+----
+import nltk
+nltk.download('wordnet')
+----
+
+
+
+https://www.nltk.org/data.html

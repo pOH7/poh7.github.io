@@ -1,19 +1,17 @@
 
 
 ----
-log_error() {
-    printf '\e[31m[ERROR]\e[0m %s\n' "$1" >&2
+# --- helper functions for logs ---
+info() {
+  printf '\e[34m[INFO]\e[0m %s\n' "$@"
 }
 
-log_info() {
-    printf '\e[34m[INFO]\e[0m %s\n' "$1"
+warn() {
+  printf '\e[33m[WARN]\e[0m %s\n' "$@" >&2
 }
 
-log_warn() {
-    printf '\e[33m[WARN]\e[0m %s\n' "$1"
-}
-
-log_success() {
-    printf '\e[32m[SUCCESS]\e[0m %s\n' "$1"
+fatal() {
+  printf '\e[31m[ERROR]\e[0m %s\n' "$@" >&2
+  exit 1
 }
 ----

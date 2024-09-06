@@ -1,5 +1,23 @@
+= Istio
 
-== install istio
+== Ambient Mode
+=== install
+----
+helm repo add istio https://istio-release.storage.googleapis.com/charts
+helm repo update
+helm install istio-base istio/base -n istio-system --create-namespace --wait
+helm install istio-cni istio/cni -n istio-system --set profile=ambient --wait
+helm install istiod istio/istiod --namespace istio-system --set profile=ambient --wait
+helm install ztunnel istio/ztunnel -n istio-system --wait
+helm install istio-ingress istio/gateway -n istio-ingress --create-namespace --wait
+
+----
+
+- https://istio.io/latest/docs/ambient/install/platform-prerequisites/#k3s
+- https://istio.io/latest/docs/ambient/install/helm-installation/
+
+== Sidecar Mode
+=== install
 ----
 istioctl profile dump default > istio.yaml
 curl -sSL https://raw.githubusercontent.com/cert-manager/website/master/content/docs/tutorials/istio-csr/example/istio-config-getting-started.yaml > istio-install-config.yaml
@@ -7,7 +25,7 @@ istioctl install -f istio-install-config.yaml
 ----
 
 [#_upgrade]
-== upgrade istio
+=== upgrade
 ----
 # kubectl get mutatingwebhookconfigurations
 istioctl version
@@ -15,5 +33,5 @@ istioctl x precheck
 istioctl upgrade -f istio-install-config.yaml
 ----
 
-https://istio.io/latest/docs/releases/supported-releases/
-https://istio.io/latest/docs/setup/upgrade/
+- https://istio.io/latest/docs/releases/supported-releases/
+- https://istio.io/latest/docs/setup/upgrade/

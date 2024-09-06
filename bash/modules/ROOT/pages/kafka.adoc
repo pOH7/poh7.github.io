@@ -13,5 +13,5 @@ kafka-console-consumer --consumer-property security.protocol=SASL_PLAINTEXT --co
 
 kafka-console-producer --producer-property security.protocol=SASL_PLAINTEXT --producer-property sasl.mechanism=PLAIN --broker-list {kafka-broker} --topic {topic}
 
-bin/kafka-console-producer.sh --producer-property security.protocol=SASL_PLAINTEXT --producer-property sasl.mechanism=PLAIN --bootstrap-server {kafka-broker} --topic {topic}
+bin/kafka-console-producer.sh --producer-property security.protocol=SASL_PLAINTEXT --producer-property sasl.mechanism=PLAIN --bootstrap-server ${KAFKA_SERVER} --topic {topic}
 ----

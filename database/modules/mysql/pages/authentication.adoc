@@ -1,0 +1,3 @@
+
+=== ERROR 2059 (HY000): Authentication plugin 'mysql_native_password' cannot be loaded
+https://github.com/Homebrew/homebrew-core/issues/180498#issuecomment-2284744987

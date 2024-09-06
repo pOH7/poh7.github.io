@@ -28,3 +28,14 @@ tr -s '[[:space:]]' '\n' |\
 sort |\
 uniq -c
 ----
+
+== debug
+----
+kubectl get events -n monitoring --sort-by=.metadata.creationTimestamp
+----
+
+== resource shortnames
+----
+# kubectl explain
+kubectl api-resources
+----

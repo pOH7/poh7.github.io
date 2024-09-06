@@ -1,16 +1,26 @@
 
 == installation
+----
 sudo yum install centos-release-scl-rh
 sudo yum-config-manager --enable rhel-server-rhscl-7-rpms
 sudo yum install rh-nodejs10
 source scl_source enable rh-nodejs10
+----
+
+----
+node -v
+npm -v
+node -p process.versions.modules
+----
+https://nodejs.org/en/download/prebuilt-binaries/current
 
 == package
-.canvas
+=== canvas
+----
 npm install canvas --canvas_binary_host_mirror=https://npm.taobao.org/mirrors/node-canvas-prebuilt/
 yum install gcc-c++ cairo-devel libjpeg-turbo-devel pango-devel giflib-devel
 npm install canvas
-
+----
 ----
 https://github.com/Automattic/node-canvas/releases/tag/v2.11.0
 tar -xzf canvas-v2.11.0-node-v83-linux-glibc-x64.tar.gz -C /path/to/destination/directory
@@ -19,8 +29,8 @@ npm install canvas
 ----
 
 == Reference
-https://www.softwarecollections.org/en/scls/rhscl/rh-nodejs10/
-https://serverfault.com/questions/751155/permanently-enable-a-scl
-https://nodejs.org/zh-cn/download/
-https://github.com/Automattic/node-canvas/wiki/Installation%3A-Fedora-and-other-RPM-based-distributions
-https://blog.csdn.net/yanzi1225627/article/details/80247758
+- https://www.softwarecollections.org/en/scls/rhscl/rh-nodejs10/
+- https://serverfault.com/questions/751155/permanently-enable-a-scl
+- https://nodejs.org/zh-cn/download/
+- https://github.com/Automattic/node-canvas/wiki/Installation%3A-Fedora-and-other-RPM-based-distributions
+- https://blog.csdn.net/yanzi1225627/article/details/80247758

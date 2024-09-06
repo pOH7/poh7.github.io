@@ -8,3 +8,6 @@ sudo journalctl -u stablediffusion.service -f
 
 sudo systemctl stop stablediffusion.service
 ----
+
+== proxy
+xref:kubernetes:docker:docker.adoc#proxy[]

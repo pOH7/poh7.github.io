@@ -1,0 +1,55 @@
+
+
+== monitoring
+https://fluxcd.io/flux/guides/monitoring/
+
+
+== proxy
+----
+  - patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: all
+      spec:
+        template:
+          spec:
+            containers:
+              - name: manager
+                env:
+                  - name: HTTP_PROXY
+                    value: http://v2raya.v2raya:20171
+                  - name: HTTPS_PROXY
+                    value: http://v2raya.v2raya:20171
+                  - name: "NO_PROXY"
+                    value: ".cluster.local.,.cluster.local,.svc,10.43.0.1"
+    target:
+      kind: Deployment
+      labelSelector: app.kubernetes.io/part-of=flux
+      name: "(source-controller)"
+----
+- https://fluxcd.io/flux/installation/configuration/proxy-setting/
+- https://github.com/fluxcd/flux2/issues/3185
+
+== imagepolicy
+https://fluxcd.io/flux/cmd/flux_create_image_policy/
+
+=== debug
+----
+flux get images all --all-namespaces --status-selector 'ready=false'
+flux get image update --watch
+
+kubectl -n flux-system get imagerepository <repository-name> -o yaml
+kubectl -n flux-system describe imagepolicy <policy-name>
+
+kubectl events --for ImagePolicy/<policy-name>
+kubectl -n flux-system logs -f deployment.apps/image-reflector-controller
+----
+
+[NOTE]
+24.06.2 is not a valid semver version, it should be 24.6.2
+
+[bibliography]
+- [[[semver]]] https://semver.org/
+- [[[filterTags]]] https://www.regular-expressions.info/named.html
+- https://fluxcd.io/flux/components/image/imagepolicies/#debugging-an-imagepolicy

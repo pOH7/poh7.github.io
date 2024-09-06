@@ -1,0 +1,9 @@
+
+
+----
+helm install qbittorrent ./homelab-app --dry-run --debug --namespace qbittorrent
+
+helm template qbittorrent ./homelab-app --namespace qbittorrent > output.yaml
+----
+
+https://helm.sh/docs/chart_template_guide/debugging

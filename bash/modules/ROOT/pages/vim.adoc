@@ -30,3 +30,17 @@ rm -rf ~/.config/nvim/.git
 nvim
 ----
 https://docs.astronvim.com/
+
+== update file directly
+----
+:set backupcopy=yes
+----
+https://stackoverflow.com/questions/10507344/get-vim-to-modify-the-file-instead-of-moving-the-new-version-on-it
+
+____
+"yes"   make a copy of the file and overwrite the original one
+
+When a copy is made, the original file is truncated and then filled
+with the new text.  This means that protection bits, owner and
+symbolic links of the original file are unmodified.
+____
