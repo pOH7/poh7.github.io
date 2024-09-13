@@ -1,0 +1,10 @@
+= Chain of Thought (COT)
+
+----
+Translate the following sentence from English to Chinese, and explain your reasoning step-by-step:
+‘The cat, which was sitting on the windowsill, jumped down and ran across the room when it heard a loud noise.’
+
+1.	Break down the sentence and identify key parts.
+2.	Consider any nuances or contextual meanings in the sentence.
+3.	Translate the sentence into Chinese.
+----

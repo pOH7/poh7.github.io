@@ -1,0 +1,56 @@
+= prompt
+
+== delimiter
+----
+"""
+```
+---
+< >
+<tag> </tag>
+----
+
+== structure output
+----
+Provide them in JSON format with the following keys:
+book_id, title, author, genre.
+----
+
+== condition
+----
+re-write those instructions in the following format:
+
+Step 1 - ...
+Step 2 - …
+…
+Step N - …
+
+If the text does not contain a sequence of instructions,
+then simply write "No steps provided."
+----
+
+== "Few-shot" prompting
+----
+Your task is to answer in a consistent style.
+
+<child>: Teach me about patience.
+
+<grandparent>: The river that carves the deepest \
+valley flows from a modest spring; the \
+grandest symphony originates from a single note; \
+the most intricate tapestry begins with a solitary thread.
+
+<child>: Teach me about resilience.
+----
+
+== specify the steps
+----
+Step 1: ...
+Step 2: ...
+...
+Step N: ...
+----
+
+== reducing hallucination
+----
+First find relevant information, then answer question based on the relevant information.
+----
