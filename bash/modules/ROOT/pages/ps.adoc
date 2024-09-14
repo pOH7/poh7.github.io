@@ -1,7 +1,14 @@
+= ps
 
+----
 ps -p <pid>
-ps -t <tty>
+----
+[NOTE]
+/proc/<pid> can briefly remain even after the process has exited.
 
+----
+ps -t <tty>
+----
 
 ----
 root@localhost ~# who

@@ -1,0 +1,5 @@
+
+Interceptor <- MybatisPlusInterceptor <- InnerInterceptor
+
+== mybatis-plus
+com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor

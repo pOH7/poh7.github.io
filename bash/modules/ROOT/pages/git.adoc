@@ -1,11 +1,11 @@
 = Git
 
-blob::
-tree::
-git cat-file -p master^{tree}
-commit::
-reference::
-./git/refs
+staging area / index::
+.git/index
+working directory::
+project directory in filesystem
+repository::
+.git/objects/
 
 == config
 ----
@@ -16,16 +16,6 @@ git config user.email pOHVII@gmail.com
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 git config --global --unset url.ssh://git@github.com/.insteadOf https://github.com/
 ----
-
-== .gitignore
-https://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files
-https://theapache64.github.io/git-do-not-ignore/
-----
-!target/
-target/*
-!target/xx.jar
-----
-
 === gpg
 ----
 git config --global gpg.program /usr/local/bin/gpg
@@ -33,44 +23,60 @@ gpg --list-keys
 git config user.signingkey 183BA08FDD477858F32593A845C942D3AB4C588C
 git config commit.gpgsign true
 ----
-link:./ssh.adoc[SSH_keys]
+- xref:gpg.adoc[]
 
-== Create repositories
+=== ignore ssl
+----
+git config --global http.<remote name>.sslVerify false
+git config --global http.https://10.10.16.8/.sslVerify false
+----
+- https://stackoverflow.com/questions/38102285/git-http-sslverify-false-global-but-only-for-specific-remote
+
+=== xref:git/git-config-based-on-folder.adoc[]
+
+== .gitignore
+----
+!target/
+target/*
+!target/xx.jar
+----
+- https://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files
+- https://theapache64.github.io/git-do-not-ignore/
+
+== Create repository
+=== git-init
 ----
 git init
 ----
-== git-clone
+=== git-clone
 [source,bash]
 ----
 git clone --branch <branch_name> --depth <depth> <repository> <directory>
 
 git fetch --update-shallow origin <branch_name>
 ----
-. full clone
-. partial clone
-+
+==== full clone
+==== partial clone
 ----
 https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt
 git rev-list --filter=<filter> --all
 ----
-.. blobless clone
-+
+===== blobless clone
 ----
 git clone --filter=blob:none <url>
 ----
-.. treeless clone
-+
+===== treeless clone
 ----
 git clone --filter=tree:0 <url>
 ----
-. shallow clone
-+
+==== shallow clone
 ----
 # skip the commit history
 git clone --branch=<branch> --depth=<N> <url>
 ----
 
-== git-fetch
+== Modify repository
+=== git-fetch
 ----
 git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
 git fetch origin
@@ -82,23 +88,60 @@ git fetch --unshallow
 git fetch --tags
 ----
 
-== git-pull
+=== git-pull
 git pull = git fetch + git merge
 
-== git-blame?
-
+=== git-rm
+delete from index, but keep in working directory
 ----
-git rm --cached -r build
+git rm --cached -r <directory>
+----
+=== xref:git/git-remove-sensitive-data.adoc[]
+=== reset
+----
+git checkout <tree-ish> -- <pathspec>
+----
+=== restore
+----
+git reflog
+git reset --hard <tree-ish>
+git branch tmp <tree-ish>
+----
+=== modify first first
+----
+git rebase [-i] --root $tip
+----
+=== modify commit author
+----
+git rebase --root $tip --exec 'git commit --amend --author="张磊 <zhanglei@pohvii.cloud>" --no-edit'
+----
+=== create empty branch
+----
+git switch --orphan <new branch>
+git commit --allow-empty -m "root commit"
+git push -u origin <new branch>
+----
+=== git-clean
+----
+# show what would be done.
+git clean -n
+# remove untracked directiories in addition to untracked files.
+git clean -df
+# create a pristine working directory
+git clean -dfx
+
+git clean -dfx -e .idea
 ----
 
-=== Synchronize changes
+
+== Synchronize changes
 ----
 git branch -vv
 git branch -u <remote>/<branch>
 git merge --no-commit --no-ff <branch>
 ----
 
-check if file tracked
+check if files are tracked
 ----
 git ls-files --error-unmatch <file name>
 ----
@@ -145,22 +188,6 @@ git push origin local-branch:remote-branch
 git push --set-upstream origin <branch>
 ----
 
-=== reset
-git checkout <tree-ish> -- <pathspec>
-
-=== restore
-git reflog
-git reset --hard <tree-ish>
-git branch tmp <tree-ish>
-
-
-. modify first first
-+
-git rebase [-i] --root $tip
-
-. modify commit author
-+
-git rebase --root $tip --exec 'git commit --amend --author="张磊 <zhanglei@pohvii.cloud>" --no-edit'
 
 == submodule
 ----
@@ -175,10 +202,12 @@ git submodule deinit -f --all
 ----
 
 == branch
+----
 git checkout -b test origin/test
 git checkout -b tagName tagName
 git branch --list
 git branch -d xx yy zz
+----
 
 == tag
 .fetch tags
@@ -200,25 +229,6 @@ git push -d origin 1.0.4
 git tag -d 1.0.4
 
 git rev-list -n 1 tags/$TAG
-
-=== create empty branch
-----
-git switch --orphan <new branch>
-git commit --allow-empty -m "root commit"
-git push -u origin <new branch>
-----
-
-== git-clean
-----
-# show what would be done.
-git clean -n
-# remove untracked directiories in addition to untracked files.
-git clean -df
-# create a pristine working directory
-git clean -dfx
-
-git clean -dfx -e .idea
-----
 
 == git-log
 search all history for a string
@@ -309,13 +319,16 @@ git branch recovered $stash_hash
 ----
 https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git
 
-## 多工作区
-https://www.git-scm.com/docs/git-worktree/
+== 多工作区
+----
 git worktree list
 git worktree add <path> <branch>
 git worktree remove <path>
+----
+https://www.git-scm.com/docs/git-worktree/
 
-## 通过usb同步repository
+== 通过usb同步repository
+----
 git bundle create ~/Downloads/Gitbook.git --all
 git remote add usb ~/Downloads/Gitbook.git
 git pull usb
@@ -324,6 +337,7 @@ git remote -v
 git remote add origin xxx.git
 git remote set-url origin xxx.git
 git remote rm usb
+----
 
 == share using git-daemon
 ----
@@ -357,21 +371,16 @@ git gc --prune=now
 git remote prune origin
 ----
 
-## 教程
-[git book](https://git-scm.com/book/zh/v2)
-[learn-git-the-super-hard-way](https://github.com/b1f6c1c4/learn-git-the-super-hard-way)
-[git-flight-rules](https://github.com/k88hudson/git-flight-rules)
-https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
-https://git.seveas.net/repairing-and-recovering-broken-git-repositories.html
-https://stackoverflow.com/questions/34100048/create-empty-branch-on-github
-https://stackoverflow.com/questions/10068640/git-error-on-git-pull-unable-to-update-local-ref
+== 教程
+- [git book](https://git-scm.com/book/zh/v2)
+- [learn-git-the-super-hard-way](https://github.com/b1f6c1c4/learn-git-the-super-hard-way)
+- [git-flight-rules](https://github.com/k88hudson/git-flight-rules)
+- https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
+- https://git.seveas.net/repairing-and-recovering-broken-git-repositories.html
+- https://stackoverflow.com/questions/34100048/create-empty-branch-on-github
+- https://stackoverflow.com/questions/10068640/git-error-on-git-pull-unable-to-update-local-ref
 
-== ignore ssl
-----
-git config --global http.<remote name>.sslVerify false
-git config --global http.https://10.10.16.8/.sslVerify false
-----
-https://stackoverflow.com/questions/38102285/git-http-sslverify-false-global-but-only-for-specific-remote
+
 
 == commit executes a shell script on windows
 ----

@@ -54,3 +54,8 @@ def func(x):
 test_answer():
     assert func(3) == 5
 ----
+
+----
+pytest test_sample.py
+pytest test_sample.py -k test_answer
+----

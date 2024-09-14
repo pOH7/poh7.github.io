@@ -24,6 +24,7 @@ df = pd.read_excel(file_path, sheet_name='Sheet1')
 
 # read the specified columns
 # usecols=['Column1', 'Column2']
+# usecols="A:N"
 
 # read the specified rows
 df_header = pd.read_excel('file.xlsx', nrows=0)

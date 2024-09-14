@@ -1,9 +1,28 @@
-# awk
+= awk (GNU)
 
-awk '{print $1}'
+----
+awk -W version
+gawk --version
+----
 
+== installation
+----
+sudo apt install gawk
+----
 
+== syntax
+----
+pattern { action }
+----
+- https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html[EXTENDED DESCRIPTION]
 
+----
+awk '1' # any non-zero value will print the line
+awk '{print}' # default to print the line, as below
+awk '{print $0}'
+----
+
+----
 $0          当前记录（这个变量中存放着整个行的内容）
 $1~$n       当前记录的第n个字段，字段间由FS分隔
 FS          输入字段分隔符 默认是空格或Tab
@@ -14,7 +33,46 @@ RS          输入的记录分隔符， 默认为换行符
 OFS         输出字段分隔符， 默认也是空格
 ORS         输出的记录分隔符，默认为换行符
 FILENAME    当前输入文件的名字
+----
+- https://pubs.opengroup.org/onlinepubs/9699919799/utilities/awk.html[Variables and Special Variables]
 
+== pretty
+----
+awk -o- 'BEGIN {print 1} END {print 2}'
+----
+
+== process multi-line
+----
+match($0, /Track number: [0-9]+ \(track ID for mkvmerge & mkvextract: ([0-9]+)\)/, arr) {
+	track_id = arr[1]
+}
+
+/Name: .*CC/ {
+	is_cc = 1
+}
+
+/Language: eng/ {
+	is_eng = 1
+}
+
+/Track type: subtitles/ {
+	is_subtitle = 1
+}
+
+/^\| \+ Track$/ {
+	if (is_eng && is_subtitle && ! is_cc) {
+		print track_id
+	}
+	is_eng = 0
+	is_cc = 0
+	is_subtitle = 0
+}
+
+END {
+}
+----
+- https://askubuntu.com/questions/439732/how-can-i-process-multi-line-records-with-awk-in-a-bash-script
+- https://stackoverflow.com/questions/29881826/bash-script-to-extract-information-from-a-block-of-text-spanning-multiple-lines
 
 ----
 awk 'NR==2 {print $1}'
@@ -23,4 +81,7 @@ awk 'NR==2 {print $1}'
 awk '/JVM running/{exit}1' < <(tail -f start.log)
 ----
 
-https://coolshell.cn/articles/9070.html
+:numbered!:
+== References
+[bibliography]
+- https://coolshell.cn/articles/9070.html

@@ -25,12 +25,14 @@ pinentry-program /usr/local/bin/pinentry-mac
 enable-ssh-support
 
 ----
+[NOTE]
+there is an empty line at the end of the gpg.conf and gpg-agent.conf file
 
+----
 gpgconf --kill gpg-agent
 gpgconf --reload gpg-agent
-
+----
 == Generate Key
-
 ----
 sed -i 's/^no-tty/#no-tty/g' ~/.gnupg/gpg.conf
 gpgconf --reload gpg-agent
@@ -43,30 +45,33 @@ gpg --full-generate-key
 sed -i 's/^#no-tty/no-tty/g' ~/.gnupg/gpg.conf
 gpgconf --reload gpg-agent
 ----
-
 == Export pub key
+----
 gpg --armor --export pub 7C44087C2C477DBFE9AFAB98575D072140789951
-
+----
 == list key
+----
 gpg --list-keys
-
+----
 == delete key
+----
 gpg --delete-secret-keys xxx
 gpg --delete-key xxx
-
+----
 == export/import private key
+----
 gpg --export-secret-keys 7C44087C2C477DBFE9AFAB98575D072140789951 > private.key
 gpg --import private.key
-
-
+----
 == encrypt file
+----
 gpg -o test.gpg -c test.out
 
 gpg --output test.out -d test.gpg
 gpg test.gpg
+----
 
-
-https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key
-https://stackoverflow.com/questions/38659198/gpg-sorry-no-terminal-at-all-requested-cant-get-input
-https://gist.github.com/troyfontaine/18c9146295168ee9ca2b30c00bd1b41e
-https://www.jetbrains.com/help/idea/set-up-gpg-commit-signing.html
+- https://docs.github.com/en/github/authenticating-to-github/generating-a-new-gpg-key
+- https://stackoverflow.com/questions/38659198/gpg-sorry-no-terminal-at-all-requested-cant-get-input
+- https://gist.github.com/troyfontaine/18c9146295168ee9ca2b30c00bd1b41e
+- https://www.jetbrains.com/help/idea/set-up-gpg-commit-signing.html

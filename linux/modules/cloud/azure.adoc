@@ -1,5 +1,8 @@
 = Microsoft Azure
 
+- https://portal.azure.com/
+- https://oai.azure.com/
+
 == chatgpt
 https://github.com/haibbo/cf-openai-azure-proxy
 

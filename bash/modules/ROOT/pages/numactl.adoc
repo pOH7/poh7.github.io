@@ -1,0 +1,7 @@
+
+----
+numactl --show
+
+taskset -c -p <PID>
+taskset -cp 0-63 <PID>
+----

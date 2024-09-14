@@ -12,3 +12,10 @@ flux resume kustomization flux-system
 ----
 
 https://fluxcd.io/flux/cmd/flux_suspend_kustomization/
+
+
+----
+kubectl get HelmRelease -A
+
+flux reconcile helmrelease cert-manager --namespace cert-manager
+----

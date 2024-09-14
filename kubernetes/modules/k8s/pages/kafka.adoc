@@ -10,4 +10,12 @@ kubectl apply -f https://strimzi.io/examples/latest/kafka/kraft/kafka-single-nod
 kubectl wait kafka/my-cluster --for=condition=Ready --timeout=300s -n kafka
 ----
 
-https://strimzi.io/quickstarts/
+- https://strimzi.io/quickstarts/
+
+----
+listener.security.protocol.map=INTERNAL:SASL_PLAINTEXT,EXTERNAL:SASL_PLAINTEXT
+listeners=INTERNAL://0.0.0.0:9092,EXTERNAL://0.0.0.0:9094
+advertised.listeners=INTERNAL://127.0.0.1:9092,EXTERNAL://172.16.0.233:32767
+inter.broker.listener.name=INTERNAL
+----
+- https://strimzi.io/docs/operators/in-development/deploying#proc-accessing-kafka-using-nodeports-str

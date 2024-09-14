@@ -19,3 +19,16 @@ docker run --rm -ti  drwetter/testssl.sh https://blog.pohvii.cloud
 ----
 https://github.com/drwetter/testssl.sh#docker
 https://testssl.sh/
+
+== debug ssl
+----
+openssl s_client -showcerts -starttls ftp -crlf -connect www.feynmanlectures.caltech.edu:443
+
+openssl s_client -crlf -connect www.feynmanlectures.caltech.edu:443 <<EOF
+GET / HTTP/1.1
+Host: www.feynmanlectures.caltech.edu
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:85.0) Gecko/20100101 Firefox/85.0
+Connection: close
+
+EOF
+----
