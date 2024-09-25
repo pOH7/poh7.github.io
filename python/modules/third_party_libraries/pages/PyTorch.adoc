@@ -1,0 +1,11 @@
+= PyTorch
+
+----
+pyenv install 3.12
+pyenv virtualenv 3.12 LLMs
+pyenv activate LLMs
+pip install torch torchvision torchaudio
+----
+
+[NOTE]
+visit https://pytorch.org/ for installation instructions

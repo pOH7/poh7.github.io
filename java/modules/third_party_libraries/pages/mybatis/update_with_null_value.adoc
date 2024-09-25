@@ -1,0 +1,8 @@
+
+----
+mapper.update(
+	Wrappers.<User>lambdaUpdate()
+		.set(User::getNickName, user.getNickName())
+		.eq(User::getId, user.getId()));
+----
+https://medium.com/@quantum-coder-andy/mybatis-plus-updating-objects-with-null-values-3a783f86b33f

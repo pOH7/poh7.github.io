@@ -1,0 +1,7 @@
+
+* (?<!\d) - no digit before
+* (?!\d) - no digit after
+
+* (?i) - case insensitive
+
+- https://regex101.com/

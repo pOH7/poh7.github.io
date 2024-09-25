@@ -312,3 +312,8 @@ https://maven.apache.org/maven-release/maven-release-plugin/usage/prepare-releas
 MAVEN_OPTS="-Xms512m -Xmx2048m -Xss1024m"
 ----
 https://stackoverflow.com/questions/75259746/springboot-maven-lombok-stackoverflowerroresc
+
+== debug pom
+----
+./mvnw help:effective-pom
+----

@@ -12,6 +12,7 @@ content:
         - database
         - java
         - kubernetes
+        - language
         - linux
         - python
 ui:

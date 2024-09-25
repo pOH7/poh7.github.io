@@ -82,3 +82,8 @@ remove item (KeyboardLayout Name - ABC) in AppleEnabledInputSources
 restart
 ----
 https://apple.stackexchange.com/questions/44921/how-to-remove-or-disable-a-default-keyboard-layout
+
+== extract user profile avatar
+----
+dscl . -read /Users/${USER} JPEGPhoto | tail -1 | xxd -r -p > ${HOME}/Desktop/accountImage.jpg
+----

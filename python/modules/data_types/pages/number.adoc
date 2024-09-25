@@ -1,5 +1,6 @@
 
 == integer
+no limit
 
 === function
 - int()
@@ -9,3 +10,8 @@
 === function
 - int()
 - float()
+
+== imaginary number
+----
+1j
+----

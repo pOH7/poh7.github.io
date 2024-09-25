@@ -1,6 +1,10 @@
 = Chain of Thought (COT)
 
 ----
+Please solve this problem step-by-step.
+----
+
+----
 Translate the following sentence from English to Chinese, and explain your reasoning step-by-step:
 ‘The cat, which was sitting on the windowsill, jumped down and ran across the room when it heard a loud noise.’
 

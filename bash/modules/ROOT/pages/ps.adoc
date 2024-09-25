@@ -1,11 +1,13 @@
 = ps
 
+== find by pid
 ----
 ps -p <pid>
 ----
 [NOTE]
 /proc/<pid> can briefly remain even after the process has exited.
 
+== find by tty
 ----
 ps -t <tty>
 ----
@@ -20,8 +22,16 @@ PID TTY          TIME CMD
 1397 tty1     00:00:00 bash
 ----
 
-ps -ef
+== find by username
+----
+ps -u <username>
+# killall -u <username>
+----
 
+== find all
+----
+ps -ef
+----
 -e show all processes
 
 -f show all fields
