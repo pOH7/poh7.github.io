@@ -1,0 +1,6 @@
+
+
+== convert the notebook to a Python script
+----
+jupyter nbconvert --to script your_notebook.ipynb
+----

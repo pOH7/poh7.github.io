@@ -1,0 +1,16 @@
+
+
+----
+Capacity and Role: This step requires defining the role or capacity in which you want ChatGPT to function. Are you using ChatGPT as a copywriter? A researcher? A language translator? Clearly outlining this from the onset helps guide the AI’s responses.
+
+Insight: This part necessitates providing any necessary background or contextual information. The more relevant details ChatGPT receives, the more accurately and appropriately it can respond.
+
+Statement: This element is the core of your prompt: What are you asking ChatGPT to do? The more specific you are, the more precise the response.
+
+Personality: How do you want ChatGPT to come across in its response? Should it be formal and business-like or casual and friendly? This component can help lend a personal touch to your interaction.
+
+Experiment: This component encourages you to ask ChatGPT to provide multiple responses or examples, enabling you to choose the best one or combine elements from several options.
+----
+
+
+https://sourcingdenis.medium.com/crispe-prompt-engineering-framework-e47eaaf83611

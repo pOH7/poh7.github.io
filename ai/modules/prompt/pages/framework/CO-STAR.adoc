@@ -1,0 +1,13 @@
+----
+Context: Define the specific situation or task for which you're creating the prompt. This helps set the stage for the AI's response.
+
+Objective: State the main goal of the prompt. Clearly outline what you wish to achieve, whether it's generating ideas, solving a problem, or providing information.
+
+Style: Determine the desired writing style. Specify if the response should be academic, conversational, or mimic a particular author, for example.
+
+Tone: Set the emotional context or attitude of the response. This could range from formal and informative to casual or humorous.
+
+Audience: Identify the intended audience for the response. This helps tailor the complexity and depth of the information provided.
+
+Response Format: Choose how you want the response to be structured, such as a list, narrative, or bullet points.
+----

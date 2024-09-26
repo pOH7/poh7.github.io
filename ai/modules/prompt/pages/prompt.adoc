@@ -55,7 +55,3 @@ Step N: ...
 First find relevant information, then answer question based on the relevant information.
 ----
 
-== Chain of Thought (CoT) Prompting
-xref:cot.adoc[]
-
-https://www.promptingguide.ai/techniques/cot

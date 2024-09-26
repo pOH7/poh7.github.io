@@ -12,3 +12,5 @@ Translate the following sentence from English to Chinese, and explain your reaso
 2.	Consider any nuances or contextual meanings in the sentence.
 3.	Translate the sentence into Chinese.
 ----
+
+https://www.promptingguide.ai/techniques/cot
