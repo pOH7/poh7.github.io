@@ -236,6 +236,11 @@ search all history for a string
 git log -S password
 ----
 
+search for keyword in file history
+----
+git log -p -S'keyword' -- path/to/file
+----
+
 == filter-branch
 ----
 git filter-branch -f --tree-filter "sed -i -E '/SerialNumber/{n;s/>(.*?)</>GENERATE VALUE</}' EFI/CLOVER/config.plist" -- --all
