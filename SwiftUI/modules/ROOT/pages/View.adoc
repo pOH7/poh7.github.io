@@ -1,0 +1,9 @@
+
+----
+@MainActor @preconcurrency public protocol View {
+
+    associatedtype Body : View
+
+    @ViewBuilder @MainActor @preconcurrency var body: Self.Body { get }
+}
+----

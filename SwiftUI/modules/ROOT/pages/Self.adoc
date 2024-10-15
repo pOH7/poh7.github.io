@@ -1,0 +1,6 @@
+
+"self" (lowercase "s") refers to the current instance of a class or structure
+
+"Self" (capital "S") refers to the type of the current instance
+
+https://namitgupta.com/difference-between-self-and-self-in-swift
