@@ -7,3 +7,13 @@ helm template qbittorrent ./homelab-app --namespace qbittorrent > output.yaml
 ----
 
 https://helm.sh/docs/chart_template_guide/debugging
+
+show values
+----
+helm show values <chart-name> > values.yaml
+----
+
+install with custom values
+----
+-f values.yaml
+----

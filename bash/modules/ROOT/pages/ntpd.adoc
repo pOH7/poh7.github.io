@@ -44,3 +44,11 @@ ldd ntpd
 
 
 http://www.ntp.org/
+
+== usage
+----
+timedatectl set-timezone Asia/Shanghai
+ntpdate -u ntp.aliyun.com
+hwclock --systohc
+ntpd -p -g
+----

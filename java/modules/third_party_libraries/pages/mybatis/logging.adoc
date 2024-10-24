@@ -1,0 +1,12 @@
+= Mybatis-Plus Logging
+
+----
+logging.level.com.baomidou.mybatisplus=DEBUG
+mybatis-plus.configuration.log-impl=org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+#Project mapper directory
+logging.level.com.pohvii.*.mapper=DEBUG
+----
+
+
+https://medium.com/illumination/how-does-mybatis-plus-print-sql-logs-and-parameters-to-the-log-file-under-springboot-d9573c30f9e6

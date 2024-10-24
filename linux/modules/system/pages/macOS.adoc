@@ -87,3 +87,8 @@ https://apple.stackexchange.com/questions/44921/how-to-remove-or-disable-a-defau
 ----
 dscl . -read /Users/${USER} JPEGPhoto | tail -1 | xxd -r -p > ${HOME}/Desktop/accountImage.jpg
 ----
+
+== AI
+- https://x.com/unixzii/status/1802582879769375001
+- https://gist.github.com/unixzii/6f25be1842399022e16ad6477a304286
+- https://github.com/Kyle-Ye/XcodeLLMEligible

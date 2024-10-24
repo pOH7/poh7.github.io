@@ -1,0 +1,17 @@
+
+
+Disabling Time Synchronization for virtual machines
+----
+tools.syncTime = "FALSE"
+
+time.synchronize.continue = "FALSE"
+time.synchronize.restore = "FALSE"
+time.synchronize.resume.disk = "FALSE"
+time.synchronize.shrink = "FALSE"
+time.synchronize.tools.startup = "FALSE"
+time.synchronize.tools.enable = "FALSE"
+time.synchronize.resume.host = "FALSE"
+----
+
+- https://knowledge.broadcom.com/external/article?legacyId=1189
+- https://stackoverflow.com/questions/23699147/vmware-how-to-prevent-a-virtual-machine-from-updating-its-date-and-time

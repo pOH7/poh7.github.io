@@ -1,6 +1,12 @@
 
 == installation
 ----
+yum install https://mirrors.tuna.tsinghua.edu.cn/jenkins/redhat-stable/jenkins-2.462.2-1.1.noarch.rpm
+----
+- https://www.jenkins.io/doc/book/installing/linux/#red-hat-centos
+- https://get.jenkins.io/index.html?mirrorstats
+
+----
 # user
 adduser jenkins
 
@@ -11,8 +17,8 @@ ln -sfn xxx /var/jenkins
 ln -sfn xxx /var/jenkins/jdk
 ----
 
-https://www.jenkins.io/blog/2022/12/27/run-jenkins-agent-as-a-service/
-https://www.jenkins.io/doc/book/managing/nodes/
+- https://www.jenkins.io/blog/2022/12/27/run-jenkins-agent-as-a-service/
+- https://www.jenkins.io/doc/book/managing/nodes/
 
 == Jenkinsfile
 
@@ -28,4 +34,4 @@ stage('Deploy') {
         ... stage
 ----
 
-https://www.jenkins.io/doc/book/pipeline/syntax/
+- https://www.jenkins.io/doc/book/pipeline/syntax/

@@ -1,0 +1,5 @@
+
+----
+select dateDiff('day', toDate('2024-09-25'), toDate('2024-09-26'))
+select select toDateTime64(1727402501574/1000, 3)
+----

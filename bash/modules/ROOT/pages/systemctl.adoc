@@ -11,3 +11,13 @@ sudo systemctl stop stablediffusion.service
 
 == proxy
 xref:kubernetes:docker:docker.adoc#proxy[]
+
+== config
+----
+systemctl cat nginx.service
+# vi /usr/lib/systemd/system/jenkins.service
+
+systemctl edit nginx.service
+# changes will be saved in /etc/systemd/system/nginx.service.d/override.conf
+----
+https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units

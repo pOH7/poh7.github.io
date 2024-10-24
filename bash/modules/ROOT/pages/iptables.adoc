@@ -65,27 +65,32 @@ iptables -L
 ----
 
 .accept incoming
+----
 iptables -I INPUT -p tcp --dport 3306 -j ACCEPT
-
+----
 .block incoming
+----
 iptables -A INPUT -p tcp --dport [port number] -j DROP
 iptables -A INPUT -i [interface name] -p tcp --destination-port [port number] -j DROP
 iptables -A INPUT -i [interface name] -p tcp --destination-port [port number] -s [ip subnet] -j DROP
-
+----
 .block outgoing
+----
 iptables -A OUTPUT -d 202.54.1.22 -j DROP
 iptables -A OUTPUT -p tcp --dport 5050 -j DROP
 iptables -A OUTPUT -p tcp -d 192.168.1.2 --dport 5050 -j DROP
 iptables -A OUTPUT -i [interface name] -p tcp --destination-port [port number] -s [ip subnet] -j DROP
-
+----
 .save iptables rules
+----
 service iptables save
 /etc/sysconfig/iptables
 /etc/sysconfig/ip6tables
-
+----
 .delete rule
+----
 iptables -D OUTPUT -d 202.54.1.22 -j DROP
-
+----
 .drop gfw dns
 ----
 iptables -t raw -A PREROUTING -i eno1 -p udp -m bpf --bytecode "39,40 0 0 20,21 0 36 53,32 0 0 36,21 0 34 0,32 0 0 32,21 3 0 65537,21 0 31 65536,40 0 0 30,21 15 29 33152,40 0 0 30,84 0 0 65487,21 17 0 34176,40 0 0 24,7 0 0 0,64 0 0 4,21 5 0 3222011905,21 0 21 536936448,64 0 0 8,21 0 19 0,64 0 0 12,21 3 17 0,64 0 0 10,37 15 0 255,53 0 14 64,32 0 0 4,21 11 0 0,21 11 0 16384,84 0 0 65535,21 8 9 16384,40 0 0 6,21 0 7 0,40 0 0 24,7 0 0 0,64 0 0 6,21 0 3 65537,64 0 0 10,21 0 1 60,6 0 0 1,6 0 0 0" -j DROP
@@ -267,7 +272,7 @@ COMMIT
 # Completed on Mon Nov  1 18:09:02 2021
 ----
 
-https://wiki.nftables.org/wiki-nftables/index.php/Netfilter_hooks
-https://linux.die.net/man/8/iptables
-https://salogs.com/news/2015/08/20/iptables-save/
-https://www.jianshu.com/p/ee4ee15d3658
+- https://wiki.nftables.org/wiki-nftables/index.php/Netfilter_hooks
+- https://linux.die.net/man/8/iptables
+- https://salogs.com/news/2015/08/20/iptables-save/
+- https://www.jianshu.com/p/ee4ee15d3658

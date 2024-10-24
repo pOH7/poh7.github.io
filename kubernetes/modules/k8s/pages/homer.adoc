@@ -11,3 +11,7 @@ helm install homer bananaops/homer-k8s -n homer -f values.yaml
 
 - https://github.com/bastienwirtz/homer
 - https://github.com/BananaOps/homer-k8s
+
+icon
+- https://github.com/walkxcode/dashboard-icons
+- https://cdn.jsdelivr.net/gh/walkxcode/dashboard-icons/
