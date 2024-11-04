@@ -6,3 +6,9 @@ sort -k2nr
 ----
 * -n: numeric order
 * -r: reverse
+
+
+----
+sort -u
+----
+* -u: unique

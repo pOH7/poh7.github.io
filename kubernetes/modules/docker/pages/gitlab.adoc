@@ -1,43 +1,51 @@
 = Gitlab
 
-## gitlab
-./etc/hosts
+gitlab/gitlab-ee:17.5.1-ee.0
+
 ----
-127.0.0.1 git.pohvii.com
+sudo mkdir -p /srv/gitlab
+export GITLAB_HOME=/srv/gitlab
+# $GITLAB_HOME/data	/var/opt/gitlab	Stores application data.
+# $GITLAB_HOME/logs	/var/log/gitlab	Stores logs.
+# $GITLAB_HOME/config	/etc/gitlab	Stores the GitLab configuration files.
 ----
 
+== /srv/gitlab/config/gitlab.rb
+----
+external_url 'https://gitlab.pohvii.cloud'
+nginx['listen_port'] = 80
+nginx['listen_https'] = false
+----
+https://docs.gitlab.com/omnibus/settings/ssl/#configure-a-reverse-proxy-or-load-balancer-ssl-termination
 
-docker run --detach \
-  --hostname git.pohvii.com \
-  --publish 10001:443 --publish 10002:80 --publish 10003:22 \
-  --name gitlab \
-  --restart always \
-  --volume /Users/zhanglei/gitlab/config:/etc/gitlab \
-  --volume /Users/zhanglei/gitlab/logs:/var/log/gitlab \
-  --volume /Users/zhanglei/gitlab/data:/var/opt/gitlab \
-  gitlab/gitlab-ee:latest
+----
+gitlab_rails['env'] = {
+  "GITLAB_LOG_LEVEL" => "WARN",
+}
+registry['log_level'] = 'info'
+gitlab_shell['log_level'] = 'INFO'
+gitaly['configuration'] = {
+  logging: {
+    level: "warn"
+  }
+}
+----
+https://docs.gitlab.com/omnibus/settings/logs.html#configuring-log-levelverbosity
 
-docker exec -it gitlab editor /etc/gitlab/gitlab.rb
-docker exec -it gitlab update-permissions
-docker restart gitlab
-docker logs -f gitlab
+== reset password
+----
+# see root password at /srv/gitlab/config/initial_root_password
+gitlab-rake "gitlab:password:reset"
+----
+https://docs.gitlab.com/ee/security/reset_user_password.html#reset-your-root-password
 
-### 修改配置文件
-#### 进入容器
-docker exec -it gitlab bash
-#### 修改配置文件
-vi /etc/gitlab/gitlab.rb
-#### reset password
-gitlab-rails console production
+== ssh
+----
+# /srv/gitlab/data/.ssh/authorized_keys
+----
+https://pezhvak.medium.com/how-to-spin-up-gitlab-on-docker-reusable-host-ports-2cfd220c74b0
+https://docs.gitea.com/installation/install-with-docker#sshing-shim-with-authorized_keys
 
-user = User.where(id: 1).first
-user.password = 'your secret'
-user.password_confirmation = 'your secret'
-user.save
-exit
-
-== stop
-gitlab-ctl stop
 
 
 ## gitlab-runner

@@ -39,3 +39,8 @@ kubectl get events -n monitoring --sort-by=.metadata.creationTimestamp
 # kubectl explain
 kubectl api-resources
 ----
+
+== restart pods related to hostPath
+----
+kubectl get pods --all-namespaces -o jsonpath='{range .items[*]}{.metadata.namespace}{" "}{.metadata.name}{" "}{range .spec.volumes[*]}{.hostPath.path}{" "}{end}{"\n"}{end}' | grep " /mnt" | awk '{print $1}' | sort -u | xargs -I {} kubectl rollout restart deployment -n {}
+----
