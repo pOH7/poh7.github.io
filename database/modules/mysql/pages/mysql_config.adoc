@@ -1,0 +1,11 @@
+
+== configuration file
+----
+$ which mysqld
+/usr/sbin/mysqld
+$ /usr/sbin/mysqld --verbose --help | grep -A 1 'Default options'
+Default options are read from the following files in the given order: /etc/mysql/my.cnf ~/.my.cnf /usr/etc/my.cnf
+----
+
+
+innodb_buffer_pool_load_at_startup
