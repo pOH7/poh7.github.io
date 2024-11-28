@@ -1,0 +1,19 @@
+= virtualenv
+
+
+----
+pipx install virtualenv
+virtualenv --help
+
+virtualenv env_name
+.\env_name\Scripts\activate
+which python3
+
+py --version
+py -m pip --version
+
+py -m pip install "SomeProject==1.4"
+----
+
+https://virtualenv.pypa.io/en/stable/installation.html
+https://packaging.python.org/en/latest/tutorials/installing-packages
