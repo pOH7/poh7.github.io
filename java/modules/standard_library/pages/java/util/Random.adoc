@@ -10,3 +10,22 @@ synchronized public double nextGaussian() {
 
 entropy-based randomness
 SecureRandom
+
+----
+// use of /dev/urandom
+SecureRandom random = new SecureRandom();
+byte[] values = new byte[20];
+random.nextBytes(values);
+----
+
+----
+// DO NOT USE
+// use of /dev/random
+SecureRandom random = SecureRandom.getInstanceStrong();
+byte[] values = new byte[20];
+random.nextBytes(values);
+----
+before 2022, kernel version 5.17,
+/dev/random blocks the thread if there isn't enough randomness available
+
+https://tersesystems.com/blog/2015/12/17/the-right-way-to-use-securerandom/
