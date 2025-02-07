@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Git :: Léon&#x27;s Note</title>
+    <meta name="generator" content="Antora 3.1.7">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/spring-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.16"> 
+    <meta name="version" content="">
+    <meta name="component" content="bash">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="bash" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Léon&#x27;s Bash Note</span>
+  <span class="version">default</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  </div>          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Git"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+  </nav>
+</div><h1 id="page-title" class="page">Git</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">staging area / index</dt>
+<dd>
+<p>.git/index</p>
+</dd>
+<dt class="hdlist1">working directory</dt>
+<dd>
+<p>project directory in filesystem</p>
+</dd>
+<dt class="hdlist1">repository</dt>
+<dd>
+<p>.git/objects/</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_config"><a class="anchor" href="#_config"></a>1. config</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git config --local --list
+git config user.name pOH7
+git config user.email pOHVII@gmail.com
+# enforce ssh instead of https
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+git config --global --unset url.ssh://git@github.com/.insteadOf https://github.com/</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gpg"><a class="anchor" href="#_gpg"></a>1.1. gpg</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git config --global gpg.program /usr/local/bin/gpg
+gpg --list-keys
+git config user.signingkey 183BA08FDD477858F32593A845C942D3AB4C588C
+git config commit.gpgsign true</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="gpg.html" class="xref page">GPG</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ignore_ssl"><a class="anchor" href="#_ignore_ssl"></a>1.2. ignore ssl</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git config --global http.&lt;remote name&gt;.sslVerify false
+git config --global http.https://10.10.16.8/.sslVerify false</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/38102285/git-http-sslverify-false-global-but-only-for-specific-remote" class="bare">https://stackoverflow.com/questions/38102285/git-http-sslverify-false-global-but-only-for-specific-remote</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_config_based_on_folder"><a class="anchor" href="#_git_config_based_on_folder"></a>1.3. <a href="git/git-config-based-on-folder.html" class="xref page">Git Config Based on Folder</a></h3>
+
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gitignore"><a class="anchor" href="#_gitignore"></a>2. .gitignore</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>!target/
+target/*
+!target/xx.jar</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files" class="bare">https://stackoverflow.com/questions/987142/make-gitignore-ignore-everything-except-a-few-files</a></p>
+</li>
+<li>
+<p><a href="https://theapache64.github.io/git-do-not-ignore/" class="bare">https://theapache64.github.io/git-do-not-ignore/</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_create_repository"><a class="anchor" href="#_create_repository"></a>3. Create repository</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_git_init"><a class="anchor" href="#_git_init"></a>3.1. git-init</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git init</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_clone"><a class="anchor" href="#_git_clone"></a>3.2. git-clone</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone --branch &lt;branch_name&gt; --depth &lt;depth&gt; &lt;repository&gt; &lt;directory&gt;
+
+git fetch --update-shallow origin &lt;branch_name&gt;</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_full_clone"><a class="anchor" href="#_full_clone"></a>3.2.1. full clone</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_partial_clone"><a class="anchor" href="#_partial_clone"></a>3.2.2. partial clone</h4>
+<div class="listingblock">
+<div class="content">
+<pre>https://git-scm.com/docs/git-rev-list#Documentation/git-rev-list.txt---filterltfilter-specgt
+git rev-list --filter=&lt;filter&gt; --all</pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_blobless_clone"><a class="anchor" href="#_blobless_clone"></a>blobless clone</h5>
+<div class="listingblock">
+<div class="content">
+<pre>git clone --filter=blob:none &lt;url&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_treeless_clone"><a class="anchor" href="#_treeless_clone"></a>treeless clone</h5>
+<div class="listingblock">
+<div class="content">
+<pre>git clone --filter=tree:0 &lt;url&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_shallow_clone"><a class="anchor" href="#_shallow_clone"></a>3.2.3. shallow clone</h4>
+<div class="listingblock">
+<div class="content">
+<pre># skip the commit history
+git clone --branch=&lt;branch&gt; --depth=&lt;N&gt; &lt;url&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modify_repository"><a class="anchor" href="#_modify_repository"></a>4. Modify repository</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_git_fetch"><a class="anchor" href="#_git_fetch"></a>4.1. git-fetch</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+git fetch origin
+git fetch --depth=1 origin test_paas
+git fetch --depth=10
+git fetch --depth=20
+...
+git fetch --unshallow
+git fetch --tags</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_pull"><a class="anchor" href="#_git_pull"></a>4.2. git-pull</h3>
+<div class="paragraph">
+<p>git pull = git fetch + git merge</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_rm"><a class="anchor" href="#_git_rm"></a>4.3. git-rm</h3>
+<div class="paragraph">
+<p>delete from index, but keep in working directory</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git rm --cached -r &lt;directory&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_remove_sensitive_data"><a class="anchor" href="#_remove_sensitive_data"></a>4.4. <a href="git/git-remove-sensitive-data.html" class="xref page">Remove Sensitive Data</a></h3>
+
+</div>
+<div class="sect2">
+<h3 id="_reset"><a class="anchor" href="#_reset"></a>4.5. reset</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git checkout &lt;tree-ish&gt; -- &lt;pathspec&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_restore"><a class="anchor" href="#_restore"></a>4.6. restore</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git reflog
+git reset --hard &lt;tree-ish&gt;
+git branch tmp &lt;tree-ish&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modify_first_first"><a class="anchor" href="#_modify_first_first"></a>4.7. modify first first</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git rebase [-i] --root $tip</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_modify_commit_author"><a class="anchor" href="#_modify_commit_author"></a>4.8. modify commit author</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git rebase --root $tip --exec 'git commit --amend --author="张磊 &lt;zhanglei@pohvii.cloud&gt;" --no-edit'</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_empty_branch"><a class="anchor" href="#_create_empty_branch"></a>4.9. create empty branch</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git switch --orphan &lt;new branch&gt;
+git commit --allow-empty -m "root commit"
+git push -u origin &lt;new branch&gt;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_clean"><a class="anchor" href="#_git_clean"></a>4.10. git-clean</h3>
+<div class="listingblock">
+<div class="content">
+<pre># show what would be done.
+git clean -n
+# remove untracked directiories in addition to untracked files.
+git clean -df
+# create a pristine working directory
+git clean -dfx
+
+git clean -dfx -e .idea</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_synchronize_changes"><a class="anchor" href="#_synchronize_changes"></a>5. Synchronize changes</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git branch -vv
+git branch -u &lt;remote&gt;/&lt;branch&gt;
+git merge --no-commit --no-ff &lt;branch&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>check if files are tracked</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git ls-files --error-unmatch &lt;file name&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_commit"><a class="anchor" href="#_commit"></a>6. commit</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>npm install -g commitizen cz-conventional-changelog
+echo '{ "path": "cz-conventional-changelog" }' &gt; ~/.czrc
+git cz</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>commit case-sensitive only filename changes</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git rm -r --cached .
+git add --all .
+git commit -a -m "Versioning untracked files"
+git push origin master</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>file, name.txt &#8594; NAME.TXT</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git mv --cached name.txt NAME.TXT</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>folder, foo &#8594; FOO</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git mv foo foo2
+git mv foo2 FOO</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>change commit info</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git commit --amend --date="1 Jan 2023 12:00:00 +0000"
+git commit --amend --date="now" --no-edit
+git commit --amend --author="张磊 &lt;zhanglei@pohvii.cloud&gt;" --no-edit</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_push"><a class="anchor" href="#_push"></a>7. push</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git config --global push.autoSetupRemote true
+git push origin local-branch:remote-branch
+
+# set remote branch
+git push --set-upstream origin &lt;branch&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_submodule"><a class="anchor" href="#_submodule"></a>8. submodule</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git submodule init
+git submodule update
+# 新增
+git submodule add xxx.git yyy
+# 修改
+git submodule set-url xxx
+# remove
+git submodule deinit -f --all</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_branch"><a class="anchor" href="#_branch"></a>9. branch</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git checkout -b test origin/test
+git checkout -b tagName tagName
+git branch --list
+git branch -d xx yy zz</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tag"><a class="anchor" href="#_tag"></a>10. tag</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<div class="title">fetch tags</div>
+<p>git fetch --all --tags</p>
+</div>
+<div class="paragraph">
+<div class="title">list remote tags</div>
+<p>git ls-remote --tags &lt;remote&gt;</p>
+</div>
+<div class="paragraph">
+<div class="title">list local tags</div>
+<p>git tag</p>
+</div>
+<div class="paragraph">
+<div class="title">push one tag</div>
+<p>git push origin 1.0.4</p>
+</div>
+<div class="paragraph">
+<div class="title">delete remote tag</div>
+<p>git push -d origin 1.0.4</p>
+</div>
+<div class="paragraph">
+<div class="title">delete local tag</div>
+<p>git tag -d 1.0.4</p>
+</div>
+<div class="paragraph">
+<p>git rev-list -n 1 tags/$TAG</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_log"><a class="anchor" href="#_git_log"></a>11. git-log</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>search all history for a string</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git log -S password</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>search for keyword in file history</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git log -p -S'keyword' -- path/to/file</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_filter_branch"><a class="anchor" href="#_filter_branch"></a>12. filter-branch</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git filter-branch -f --tree-filter "sed -i -E '/SerialNumber/{n;s/&gt;(.*?)&lt;/&gt;GENERATE VALUE&lt;/}' EFI/CLOVER/config.plist" -- --all</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>all branches and tags</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git filter-branch --env-filter '
+OLD_EMAIL="pOHVII@gmail.com"
+CORRECT_NAME="张磊"
+CORRECT_EMAIL="zhanglei@pohvii.cloud"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>current branch</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>git filter-branch --env-filter '
+OLD_EMAIL="pOHVII@gmail.com"
+CORRECT_NAME="张磊"
+CORRECT_EMAIL="zhanglei@pohvii.cloud"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' HEAD</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_保存和恢复进度"><a class="anchor" href="#_保存和恢复进度"></a>12.1. 保存和恢复进度</h3>
+<div class="paragraph">
+<div class="title">保存</div>
+<p>git stash push -m "message"</p>
+</div>
+<div class="paragraph">
+<div class="title">查询</div>
+<p>git stash list</p>
+</div>
+<div class="paragraph">
+<div class="title">恢复</div>
+<p>git stash apply 0</p>
+</div>
+<div class="paragraph">
+<div class="title">删除</div>
+<p>git stash drop 0</p>
+</div>
+<div class="listingblock">
+<div class="title">show files changed in the stash</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"># To show files changed in the last stash
+git stash show
+# So, to view the content of the most recent stash, run
+git stash show -p
+# To view the content of an arbitrary stash, run something like
+git stash show -p stash@{1}
+
+git diff stash@{0} -- example.txt
+git checkout stash@{0} -- example.txt</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">restore dropped stash</div>
+<div class="content">
+<pre># find the stash hash
+git log --graph --oneline --decorate --all $( git fsck --no-reflog | awk '/dangling commit/ {print $3}' )
+# apply the stash
+git stash apply $stash_hash
+# create a new branch
+git branch recovered $stash_hash</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git" class="bare">https://stackoverflow.com/questions/89332/how-do-i-recover-a-dropped-stash-in-git</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_多工作区"><a class="anchor" href="#_多工作区"></a>13. 多工作区</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git worktree list
+git worktree add &lt;path&gt; &lt;branch&gt;
+git worktree remove &lt;path&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://www.git-scm.com/docs/git-worktree/" class="bare">https://www.git-scm.com/docs/git-worktree/</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_通过usb同步repository"><a class="anchor" href="#_通过usb同步repository"></a>14. 通过usb同步repository</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git bundle create ~/Downloads/Gitbook.git --all
+git remote add usb ~/Downloads/Gitbook.git
+git pull usb
+
+git remote -v
+git remote add origin xxx.git
+git remote set-url origin xxx.git
+git remote rm usb</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_share_using_git_daemon"><a class="anchor" href="#_share_using_git_daemon"></a>15. share using git-daemon</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>sudo yum install -y git-daemon
+# start the git daemon
+git daemon
+# allow git-daemon to read your project
+touch .git/git-daemon-export-ok
+# accessing the repository
+git clone git:localhost/your-path/project-X</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_share_using_gitlab"><a class="anchor" href="#_share_using_gitlab"></a>16. share using gitlab</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>sudo EXTERNAL_URL="http://172.16.173.42" yum install -y gitlab-ee
+default admin username is `root`
+//root@pohvii</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_troubleshooting"><a class="anchor" href="#_troubleshooting"></a>17. Troubleshooting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_fix_error_invalid_object_fatal_missing_blob_object"><a class="anchor" href="#_fix_error_invalid_object_fatal_missing_blob_object"></a>17.1. fix error: invalid object / fatal: missing blob object</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git fsck --name-objects
+git hash-object -w web-server/manager/lib/commons-jxpath-1.3.jar
+find . -type f ! -path "./.git/*" -exec git hash-object -w '{}' \;</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unable_to_update_local_ref"><a class="anchor" href="#_unable_to_update_local_ref"></a>17.2. unable to update local ref</h3>
+<div class="listingblock">
+<div class="content">
+<pre>git gc --prune=now
+git remote prune origin</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_教程"><a class="anchor" href="#_教程"></a>18. 教程</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>[git book](<a href="https://git-scm.com/book/zh/v2" class="bare">https://git-scm.com/book/zh/v2</a>)</p>
+</li>
+<li>
+<p>[learn-git-the-super-hard-way](<a href="https://github.com/b1f6c1c4/learn-git-the-super-hard-way" class="bare">https://github.com/b1f6c1c4/learn-git-the-super-hard-way</a>)</p>
+</li>
+<li>
+<p>[git-flight-rules](<a href="https://github.com/k88hudson/git-flight-rules" class="bare">https://github.com/k88hudson/git-flight-rules</a>)</p>
+</li>
+<li>
+<p><a href="https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/" class="bare">https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/</a></p>
+</li>
+<li>
+<p><a href="https://git.seveas.net/repairing-and-recovering-broken-git-repositories.html" class="bare">https://git.seveas.net/repairing-and-recovering-broken-git-repositories.html</a></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/34100048/create-empty-branch-on-github" class="bare">https://stackoverflow.com/questions/34100048/create-empty-branch-on-github</a></p>
+</li>
+<li>
+<p><a href="https://stackoverflow.com/questions/10068640/git-error-on-git-pull-unable-to-update-local-ref" class="bare">https://stackoverflow.com/questions/10068640/git-error-on-git-pull-unable-to-update-local-ref</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_commit_executes_a_shell_script_on_windows"><a class="anchor" href="#_commit_executes_a_shell_script_on_windows"></a>19. commit executes a shell script on windows</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git update-index --chmod=+x script.sh</pre>
+</div>
+</div>
+</div>
+</div>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component">
+                      <a class="title" href="../ai/index.html">Léon's AI Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../ai/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component is-current">
+                      <a class="title" href="index.html">Léon's Bash Note</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../blog/index.html">Léon's Blog</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../blog/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../database/index.html">Léon's Database Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../database/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../java/index.html">Léon's Java Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../java/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../kubernetes/index.html">Léon's Kubernetes Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../kubernetes/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../language/index.html">Léon's Language Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../language/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../linux/index.html">Léon's Linux Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../linux/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../python/index.html">Léon's Python Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../python/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/spring-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+  </body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Nginx :: Léon&#x27;s Note</title>
+    <meta name="generator" content="Antora 3.1.7">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/spring-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.16"> 
+    <meta name="version" content="">
+    <meta name="component" content="bash">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="bash" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Léon&#x27;s Bash Note</span>
+  <span class="version">default</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  </div>          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="Nginx"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+  </nav>
+</div><h1 id="page-title" class="page">Nginx</h1>
+<div class="sect1">
+<h2 id="_重新应用配置"><a class="anchor" href="#_重新应用配置"></a>1. 重新应用配置</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>nginx -s reload</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_location"><a class="anchor" href="#_location"></a>2. location</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>location</strong> [ = | ~ | ~* | ^~ ] uri { &#8230;&#8203; }</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>=</strong> 精确匹配</p>
+</li>
+<li>
+<p><strong>~</strong> 区分大小写的正则匹配</p>
+</li>
+<li>
+<p><strong>~</strong>* 不区分大小写的正则匹配</p>
+</li>
+<li>
+<p><strong>^~</strong> 非正则匹配，如果匹配成功，不再匹配其它location</p>
+</li>
+<li>
+<p><strong>@</strong> 内部重定向</p>
+</li>
+<li>
+<p>a straight string comparison</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#location" class="bare">https://nginx.org/en/docs/http/ngx_http_core_module.html#location</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_proxy_pass"><a class="anchor" href="#_proxy_pass"></a>3. proxy_pass</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If <code>proxy_pass</code> is specified without a URI, the request URI is passed to the server</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>location /some/path/ {
+    proxy_pass http://127.0.0.1;
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When variables are used in proxy_pass.
+In this case, if URI is specified in the directive, it is passed to the server as is, replacing the original request URI.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>location /api/ {
+    rewrite ^/api/(.*)$ /$1 break;
+    proxy_pass            $environment$uri;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass" class="bare">https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_custom_error_page"><a class="anchor" href="#_custom_error_page"></a>4. custom error page</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>echo "&lt;h1 style='color:red'&gt;Error 404: Not found :-(&lt;/h1&gt;" | sudo tee /usr/share/nginx/html/custom_404.html
+echo "&lt;p&gt;I have no idea where that file is, sorry.  Are you sure you typed in the correct URL?&lt;/p&gt;" | sudo tee -a /usr/share/nginx/html/custom_404.html
+echo "&lt;h1&gt;Oops! Something went wrong...&lt;/h1&gt;" | sudo tee /usr/share/nginx/html/custom_50x.html
+echo "&lt;p&gt;We seem to be having some technical difficulties. Hang tight.&lt;/p&gt;" | sudo tee -a /usr/share/nginx/html/custom_50x.html</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>server {
+    ....
+    error_page 500 502 503 504 /custom_50x.html;
+    location = /custom_50x.html {
+        root /usr/share/nginx/html;
+        internal;
+    }
+    ....
+}</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    error_page 404 /custom_404.html;
+    location = /custom_404.html {
+        root /usr/share/nginx/html;
+        internal;
+    }</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>    location /testing {
+        fastcgi_pass unix:/does/not/exist;
+    }</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ssl"><a class="anchor" href="#_ssl"></a>5. ssl</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>worker_processes auto;
+http {
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 10m;
+
+    server {
+        listen 8080;
+        listen [::]:8080;
+        server_name mysite;
+        return 301 https://$server_name$request_uri;
+    }
+
+    server {
+        listen 8443 ssl http2;
+        listen [::]:8443 ssl http2;
+        server_name mysite;
+        keepalive_timeout   70;
+
+        ssl_certificate /Users/zhanglei/Downloads/ssl.crt;
+        ssl_certificate_key /Users/zhanglei/Downloads/ssl.key;
+        ssl_protocols TLSv1.2;
+        ssl_ciphers ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256;</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_websocket"><a class="anchor" href="#_websocket"></a>6. websocket</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>    location /ws {
+        if ($request_method = 'OPTIONS') {
+            add_header Access-Control-Allow-Origin *;
+            add_header 'Access-Control-Allow-Credentials' 'true';
+            add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'Accept, Cache-Control, Content-Type, If-Modified-Since, Keep-Alive, Origin, User-Agent, Authorization, Client-Value';
+            return 204;
+        }
+        proxy_pass http://mysite/ws;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    }</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_timeout"><a class="anchor" href="#_timeout"></a>7. timeout</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>proxy_read_timeout 60s; // default</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://nginx.org/en/docs/http/configuring_https_servers.html" class="bare">https://nginx.org/en/docs/http/configuring_https_servers.html</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-to-use-custom-error-pages-on-ubuntu-14-04" class="bare">https://www.digitalocean.com/community/tutorials/how-to-configure-nginx-to-use-custom-error-pages-on-ubuntu-14-04</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://nginx.org/en/docs/http/ngx_http_core_module.html#location" class="bare">https://nginx.org/en/docs/http/ngx_http_core_module.html#location</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass" class="bare">https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_pass</a></p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/digitalocean/nginxconfig.io" class="bare">https://github.com/digitalocean/nginxconfig.io</a>
+<a href="https://www.digitalocean.com/community/tools/nginx" class="bare">https://www.digitalocean.com/community/tools/nginx</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conditional_routing_based_on_referer"><a class="anchor" href="#_conditional_routing_based_on_referer"></a>8. conditional-routing-based-on-referer</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>map $http_referer $environment {
+    ~.*/ops-fe/.*       http://${AGENT_SERVER_HOST}:${AGENT_SERVER_PORT};
+    default             http://${WEB_SERVER_IP}:${WEB_SERVER_PORT};
+}
+
+location /api/ {
+    rewrite ^/api/(.*)$ /$1 break;
+    proxy_pass            $environment$uri;
+    proxy_set_header Host $host;
+    include               nginxconfig.io/proxy.conf;
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://stackoverflow.com/questions/53718930/conditional-routing-with-nginx-based-on-referer" class="bare">https://stackoverflow.com/questions/53718930/conditional-routing-with-nginx-based-on-referer</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_client_downloads_stop_after_1gb"><a class="anchor" href="#_client_downloads_stop_after_1gb"></a>9. client downloads stop after 1GB</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>proxy_max_temp_file_size 0;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://trac.nginx.org/test/ticket/1472" class="bare">https://trac.nginx.org/test/ticket/1472</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_content_security_policy"><a class="anchor" href="#_content_security_policy"></a>10. Content-Security-Policy</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>add_header Content-Security-Policy "default-src 'unsafe-inline' 'unsafe-eval' https://172.16.0.233:8888 wss://172.16.0.233:8888; img-src data: https://172.16.0.233:8888" always;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src" class="bare">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_referrer_policy"><a class="anchor" href="#_referrer_policy"></a>11. Referrer-Policy</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>add_header Referrer-Policy         "no-referrer, strict-origin-when-cross-origin" always;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy" class="bare">https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ssl_ciphers"><a class="anchor" href="#_ssl_ciphers"></a>12. ssl_ciphers</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>openssl ciphers -v 'ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://www.openssl.org/docs/manmaster/man1/openssl-ciphers.html#CIPHER-LIST-FORMAT" class="bare">https://www.openssl.org/docs/manmaster/man1/openssl-ciphers.html#CIPHER-LIST-FORMAT</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_server"><a class="anchor" href="#_server"></a>13. server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.getpagespeed.com/server-setup/nginx/how-to-remove-the-server-header-in-nginx" class="bare">https://www.getpagespeed.com/server-setup/nginx/how-to-remove-the-server-header-in-nginx</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_password"><a class="anchor" href="#_password"></a>14. password</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>  auth_basic "Authentication Required";
+  auth_basic_user_file ${INSTALL_PATH}/${app}/.htpasswd;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="htpasswd.adoc">generate .htpasswd</a></p>
+</div>
+</div>
+</div>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component">
+                      <a class="title" href="../ai/index.html">Léon's AI Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../ai/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component is-current">
+                      <a class="title" href="index.html">Léon's Bash Note</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../blog/index.html">Léon's Blog</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../blog/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../database/index.html">Léon's Database Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../database/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../java/index.html">Léon's Java Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../java/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../kubernetes/index.html">Léon's Kubernetes Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../kubernetes/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../language/index.html">Léon's Language Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../language/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../linux/index.html">Léon's Linux Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../linux/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../python/index.html">Léon's Python Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../python/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/spring-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+  </body>
+</html>
