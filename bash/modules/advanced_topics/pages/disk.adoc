@@ -1,0 +1,40 @@
+
+
+== init
+----
+lsblk
+----
+
+// ----
+// fdisk /dev/sdd
+// # create new partition
+// n
+// # print partition details
+// p
+// # save changes
+// w
+// ----
+
+----
+# apt install parted
+parted /dev/sdd
+mklabel gpt
+mkpart primary 0% 100%
+quit
+----
+
+https://docs.otc.t-systems.com/elastic-volume-service/umn/getting_started/initialize_an_evs_data_disk/initializing_a_linux_data_disk_fdisk.html
+
+== format
+----
+lsblk -f /dev/sdd
+mkfs.ext4 /dev/sdd1
+----
+
+== /etc/fstab
+----
+lsblk -f /dev/sdd
+vi /etc/fstab
+systemctl daemon-reload
+mount -a
+----

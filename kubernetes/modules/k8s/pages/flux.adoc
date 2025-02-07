@@ -1,4 +1,10 @@
 
+== upgrade
+----
+flux check
+brew install fluxcd/tap/flux
+
+----
 
 == monitoring
 https://fluxcd.io/flux/guides/monitoring/
