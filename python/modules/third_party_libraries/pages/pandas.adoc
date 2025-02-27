@@ -11,7 +11,7 @@ pip install openpyxl xlrd pyxlsb
 read excel
 ----
 # read first sheet
-df = pd.read_excel(file_path)
+df = pd.read_excel(file_path, dtype=str)
 
 # read named sheet
 df = pd.read_excel(file_path, sheet_name='Sheet1')

@@ -1,0 +1,17 @@
+
+/etc/apt/sources.list
+
+----
+deb https://mirrors.ustc.edu.cn/debian/ bookworm main contrib non-free non-free-firmware
+deb https://mirrors.ustc.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware
+deb https://mirrors.ustc.edu.cn/debian/ bookworm-updates main contrib non-free non-free-firmware
+----
+
+----
+apt install intel-microcode
+reboot
+# journalctl -k --grep='microcode:'
+journalctl -b -k | grep "microcode:"
+----
+
+https://wiki.debian.org/Microcode
