@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>netfilter/iptables :: Léon&#x27;s Note</title>
+    <meta name="generator" content="Antora 3.1.7">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/spring-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.16"> 
+    <meta name="version" content="">
+    <meta name="component" content="bash">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="bash" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Léon&#x27;s Bash Note</span>
+  <span class="version">default</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  </div>          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="netfilter/iptables"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+  </nav>
+</div><h1 id="page-title" class="page">netfilter/iptables</h1>
+<div class="paragraph">
+<p>administration tool for IPv4 packet filtering and NAT</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nf-hooks.png" alt="nf hooks">
+</div>
+<div class="title">Figure 1. Netfilter hooks into Linux networking packet flows</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">table</dt>
+<dd>
+<p>Each table contains a number of built-in chains and may also contain user-defined chains.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>raw: PREROUTING, OUTPUT</p>
+</li>
+<li>
+<p>mangle: all</p>
+</li>
+<li>
+<p>nat: PREROUTING, OUTPUT, POSTROUTING</p>
+</li>
+<li>
+<p>filter: INPUT, FORWARD, OUTPUT</p>
+</li>
+</ol>
+</div>
+</dd>
+<dt class="hdlist1">target/chain</dt>
+<dd>
+<p>Each chain is a list of rules which can match a set of packets</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>built-in chains</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ACCEPT</p>
+</li>
+<li>
+<p>DROP</p>
+</li>
+<li>
+<p>QUEUE</p>
+</li>
+<li>
+<p>RETURN</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>user-defined chain</p>
+</li>
+</ol>
+</div>
+</dd>
+<dt class="hdlist1">rule</dt>
+<dd>
+<p>Each rule specifies what to do with a packet that matches</p>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>iptables -t 表名 &lt;-A/I/D/R&gt; 规则链名 [规则号] &lt;-i/o 网卡名&gt; -p 协议名 &lt;-s 源IP/源子网&gt; --sport 源端口 &lt;-d 目标IP/目标子网&gt; --dport 目标端口 -j 动作</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>-t, --table table 对指定的表 table 进行操作， table 必须是 raw， nat，filter，mangle 中的一个。如果不指定此选项，默认的是 filter 表。
+
+# 通用匹配：源地址目标地址的匹配
+-p：指定要匹配的数据包协议类型；
+-s, --source [!] address[/mask] ：把指定的一个／一组地址作为源地址，按此规则进行过滤。当后面没有 mask 时，address 是一个地址，比如：192.168.1.1；当 mask 指定时，可以表示一组范围内的地址，比如：192.168.1.0/255.255.255.0。
+-d, --destination [!] address[/mask] ：地址格式同上，但这里是指定地址为目的地址，按此进行过滤。
+-i, --in-interface [!] &lt;网络接口name&gt; ：指定数据包的来自来自网络接口，比如最常见的 eth0 。注意：它只对 INPUT，FORWARD，PREROUTING 这三个链起作用。如果没有指定此选项， 说明可以来自任何一个网络接口。同前面类似，"!" 表示取反。
+-o, --out-interface [!] &lt;网络接口name&gt; ：指定数据包出去的网络接口。只对 OUTPUT，FORWARD，POSTROUTING 三个链起作用。
+
+# 查看管理命令
+-L, --list [chain] 列出链 chain 上面的所有规则，如果没有指定链，列出表上所有链的所有规则。
+
+# 规则管理命令
+-A, --append chain rule-specification 在指定链 chain 的末尾插入指定的规则，也就是说，这条规则会被放到最后，最后才会被执行。规则是由后面的匹配来指定。
+-I, --insert chain [rulenum] rule-specification 在链 chain 中的指定位置插入一条或多条规则。如果指定的规则号是1，则在链的头部插入。这也是默认的情况，如果没有指定规则号。
+-D, --delete chain rule-specification -D, --delete chain rulenum 在指定的链 chain 中删除一个或多个指定规则。
+-R num：Replays替换/修改第几条规则
+
+# 链管理命令（这都是立即生效的）
+-P, --policy chain target ：为指定的链 chain 设置策略 target。注意，只有内置的链才允许有策略，用户自定义的是不允许的。
+-F, --flush [chain] 清空指定链 chain 上面的所有规则。如果没有指定链，清空该表上所有链的所有规则。
+-N, --new-chain chain 用指定的名字创建一个新的链。
+-X, --delete-chain [chain] ：删除指定的链，这个链必须没有被其它任何规则引用，而且这条上必须没有任何规则。如果没有指定链名，则会删除该表中所有非内置的链。
+-E, --rename-chain old-chain new-chain ：用指定的新名字去重命名指定的链。这并不会对链内部造成任何影响。
+-Z, --zero [chain] ：把指定链，或者表中的所有链上的所有计数器清零。
+
+-j, --jump target &lt;指定目标&gt; ：即满足某条件时该执行什么样的动作。target 可以是内置的目标，比如 ACCEPT，也可以是用户自定义的链。
+-h：显示帮助信息；</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>list</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>iptables -L</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">accept incoming</div>
+<div class="content">
+<pre>iptables -I INPUT -p tcp --dport 3306 -j ACCEPT</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">block incoming</div>
+<div class="content">
+<pre>iptables -A INPUT -p tcp --dport [port number] -j DROP
+iptables -A INPUT -i [interface name] -p tcp --destination-port [port number] -j DROP
+iptables -A INPUT -i [interface name] -p tcp --destination-port [port number] -s [ip subnet] -j DROP</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">block outgoing</div>
+<div class="content">
+<pre>iptables -A OUTPUT -d 202.54.1.22 -j DROP
+iptables -A OUTPUT -p tcp --dport 5050 -j DROP
+iptables -A OUTPUT -p tcp -d 192.168.1.2 --dport 5050 -j DROP
+iptables -A OUTPUT -i [interface name] -p tcp --destination-port [port number] -s [ip subnet] -j DROP</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">save iptables rules</div>
+<div class="content">
+<pre>service iptables save
+/etc/sysconfig/iptables
+/etc/sysconfig/ip6tables</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">delete rule</div>
+<div class="content">
+<pre>iptables -D OUTPUT -d 202.54.1.22 -j DROP</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">drop gfw dns</div>
+<div class="content">
+<pre>iptables -t raw -A PREROUTING -i eno1 -p udp -m bpf --bytecode "39,40 0 0 20,21 0 36 53,32 0 0 36,21 0 34 0,32 0 0 32,21 3 0 65537,21 0 31 65536,40 0 0 30,21 15 29 33152,40 0 0 30,84 0 0 65487,21 17 0 34176,40 0 0 24,7 0 0 0,64 0 0 4,21 5 0 3222011905,21 0 21 536936448,64 0 0 8,21 0 19 0,64 0 0 12,21 3 17 0,64 0 0 10,37 15 0 255,53 0 14 64,32 0 0 4,21 11 0 0,21 11 0 16384,84 0 0 65535,21 8 9 16384,40 0 0 6,21 0 7 0,40 0 0 24,7 0 0 0,64 0 0 6,21 0 3 65537,64 0 0 10,21 0 1 60,6 0 0 1,6 0 0 0" -j DROP</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://gist.github.com/llccd/1d19a5d859700366c8941eca5b0fadd6" class="bare">https://gist.github.com/llccd/1d19a5d859700366c8941eca5b0fadd6</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[root@localhost ~]# iptables-save
+# Generated by iptables-save v1.4.21 on Mon Nov  1 18:09:02 2021
+*nat
+:PREROUTING ACCEPT [177:18979]
+:INPUT ACCEPT [4:268]
+:OUTPUT ACCEPT [93:7028]
+:POSTROUTING ACCEPT [93:7028]
+:OUTPUT_direct - [0:0]
+:POSTROUTING_ZONES - [0:0]
+:POSTROUTING_ZONES_SOURCE - [0:0]
+:POSTROUTING_direct - [0:0]
+:POST_public - [0:0]
+:POST_public_allow - [0:0]
+:POST_public_deny - [0:0]
+:POST_public_log - [0:0]
+:PREROUTING_ZONES - [0:0]
+:PREROUTING_ZONES_SOURCE - [0:0]
+:PREROUTING_direct - [0:0]
+:PRE_public - [0:0]
+:PRE_public_allow - [0:0]
+:PRE_public_deny - [0:0]
+:PRE_public_log - [0:0]
+-A PREROUTING -j PREROUTING_direct
+-A PREROUTING -j PREROUTING_ZONES_SOURCE
+-A PREROUTING -j PREROUTING_ZONES
+-A OUTPUT -j OUTPUT_direct
+-A POSTROUTING -j POSTROUTING_direct
+-A POSTROUTING -j POSTROUTING_ZONES_SOURCE
+-A POSTROUTING -j POSTROUTING_ZONES
+-A POSTROUTING_ZONES -o enp8s0f0 -g POST_public
+-A POSTROUTING_ZONES -g POST_public
+-A POST_public -j POST_public_log
+-A POST_public -j POST_public_deny
+-A POST_public -j POST_public_allow
+-A PREROUTING_ZONES -i enp8s0f0 -g PRE_public
+-A PREROUTING_ZONES -g PRE_public
+-A PRE_public -j PRE_public_log
+-A PRE_public -j PRE_public_deny
+-A PRE_public -j PRE_public_allow
+COMMIT
+# Completed on Mon Nov  1 18:09:02 2021
+# Generated by iptables-save v1.4.21 on Mon Nov  1 18:09:02 2021
+*mangle
+:PREROUTING ACCEPT [1771:178193]
+:INPUT ACCEPT [1771:178193]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [1451:237935]
+:POSTROUTING ACCEPT [1451:237935]
+:FORWARD_direct - [0:0]
+:INPUT_direct - [0:0]
+:OUTPUT_direct - [0:0]
+:POSTROUTING_direct - [0:0]
+:PREROUTING_ZONES - [0:0]
+:PREROUTING_ZONES_SOURCE - [0:0]
+:PREROUTING_direct - [0:0]
+:PRE_public - [0:0]
+:PRE_public_allow - [0:0]
+:PRE_public_deny - [0:0]
+:PRE_public_log - [0:0]
+-A PREROUTING -j PREROUTING_direct
+-A PREROUTING -j PREROUTING_ZONES_SOURCE
+-A PREROUTING -j PREROUTING_ZONES
+-A INPUT -j INPUT_direct
+-A FORWARD -j FORWARD_direct
+-A OUTPUT -j OUTPUT_direct
+-A POSTROUTING -j POSTROUTING_direct
+-A PREROUTING_ZONES -i enp8s0f0 -g PRE_public
+-A PREROUTING_ZONES -g PRE_public
+-A PRE_public -j PRE_public_log
+-A PRE_public -j PRE_public_deny
+-A PRE_public -j PRE_public_allow
+COMMIT
+# Completed on Mon Nov  1 18:09:02 2021
+# Generated by iptables-save v1.4.21 on Mon Nov  1 18:09:02 2021
+*security
+:INPUT ACCEPT [1601:159638]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [1462:238955]
+:FORWARD_direct - [0:0]
+:INPUT_direct - [0:0]
+:OUTPUT_direct - [0:0]
+-A INPUT -j INPUT_direct
+-A FORWARD -j FORWARD_direct
+-A OUTPUT -j OUTPUT_direct
+COMMIT
+# Completed on Mon Nov  1 18:09:02 2021
+# Generated by iptables-save v1.4.21 on Mon Nov  1 18:09:02 2021
+*raw
+:PREROUTING ACCEPT [1775:178401]
+:OUTPUT ACCEPT [1466:239367]
+:OUTPUT_direct - [0:0]
+:PREROUTING_ZONES - [0:0]
+:PREROUTING_ZONES_SOURCE - [0:0]
+:PREROUTING_direct - [0:0]
+:PRE_public - [0:0]
+:PRE_public_allow - [0:0]
+:PRE_public_deny - [0:0]
+:PRE_public_log - [0:0]
+-A PREROUTING -j PREROUTING_direct
+-A PREROUTING -j PREROUTING_ZONES_SOURCE
+-A PREROUTING -j PREROUTING_ZONES
+-A OUTPUT -j OUTPUT_direct
+-A PREROUTING_ZONES -i enp8s0f0 -g PRE_public
+-A PREROUTING_ZONES -g PRE_public
+-A PRE_public -j PRE_public_log
+-A PRE_public -j PRE_public_deny
+-A PRE_public -j PRE_public_allow
+COMMIT
+# Completed on Mon Nov  1 18:09:02 2021
+# Generated by iptables-save v1.4.21 on Mon Nov  1 18:09:02 2021
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [1473:240019]
+:FORWARD_IN_ZONES - [0:0]
+:FORWARD_IN_ZONES_SOURCE - [0:0]
+:FORWARD_OUT_ZONES - [0:0]
+:FORWARD_OUT_ZONES_SOURCE - [0:0]
+:FORWARD_direct - [0:0]
+:FWDI_public - [0:0]
+:FWDI_public_allow - [0:0]
+:FWDI_public_deny - [0:0]
+:FWDI_public_log - [0:0]
+:FWDO_public - [0:0]
+:FWDO_public_allow - [0:0]
+:FWDO_public_deny - [0:0]
+:FWDO_public_log - [0:0]
+:INPUT_ZONES - [0:0]
+:INPUT_ZONES_SOURCE - [0:0]
+:INPUT_direct - [0:0]
+:IN_public - [0:0]
+:IN_public_allow - [0:0]
+:IN_public_deny - [0:0]
+:IN_public_log - [0:0]
+:OUTPUT_direct - [0:0]
+-A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A INPUT -i lo -j ACCEPT
+-A INPUT -j INPUT_direct
+-A INPUT -j INPUT_ZONES_SOURCE
+-A INPUT -j INPUT_ZONES
+-A INPUT -m conntrack --ctstate INVALID -j DROP
+-A INPUT -j REJECT --reject-with icmp-host-prohibited
+-A FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A FORWARD -i lo -j ACCEPT
+-A FORWARD -j FORWARD_direct
+-A FORWARD -j FORWARD_IN_ZONES_SOURCE
+-A FORWARD -j FORWARD_IN_ZONES
+-A FORWARD -j FORWARD_OUT_ZONES_SOURCE
+-A FORWARD -j FORWARD_OUT_ZONES
+-A FORWARD -m conntrack --ctstate INVALID -j DROP
+-A FORWARD -j REJECT --reject-with icmp-host-prohibited
+-A OUTPUT -j OUTPUT_direct
+-A FORWARD_IN_ZONES -i enp8s0f0 -g FWDI_public
+-A FORWARD_IN_ZONES -g FWDI_public
+-A FORWARD_OUT_ZONES -o enp8s0f0 -g FWDO_public
+-A FORWARD_OUT_ZONES -g FWDO_public
+-A FWDI_public -j FWDI_public_log
+-A FWDI_public -j FWDI_public_deny
+-A FWDI_public -j FWDI_public_allow
+-A FWDI_public -p icmp -j ACCEPT
+-A FWDO_public -j FWDO_public_log
+-A FWDO_public -j FWDO_public_deny
+-A FWDO_public -j FWDO_public_allow
+-A INPUT_ZONES -i enp8s0f0 -g IN_public
+-A INPUT_ZONES -g IN_public
+-A IN_public -j IN_public_log
+-A IN_public -j IN_public_deny
+-A IN_public -j IN_public_allow
+-A IN_public -p icmp -j ACCEPT
+-A IN_public_allow -p tcp -m tcp --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+COMMIT
+# Completed on Mon Nov  1 18:09:02 2021</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://wiki.nftables.org/wiki-nftables/index.php/Netfilter_hooks" class="bare">https://wiki.nftables.org/wiki-nftables/index.php/Netfilter_hooks</a></p>
+</li>
+<li>
+<p><a href="https://linux.die.net/man/8/iptables" class="bare">https://linux.die.net/man/8/iptables</a></p>
+</li>
+<li>
+<p><a href="https://salogs.com/news/2015/08/20/iptables-save/" class="bare">https://salogs.com/news/2015/08/20/iptables-save/</a></p>
+</li>
+<li>
+<p><a href="https://www.jianshu.com/p/ee4ee15d3658" class="bare">https://www.jianshu.com/p/ee4ee15d3658</a></p>
+</li>
+</ul>
+</div>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component">
+                      <a class="title" href="../ai/index.html">Léon's AI Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../ai/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component is-current">
+                      <a class="title" href="index.html">Léon's Bash Note</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../blog/index.html">Léon's Blog</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../blog/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../database/index.html">Léon's Database Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../database/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../java/index.html">Léon's Java Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../java/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../kubernetes/index.html">Léon's Kubernetes Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../kubernetes/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../language/index.html">Léon's Language Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../language/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../linux/index.html">Léon's Linux Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../linux/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../python/index.html">Léon's Python Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../python/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/spring-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+  </body>
+</html>

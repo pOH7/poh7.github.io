@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>docker :: Léon&#x27;s Note</title>
+    <meta name="generator" content="Antora 3.1.7">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="../../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../../_/css/vendor/spring-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.16"> 
+    <meta name="version" content="">
+    <meta name="component" content="kubernetes">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="kubernetes" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Léon&#x27;s Kubernetes Note</span>
+  <span class="version">default</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  </div>          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="docker"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+  </nav>
+</div><h1 id="page-title" class="page">docker</h1>
+<div class="sect1">
+<h2 id="_setup"><a class="anchor" href="#_setup"></a>1. setup</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">enable ip forward</div>
+<div class="content">
+<pre>vi /etc/sysctl.conf
+net.ipv4.ip_forward=1
+
+systemctl restart network
+systemctl restart docker</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation"><a class="anchor" href="#_installation"></a>2. installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://docs.docker.com/engine/install/centos/" class="bare">https://docs.docker.com/engine/install/centos/</a>
+<a href="https://yeasy.gitbook.io/docker_practice/install/centos" class="bare">https://yeasy.gitbook.io/docker_practice/install/centos</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script"># yum -y install yum-utils
+sudo yum-config-manager \
+    --add-repo \
+    https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+# sudo sed -i 's/download.docker.com/mirrors.ustc.edu.cn\/docker-ce/g' /etc/yum.repos.d/docker-ce.repo
+
+# uninstall
+#sudo yum remove docker \
+#                docker-client \
+#                docker-client-latest \
+#                docker-common \
+#                docker-latest \
+#                docker-latest-logrotate \
+#                docker-logrotate \
+#                docker-engine
+
+sudo yum install -y docker-ce docker-ce-cli containerd.io</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_start"><a class="anchor" href="#_start"></a>2.1. start</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script"># configure start on boot
+sudo systemctl enable docker
+sudo systemctl start docker
+# test
+sudo docker run hello-world</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="proxy"><a class="anchor" href="#proxy"></a>3. proxy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>vi /etc/systemd/system/docker.service.d/proxy.conf</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[Service]
+Environment="HTTP_PROXY=http://127.0.0.1:10809/"
+Environment="HTTPS_PROXY=http://127.0.0.1:10809/"
+Environment="NO_PROXY=127.0.0.1,localhost,192.168.*,*.example.com"</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>systemctl daemon-reload
+systemctl show --property=Environment docker
+systemctl restart docker</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config"><a class="anchor" href="#_config"></a>3.1. config</h3>
+<div class="listingblock">
+<div class="title">registry mirrors</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script"># https://yeasy.gitbook.io/docker_practice/install/mirror
+vi /etc/docker/daemon.json
+{
+  "registry-mirrors": [
+    "https://hub-mirror.c.163.com",
+    "https://uewbgaqq.mirror.aliyuncs.com"
+  ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6" class="bare">https://gist.github.com/y0ngb1n/7e8f16af3242c7815e7ca2f0833d3ea6</a></p>
+</div>
+<div class="listingblock">
+<div class="title">insecure registries</div>
+<div class="content">
+<pre>{
+  "insecure-registries": ["harbor.pohvii.cloud"]
+}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run_docker_commands_without_sudo"><a class="anchor" href="#_run_docker_commands_without_sudo"></a>4. run docker commands without sudo</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>groupadd docker
+usermod -aG docker $USER
+
+# re-login, or activate the changes
+newgrp docker</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://docs.docker.com/engine/install/linux-postinstall/" class="bare">https://docs.docker.com/engine/install/linux-postinstall/</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remote_access"><a class="anchor" href="#_remote_access"></a>5. remote access</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>export DOCKER_HOST=ssh://sammy@your_server_ip</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_docker_compose"><a class="anchor" href="#_docker_compose"></a>6. docker compose</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_installation_2"><a class="anchor" href="#_installation_2"></a>6.1. installation</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">#yum -y install python-pip python-devel python-subprocess32
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+yum install -y python36
+python3 get-pip.py
+#pip install --upgrade pip
+pip3 install docker-compose
+#pip3 install docker-compose -U
+docker-compose -version</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_start_2"><a class="anchor" href="#_start_2"></a>6.2. start</h3>
+<div class="listingblock">
+<div class="content">
+<pre>docker-compose up -d
+docker-compose down</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exec"><a class="anchor" href="#_exec"></a>6.3. exec</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell script hljs" data-lang="shell script">docker-compose exec web-server /bin/bash</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_dockerfile"><a class="anchor" href="#_dockerfile"></a>7. Dockerfile</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-dockerfile hljs" data-lang="dockerfile">ENV LANG C.UTF-8</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clean"><a class="anchor" href="#_clean"></a>8. clean</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>docker system prune</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_复制"><a class="anchor" href="#_复制"></a>9. 复制</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>docker cp</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_run"><a class="anchor" href="#_run"></a>10. run</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>docker run -it --rm --entrypoint=/bin/bash IMAGE
+docker run --name=NAME -d IMAGE
+docker exec -it NAME /bin/bash</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_images"><a class="anchor" href="#_images"></a>11. images</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>docker save -o file.tar IMAGE
+docker load -i file.tar
+
+docker save IMAGE | gzip &gt; file.tar.gz
+gunzip -c file.tar.gz | docker load
+
+# sha256
+docker inspect --format='{{.RepoDigests}}' IMAGE</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_clean_2"><a class="anchor" href="#_clean_2"></a>12. clean</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://docs.docker.com/config/pruning/" class="bare">https://docs.docker.com/config/pruning/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker image prune
+docker container prune
+
+docker images | grep none | awk '{print $3}'| xargs docker rmi -f</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://www.digitalocean.com/community/tutorials/how-to-use-a-remote-docker-server-to-speed-up-your-workflow" class="bare">https://www.digitalocean.com/community/tutorials/how-to-use-a-remote-docker-server-to-speed-up-your-workflow</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_build"><a class="anchor" href="#_build"></a>13. build</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_proxy"><a class="anchor" href="#_proxy"></a>13.1. proxy</h3>
+<div class="listingblock">
+<div class="content">
+<pre>docker build . \
+    --build-arg "HTTP_PROXY=http://proxy.example.com:8080/" \
+    --build-arg "HTTPS_PROXY=http://proxy.example.com:8080/" \
+    --build-arg "NO_PROXY=localhost,127.0.0.1,.example.com" \
+    -t your/image:tag</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://yanh.tech/2023/11/linux-proxy-acceleration-for-apt-docker/" class="bare">https://yanh.tech/2023/11/linux-proxy-acceleration-for-apt-docker/</a></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_network"><a class="anchor" href="#_network"></a>14. network</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>open port in a running container</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' &lt;container_name_or_id&gt;
+sudo iptables -t nat -A DOCKER -p tcp --dport 8080 -j DNAT --to-destination &lt;container_ip&gt;:80</pre>
+</div>
+</div>
+</div>
+</div>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component">
+                      <a class="title" href="../../ai/index.html">Léon's AI Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../ai/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../../bash/index.html">Léon's Bash Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../bash/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../../blog/index.html">Léon's Blog</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../blog/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../../database/index.html">Léon's Database Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../database/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../../java/index.html">Léon's Java Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../java/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component is-current">
+                      <a class="title" href="../index.html">Léon's Kubernetes Note</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="../index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../../language/index.html">Léon's Language Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../language/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../../linux/index.html">Léon's Linux Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../linux/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../../python/index.html">Léon's Python Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../../python/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<script src="../../_/js/vendor/import.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+<script async src="../../_/js/vendor/spring-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+[Unit]
+Description=ComfyUI Service
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+User=zhanglei
+WorkingDirectory=/home/zhanglei/apps/ComfyUI
+ExecStart=/home/zhanglei/scripts/start_comfyui.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>HomeBrew :: Léon&#x27;s Note</title>
+    <meta name="generator" content="Antora 3.1.7">
+    <script>
+!function (theme, navWidth) {
+  if (theme === 'dark') document.documentElement.classList.add('dark-theme')
+  if (navWidth) document.documentElement.style.setProperty('--nav-width', `${navWidth}px`)
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'),
+  localStorage && localStorage.getItem('nav-width'))
+    </script>
+    <link rel="stylesheet" href="../_/css/site.css">
+    <link rel="stylesheet" href="../_/css/vendor/search.css">
+    <link rel="stylesheet" href="../_/css/vendor/page-search.css">
+    <link rel="stylesheet" href="../_/css/vendor/spring-tabs.css">
+
+    <meta name="antora-ui-version" content="v0.4.16"> 
+    <meta name="version" content="">
+    <meta name="component" content="bash">
+    <meta name="latest-version" content="false">
+    <link rel="icon" href="../_/img/favicon.ico" type="image/vnd.microsoft.icon">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://spring.io">
+      </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+
+    <label class="theme-toggler">
+      <input
+        type="checkbox"
+        type="checkbox"
+        id="switch-theme-checkbox"
+        name="switch-theme-checkbox"
+      />
+      <span class="icon"><svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="moon"
+          class="svg-inline--fa fa-moon moon"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 384 512"
+        ><path
+            fill="currentColor"
+            d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"
+          ></path>
+        </svg>
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="sun"
+          class="svg-inline--fa fa-sun sun"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+        ><path
+            fill="currentColor"
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          ></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
+  </nav>
+</header>
+<script>
+!function (theme) {
+  if (theme === 'dark') {
+    document.getElementById('switch-theme-checkbox').parentElement.classList.add('active')
+  }
+}(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+</script>
+<div class="body">
+<div class="nav-container" data-component="bash" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="nav-panel-menu is-active" data-panel="menu">
+        <nav class="nav-menu">
+<div class="context">
+  <span class="title">Léon&#x27;s Bash Note</span>
+  <span class="version">default</span>
+  <button class="browse-version" id="browse-version">
+    <svg
+      height="24px"
+      id="Layer_1"
+      style="enable-background:new 0 0 512 512;"
+      version="1.1"
+      viewBox="0 0 512 512"
+      width="24px"
+      xml:space="preserve"
+    ><g><path
+          d="M256,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S273.7,224,256,224L256,224z"
+        ></path><path
+          d="M128.4,224c-17.7,0-32,14.3-32,32s14.3,32,32,32c17.7,0,32-14.3,32-32S146,224,128.4,224L128.4,224z"
+        ></path><path
+          d="M384,224c-17.7,0-32,14.3-32,32s14.3,32,32,32s32-14.3,32-32S401.7,224,384,224L384,224z"
+        ></path></g></svg>
+  </button>
+  </div>          <div class="toggle-sm">
+            <button id="nav-toggle-2" class="nav-toggle"></button>
+          </div>
+        </nav>
+      </div>
+      <div class="nav-collapse">
+        <button id="nav-collapse-toggle"><span></span></button>        
+      </div>
+    </div>
+    <div class="nav-resize"></div>
+  </aside>
+</div>
+<script>
+!function (sidebar) {
+  if (sidebar) {
+    document.body.classList.add('nav-sm')
+  }
+}(localStorage && localStorage.getItem('sidebar') === 'close')
+</script><main class="article">
+<div class="toolbar" role="navigation">
+  <button id="nav-toggle-1" class="nav-toggle"></button>
+</div>
+  <div class="content">
+<aside class="sidebar">
+  <div class="content">
+    <div
+      class="toc"
+      data-title="HomeBrew"
+      data-levels="2"
+    >
+      <div class="toc-menu"></div>
+    </div>
+    <div class="sidebar-links">
+    </div>
+  </div>
+</aside>
+<article class="doc">
+<div class="breadcrumbs-container">
+  <nav class="breadcrumbs" aria-label="breadcrumbs">
+  </nav>
+</div><h1 id="page-title" class="page">HomeBrew</h1>
+<div class="sect1">
+<h2 id="_更新"><a class="anchor" href="#_更新"></a>1. 更新</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>brew cu</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_安装包路径"><a class="anchor" href="#_安装包路径"></a>2. 安装包路径</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>~/Library/Caches/Homebrew/Cask
+~/Library/Caches/Homebrew/downloads</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>ls ~/Library/Caches/Homebrew/downloads | grep incomplete</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_获取软件路径"><a class="anchor" href="#_获取软件路径"></a>3. 获取软件路径</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>brew --prefix gradle</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_git_origin"><a class="anchor" href="#_git_origin"></a>4. git origin</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-core" remote set-url origin git@github.com:Homebrew/homebrew-core.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-services" remote set-url origin git@github.com:Homebrew/homebrew-services.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-fonts" remote set-url origin git@github.com:Homebrew/homebrew-cask-fonts.git
+git -C "/usr/local/Homebrew/Library/Taps/beeftornado/homebrew-rmtree" remote set-url origin git@github.com:beeftornado/homebrew-rmtree.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-cask-versions" remote set-url origin git@github.com:Homebrew/homebrew-cask-versions.git
+git -C "/usr/local/Homebrew/Library/Taps/homebrew/homebrew-command-not-found" remote set-url origin git@github.com:Homebrew/homebrew-command-not-found.git
+git -C "/usr/local/Homebrew/Library/Taps/elastic/homebrew-tap" remote set-url origin git@github.com:elastic/homebrew-tap.git</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tap"><a class="anchor" href="#_tap"></a>5. tap</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>brew tap
+brew untap elastic/tap</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_package"><a class="anchor" href="#_package"></a>6. package</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>brew seach maven
+brew install
+brew install mysqlworkbench</pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cli"><a class="anchor" href="#_cli"></a>6.1. CLI</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>fish</p>
+</li>
+<li>
+<p>gradle</p>
+</li>
+<li>
+<p>maven@3.5</p>
+</li>
+<li>
+<p>nginx</p>
+</li>
+<li>
+<p>node</p>
+</li>
+<li>
+<p>qrcp</p>
+</li>
+<li>
+<p>jq</p>
+</li>
+<li>
+<p>ssh-copy-id</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gnu_package"><a class="anchor" href="#_gnu_package"></a>6.2. gnu package</h3>
+<div class="sect3">
+<h4 id="_gnu_programs_non_existing_in_macos"><a class="anchor" href="#_gnu_programs_non_existing_in_macos"></a>6.2.1. GNU programs non-existing in macOS</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>watch</p>
+</li>
+<li>
+<p>wget</p>
+</li>
+<li>
+<p>wdiff</p>
+</li>
+<li>
+<p>gdb</p>
+</li>
+<li>
+<p>autoconf</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gnu_programs_whose_bsd_counterpart_is_installed_in_macos"><a class="anchor" href="#_gnu_programs_whose_bsd_counterpart_is_installed_in_macos"></a>6.2.2. GNU programs whose BSD counterpart is installed in macOS</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>coreutils</p>
+</li>
+<li>
+<p>binutils</p>
+</li>
+<li>
+<p>diffutils</p>
+</li>
+<li>
+<p>ed</p>
+</li>
+<li>
+<p>findutils</p>
+</li>
+<li>
+<p>gawk</p>
+</li>
+<li>
+<p>gnu-indent</p>
+</li>
+<li>
+<p>gnu-sed</p>
+</li>
+<li>
+<p>gnu-tar</p>
+</li>
+<li>
+<p>gnu-which</p>
+</li>
+<li>
+<p>grep</p>
+</li>
+<li>
+<p>gzip</p>
+</li>
+<li>
+<p>screen</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gnu_programs_existing_in_macos_which_are_outdated"><a class="anchor" href="#_gnu_programs_existing_in_macos_which_are_outdated"></a>6.2.3. GNU programs existing in macOS which are outdated</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>bash</p>
+</li>
+<li>
+<p>emacs</p>
+</li>
+<li>
+<p>gpatch</p>
+</li>
+<li>
+<p>less</p>
+</li>
+<li>
+<p>m4</p>
+</li>
+<li>
+<p>make</p>
+</li>
+<li>
+<p>nano</p>
+</li>
+<li>
+<p>bison</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_bsd_programs_existing_in_macos_which_are_outdated"><a class="anchor" href="#_bsd_programs_existing_in_macos_which_are_outdated"></a>6.2.4. BSD programs existing in macOS which are outdated</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>flex</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_other_commonpreferred_programs_in_gnulinux_distributions"><a class="anchor" href="#_other_commonpreferred_programs_in_gnulinux_distributions"></a>6.2.5. Other common/preferred programs in GNU/Linux distributions</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>libressl</p>
+</li>
+<li>
+<p>file-formula</p>
+</li>
+<li>
+<p>git</p>
+</li>
+<li>
+<p>openssh</p>
+</li>
+<li>
+<p>perl</p>
+</li>
+<li>
+<p>python</p>
+</li>
+<li>
+<p>rsync</p>
+</li>
+<li>
+<p>unzip</p>
+</li>
+<li>
+<p>vim</p>
+</li>
+<li>
+<p>neovide</p>
+</li>
+<li>
+<p>ripgrep # <a href="https://github.com/BurntSushi/ripgrep" class="bare">https://github.com/BurntSushi/ripgrep</a></p>
+</li>
+<li>
+<p>fd # <a href="https://github.com/sharkdp/fd" class="bare">https://github.com/sharkdp/fd</a></p>
+</li>
+<li>
+<p>prettier</p>
+</li>
+<li>
+<p>black</p>
+</li>
+<li>
+<p>google-java-format</p>
+</li>
+<li>
+<p>stylua</p>
+</li>
+<li>
+<p>flake8</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cask"><a class="anchor" href="#_cask"></a>6.3. cask</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>packetsender</p>
+</li>
+<li>
+<p>anki</p>
+</li>
+<li>
+<p>squirrel</p>
+</li>
+<li>
+<p>iina</p>
+</li>
+<li>
+<p>staruml</p>
+</li>
+<li>
+<p>raycast</p>
+</li>
+<li>
+<p>warp</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">font</div>
+<ul>
+<li>
+<p>font-jetbrains-mono-nerd-font</p>
+</li>
+<li>
+<p>font-ubuntu-mono-nerd-font</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">db tool</div>
+<ul>
+<li>
+<p>dbeaver-community</p>
+</li>
+<li>
+<p>mysqlworkbench</p>
+</li>
+<li>
+<p>sqlcl</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_openssl"><a class="anchor" href="#_openssl"></a>7. openssl</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre># https://stackoverflow.com/questions/59006602/dyld-library-not-loaded-usr-local-opt-openssl-lib-libssl-1-0-0-dylib
+brew install rbenv/tap/openssl@1.0
+ln -sfn /usr/local/Cellar/openssl@1.0/1.0.2t /usr/local/opt/openssl</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_jdk"><a class="anchor" href="#_jdk"></a>8. jdk</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>brew install --cask graalvm/tap/graalvm-ce-java8
+brew install --cask graalvm/tap/graalvm-jdk21
+xattr -r -d com.apple.quarantine /Library/Java/JavaVirtualMachines/graalvm-jdk-XX.Y.Z</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/usr/libexec/java_home -V
+set -x JAVA_HOME (/usr/libexec/java_home -v 1.8)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/graalvm/homebrew-tap" class="bare">https://github.com/graalvm/homebrew-tap</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_xcode"><a class="anchor" href="#_xcode"></a>9. xcode</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre># fix xcrun: error: active developer path ("/Applications/Xcode.app/Contents/Developer") does not exist
+sudo xcode-select --reset</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_uninstall"><a class="anchor" href="#_uninstall"></a>10. uninstall</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>brew tap beeftornado/rmtree
+brew rmtree &lt;package&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+</article>  </div>
+</main>
+<div class="modal micromodal-slide" id="modal-versions" aria-hidden="true">
+    <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+        <div class="modal__container" role="dialog" aria-modal="true">
+            <main class="modal__content" id="modal-versions-content">
+              <button data-micromodal-close class="modal-versions-close">
+                <svg width="28px" height="28px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><defs><style>.cls-1h{fill:none;stroke:#000;stroke-linecap:round;stroke-linejoin:round;stroke-width:2px;}</style></defs><title/><g id="cross"><line class="cls-1h" x1="7" x2="25" y1="7" y2="25"/><line class="cls-1h" x1="7" x2="25" y1="25" y2="7"/></g></svg>
+              </button>
+              <div class="colset">
+                <div class="col-left">
+                  <ul class="nav-versions">
+                    <li class="component">
+                      <a class="title" href="../ai/index.html">Léon's AI Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../ai/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component is-current">
+                      <a class="title" href="index.html">Léon's Bash Note</a>
+                      <ul class="versions">
+                        <li class="version is-current is-latest">
+                          <a href="index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../blog/index.html">Léon's Blog</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../blog/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../database/index.html">Léon's Database Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../database/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../java/index.html">Léon's Java Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../java/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../kubernetes/index.html">Léon's Kubernetes Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../kubernetes/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../language/index.html">Léon's Language Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../language/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../linux/index.html">Léon's Linux Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../linux/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="component">
+                      <a class="title" href="../python/index.html">Léon's Python Note</a>
+                      <ul class="versions">
+                        <li class="version is-latest">
+                          <a href="../python/index.html">
+                            default<span class="current">current</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+</div>
+<script src="../_/js/vendor/import.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+<script async src="../_/js/vendor/spring-tabs.js" data-sync-storage-key="docs:preferred-tab"></script>
+  </body>
+</html>

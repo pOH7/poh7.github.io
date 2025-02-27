@@ -1,0 +1,13 @@
+[Unit]
+Description=Stable Diffusion
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+User=zhanglei
+WorkingDirectory=/home/zhanglei/apps/stable-diffusion-webui
+ExecStart=/bin/bash webui.sh --listen --enable-insecure-extension-access
+
+[Install]
+WantedBy=multi-user.target

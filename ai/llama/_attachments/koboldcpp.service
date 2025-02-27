@@ -1,0 +1,13 @@
+[Unit]
+Description=KoboldCpp
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+User=zhanglei
+WorkingDirectory=/home/zhanglei/apps/koboldcpp
+ExecStart=/home/zhanglei/apps/koboldcpp/koboldcpp --model Llama-3.1-8B-Instruct-abliterated_via_adapter.Q8_0.gguf --port 5001 --usecublas --gpulayers -1
+
+[Install]
+WantedBy=multi-user.target
